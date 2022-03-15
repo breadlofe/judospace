@@ -25,4 +25,3 @@ class Space :
 
     def draw(self):
         for i in self.star_list:
-            pass
