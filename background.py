@@ -20,8 +20,20 @@ class Space :
 
     def __init__(self):
         self.star_list = []
+        self.add_rate = 0
+
+    def update(self, dt, screen_w, screen_h):
+        i = 0
+        while i < len(self.star_list):
+            self.star_list[i].update(dt, screen_w, screen_h)
+            i += 1
+
+        self.add_rate += 1
+        if self.add_rate >= 100
+            new_star = Star(screen_w)
+            self.star_list.append(new_star)
 
 
-
-    def draw(self):
-        for i in self.star_list:
+    def draw(self, surf):
+        for i in range(len(self.star_list)):
+            self.star_list[i].draw(surf)
