@@ -9,9 +9,12 @@ class Star :
         self.speed = 200    # Pixels per Second
         self.color = (255, 255, 0)
         self.radius = 1
+        self.S = Space
 
     def update(self, dt, screen_w, screen_h):
         self.y += self.speed * dt
+        if self.y >= screen_h:
+            #self.S.update(dt, screen_w, screen_h)
 
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
@@ -20,8 +23,23 @@ class Space :
 
     def __init__(self):
         self.star_list = []
+        self.add_rate = 0
+
+    def update(self, dt, screen_w, screen_h):
+        i = 0
+        while i < len(self.star_list):
+            self.star_list[i].update(dt, screen_w, screen_h)
+            i += 1
+
+        self.add_rate += 1
+        if self.add_rate >= 100:
+            new_star = Star(screen_w)
+            self.star_list.append(new_star)
+            self.add_rate = 0
 
 
 
-    def draw(self):
-        for i in self.star_list:
+
+    def draw(self, surf):
+        for i in range(len(self.star_list)):
+            self.star_list[i].draw(surf)
