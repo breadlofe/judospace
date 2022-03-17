@@ -6,7 +6,7 @@ import pygame
 from Enemy import Control_AI
 from background import Space
 import projectile as pro
-
+import title_screen
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -26,6 +26,8 @@ S = Space(100, 400) # The bigger the first number, the bigger the space between 
 AI = Control_AI()
 # The bigger the second number, the faster the stars
 P = pro.Projectile()
+title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+title_click = False
 
 while not finished:
     #Update
@@ -35,6 +37,15 @@ while not finished:
     P.update(delta_time, screen, BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update()
+
+    if player_x <= 0:
+        player_x = 0
+    if player_x >= SCREEN_WIDTH:
+        player_x = SCREEN_WIDTH
+    if player_y <= 0:
+        player_y = 0
+    if player_y >= SCREEN_HEIGHT:
+        player_y = SCREEN_HEIGHT
 
     # Input
     event = pygame.event.poll()
@@ -58,6 +69,12 @@ while not finished:
     #Dustin can insert what's needed for imputing the projectile commands
     if event.type == pygame.MOUSEBUTTONDOWN:
         P.spawn(player_x, player_y, BULLET_LIFE)
+
+    #Remove the title screen
+    if all_keys[pygame.K_SPACE]:
+        title_click = True
+        #TO DO: ZDH Make a visible UI Button
+
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
@@ -66,6 +83,9 @@ while not finished:
     #This is to test a player movement to begin with:
     pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
     P.draw(screen, BULLET_COLOR)
+    if title_click == False:
+        title.draw(screen)
+
     pygame.display.flip()
 
 pygame.display.quit()
