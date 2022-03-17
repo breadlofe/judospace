@@ -12,15 +12,11 @@ class Projectile:
         self.bullet_list.append([position, lifespan])
 
     def update(self, dt, surf, color):
-        for b in self.bullet_list:
-            print(b[0][1])
-            b[0][1] = b[0][1] - 50 * dt
-            b[1] = b[1] - (1 * dt)
-            if b[1] <= 0:
-                print("not")
-                #self.bullet_list.pop(-i)
-                self.bullet_list.remove(b)
-                print("is")
+        for i in range(len(self.bullet_list) - 1, -1, -1):
+            self.bullet_list[i][0][1] = self.bullet_list[i][0][1] - 500 * dt
+            self.bullet_list[i][1] = self.bullet_list[i][1] - (1 * dt)
+            if self.bullet_list[i][1] <= 0:
+                self.bullet_list.pop(i)
 
 
     def draw(self, surf, color):

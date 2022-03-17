@@ -56,8 +56,7 @@ while not finished:
         player_y -= (PLAYER_SPEED * 2) * delta_time
 
     #Dustin can insert what's needed for imputing the projectile commands
-    all_mouse_buttons = pygame.mouse.get_pressed()
-    if all_mouse_buttons[0]:    #Fire Projectilesa
+    if event.type == pygame.MOUSEBUTTONDOWN:
         P.spawn(player_x, player_y, BULLET_LIFE)
     # Drawing
     screen.fill((0, 0, 0))
