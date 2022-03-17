@@ -43,6 +43,6 @@ class Control_AI:
         for i in self.AI_List:
             i.update()
 
-    def draw(self):
+    def draw(self, surf):
         for i in self.AI_List:
-            i.draw()
+            i.draw(surf)

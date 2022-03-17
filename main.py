@@ -3,8 +3,10 @@
 # Dustin S, Dylan G, and Zachary H
 
 import pygame
+from Enemy import Control_AI
 from background import Space
 import projectile as pro
+
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -21,6 +23,7 @@ clock = pygame.time.Clock()
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
+AI = Control_AI()
 # The bigger the second number, the faster the stars
 
 
@@ -31,6 +34,7 @@ while not finished:
     player_y = player_y
 
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
+    AI.update()
 
     # Input
     event = pygame.event.poll()
@@ -57,9 +61,13 @@ while not finished:
         pro.Projectile(player_x, player_y, BULLET_LIFE)
         pro.update(delta_time, screen, BULLET_COLOR)
 
+    #Temporary Control for adding a basic enemy
+
+
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
+    AI.draw(screen)
 
     #This is to test a player movement to begin with:
     pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
