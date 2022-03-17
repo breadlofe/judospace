@@ -19,9 +19,10 @@ class Star :
 
 class Space :
 
-    def __init__(self):
+    def __init__(self, Star_Rate):
         self.star_list = []
         self.add_rate = 0
+        self.star_rate = Star_Rate
 
     def update(self, dt, screen_w, screen_h):
         i = 0
@@ -32,7 +33,7 @@ class Space :
             i += 1
 
         self.add_rate += 1
-        if self.add_rate >= 100:
+        if self.add_rate >= self.star_rate:
             new_star = Star(screen_w)
             self.star_list.append(new_star)
             self.add_rate = 0
