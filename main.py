@@ -5,9 +5,11 @@
 import pygame
 import projectile
 from background import Space
+import projectile as pro
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+PLAYER_SPEED = 100
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -39,15 +41,15 @@ while not finished:
         finished = True
 
     if all_keys[pygame.K_a]:     #Left
-        player_x -= 100 * delta_time
+        player_x -= PLAYER_SPEED * delta_time
     if all_keys[pygame.K_d]:     #Right
-        player_x += 100 * delta_time
+        player_x += PLAYER_SPEED * delta_time
     if all_keys[pygame.K_w]:     #Up
-        player_y -= 100 * delta_time
+        player_y -= PLAYER_SPEED * delta_time
     if all_keys[pygame.K_s]:     #Down
-        player_y += 100 * delta_time
+        player_y += PLAYER_SPEED * delta_time
     if all_keys[pygame.K_e]:     #Dash
-        player_y -= 200 * delta_time
+        player_y -= (PLAYER_SPEED * 2) * delta_time
 
     #Dustin can insert what's needed for imputing the projectile commands
     all_mouse_buttons = pygame.mouse.get_pressed()

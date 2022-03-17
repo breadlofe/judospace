@@ -10,7 +10,6 @@ class Star :
         self.color = (255, 255, 0)
         self.radius = 1
 
-
     def update(self, dt):
         self.y += self.speed * dt
 
@@ -36,9 +35,6 @@ class Space :
             new_star = Star(screen_w, self.speed)
             self.star_list.append(new_star)
             self.add_rate = 0
-
-
-
 
     def draw(self, surf):
         for i in range(len(self.star_list)):
