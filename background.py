@@ -13,8 +13,6 @@ class Star :
 
     def update(self, dt, screen_w, screen_h):
         self.y += self.speed * dt
-        if self.y >= screen_h:
-            #self.S.update(dt, screen_w, screen_h)
 
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
@@ -29,6 +27,8 @@ class Space :
         i = 0
         while i < len(self.star_list):
             self.star_list[i].update(dt, screen_w, screen_h)
+            if self.star_list[i].y >= screen_h:
+                self.star_list.remove(i)
             i += 1
 
         self.add_rate += 1
