@@ -20,7 +20,7 @@ player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
 # The bigger the second number, the faster the stars
 
-proj = projectile.Projectile(player_x, player_y)
+proj = projectile.Projectile(player_x, player_y, 3)
 
 while not finished:
     #Update
@@ -51,13 +51,12 @@ while not finished:
 
     #Dustin can insert what's needed for imputing the projectile commands
     all_mouse_buttons = pygame.mouse.get_pressed()
-    if all_mouse_buttons[0]:    #Fire Projectiles
+    if all_mouse_buttons[0]:    #Left click to fire projectiles
         pass
 
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
-
     #This is to test a player movement to begin with:
     pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
 
