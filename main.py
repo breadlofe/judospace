@@ -3,6 +3,8 @@
 # Dustin S, Dylan G, and Zachary H
 
 import pygame
+import projectile
+import background
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -15,6 +17,8 @@ clock = pygame.time.Clock()
 
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
+
+proj = projectile.Projectile(player_x, player_y)
 
 while not finished:
     #Update
@@ -41,14 +45,15 @@ while not finished:
     if all_keys[pygame.K_e]:     #Dash
         player_y -= 200 * delta_time
 
-    #Dustin can insert what's needed for imputing the bullet commands
+    #Dustin can insert what's needed for imputing the projectile commands
     all_mouse_buttons = pygame.mouse.get_pressed()
-    #ZDH TO-DO: Find the code for left mouse click
-    if all_keys[pygame.K_SPACE]:    #Fire Bullet
+    if all_mouse_buttons[0]:    #Fire Projectiles
         pass
 
     # Drawling
     screen.fill((0, 0, 0))
+    #This is to test a player movement to begin with:
+    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
 
     pygame.display.flip()
 
