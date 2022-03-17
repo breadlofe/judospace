@@ -4,7 +4,7 @@
 
 import pygame
 import projectile
-import background
+from background import Space
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -17,6 +17,8 @@ clock = pygame.time.Clock()
 
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
+S = Space(100, 400) # The bigger the first number, the bigger the space between stars
+# The bigger the second number, the faster the stars
 
 proj = projectile.Projectile(player_x, player_y)
 
@@ -25,6 +27,8 @@ while not finished:
     delta_time = clock.tick() / 1000
     player_x = player_x
     player_y = player_y
+
+    S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     # Input
     event = pygame.event.poll()
@@ -50,8 +54,10 @@ while not finished:
     if all_mouse_buttons[0]:    #Fire Projectiles
         pass
 
-    # Drawling
+    # Drawing
     screen.fill((0, 0, 0))
+    S.draw(screen)
+
     #This is to test a player movement to begin with:
     pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
 
