@@ -4,6 +4,7 @@
 
 import pygame
 from background import Space
+import projectile as pro
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
