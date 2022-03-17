@@ -3,10 +3,10 @@ import pygame
 
 class Star :
 
-    def __init__(self, screen_w):
+    def __init__(self, screen_w, speed):
         self.y = 0
         self.x = random.randint(0, screen_w)
-        self.speed = 200    # Pixels per Second
+        self.speed = speed    # Pixels per Second
         self.color = (255, 255, 0)
         self.radius = 1
 
@@ -19,21 +19,21 @@ class Star :
 
 class Space :
 
-    def __init__(self):
+    def __init__(self, Star_Rate, Speed):
         self.star_list = []
         self.add_rate = 0
+        self.star_rate = Star_Rate
+        self.speed = Speed
 
     def update(self, dt, screen_w, screen_h):
-        i = 0
-        while i < len(self.star_list):
-            self.star_list[i].update(dt, screen_w, screen_h)
-            if self.star_list[i].y >= screen_h:
+        for i in self.star_list:
+            i.update(dt)
+            if i.y >= screen_h:
                 self.star_list.remove(i)
-            i += 1
 
         self.add_rate += 1
-        if self.add_rate >= 100:
-            new_star = Star(screen_w)
+        if self.add_rate >= self.star_rate:
+            new_star = Star(screen_w, self.speed)
             self.star_list.append(new_star)
             self.add_rate = 0
 

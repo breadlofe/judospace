@@ -3,6 +3,7 @@
 # Dustin S, Dylan G, and Zachary H
 
 import pygame
+from background import Space
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -15,12 +16,16 @@ clock = pygame.time.Clock()
 
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
+S = Space(100, 400) # The bigger the first number, the bigger the space between stars
+# The bigger the second number, the faster the stars
 
 while not finished:
     #Update
     delta_time = clock.tick() / 1000
     player_x = player_x
     player_y = player_y
+
+    S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     # Input
     event = pygame.event.poll()
@@ -47,8 +52,10 @@ while not finished:
     if all_keys[pygame.K_SPACE]:    #Fire Bullet
         pass
 
-    # Drawling
+    # Drawing
     screen.fill((0, 0, 0))
+    S.draw(screen)
+
 
     pygame.display.flip()
 
