@@ -3,6 +3,7 @@
 # Dustin S, Dylan G, and Zachary H
 
 import pygame
+import random
 from Enemy import Control_AI
 from background import Space
 import projectile as pro
@@ -34,7 +35,7 @@ while not finished:
     player_y = player_y
     P.update(delta_time, screen, BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
-    AI.update()
+    AI.update(delta_time)
 
     # Input
     event = pygame.event.poll()
@@ -58,14 +59,21 @@ while not finished:
     #Dustin can insert what's needed for imputing the projectile commands
     if event.type == pygame.MOUSEBUTTONDOWN:
         P.spawn(player_x, player_y, BULLET_LIFE)
+
+    # Add a Basic AI Enemy
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_x:
+            temp_var = random.randint(0, SCREEN_WIDTH)
+            AI.add_basic_enemy(10, 200, temp_var)
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
     AI.draw(screen)
 
     #This is to test a player movement to begin with:
-    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
     P.draw(screen, BULLET_COLOR)
+    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
+
     pygame.display.flip()
 
 pygame.display.quit()
