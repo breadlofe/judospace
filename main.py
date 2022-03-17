@@ -16,7 +16,8 @@ clock = pygame.time.Clock()
 
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
-S = Space(100)
+S = Space(100, 400) # The bigger the first number, the bigger the space between stars
+# The bigger the second number, the faster the stars
 
 while not finished:
     #Update
