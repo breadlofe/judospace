@@ -4,22 +4,25 @@ pygame.init()
 
 class Projectile:
 
-    def __init__(self, start_x, start_y, lifespan):
-        self.px = start_x
-        self.py = start_y
-        self.lifespan = lifespan
-        self.position = [self.px, self.py]
+    def __init__(self):
         self.bullet_list = []
-        self.bullet_list.append([self.position, self.lifespan])
+
+    def spawn(self, start_x, start_y, lifespan):
+        position = [start_x, start_y]
+        self.bullet_list.append([position, lifespan])
 
     def update(self, dt, surf, color):
+        for b in self.bullet_list:
+            print(b[0][1])
+            b[0][1] = b[0][1] - 50 * dt
+            b[1] = b[1] - (1 * dt)
+            if b[1] <= 0:
+                print("not")
+                #self.bullet_list.pop(-i)
+                self.bullet_list.remove(b)
+                print("is")
+
+
+    def draw(self, surf, color):
         for i in range(len(self.bullet_list)):
-            draw(surf, color, self.bullet_list[-i][0][0], self.bullet_list[-i][0][1])
-            self.bullet_list[-i][0][1] = self.bullet_list[-i][0][1] - 5 * dt
-            self.bullet_list[-i][1] = self.bullet_list[-i][1] - (1 * dt)
-            if self.bullet_list[-i][1] <= 0:
-                self.bullet_list.pop(-i)
-
-
-def draw(self, surf, color, x, y):
-    bullet = pygame.draw.circle(surf, color, (x, y), 5)
+            bullet = pygame.draw.circle(surf, color, (self.bullet_list[-i][0][0], self.bullet_list[-i][0][1]), 5)

@@ -25,14 +25,14 @@ player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
 AI = Control_AI()
 # The bigger the second number, the faster the stars
-
+P = pro.Projectile()
 
 while not finished:
     #Update
     delta_time = clock.tick() / 1000
     player_x = player_x
     player_y = player_y
-
+    P.update(delta_time, screen, BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update()
 
@@ -57,13 +57,8 @@ while not finished:
 
     #Dustin can insert what's needed for imputing the projectile commands
     all_mouse_buttons = pygame.mouse.get_pressed()
-    if all_mouse_buttons[0]:    #Fire Projectiles
-        pro.Projectile(player_x, player_y, BULLET_LIFE)
-        pro.update(delta_time, screen, BULLET_COLOR)
-
-    #Temporary Control for adding a basic enemy
-
-
+    if all_mouse_buttons[0]:    #Fire Projectilesa
+        P.spawn(player_x, player_y, BULLET_LIFE)
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
@@ -71,7 +66,7 @@ while not finished:
 
     #This is to test a player movement to begin with:
     pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
-
+    P.draw(screen, BULLET_COLOR)
     pygame.display.flip()
 
 pygame.display.quit()
