@@ -15,12 +15,12 @@ class Title_Screen:
         self.playbutton_y = screen_width / 2
 
         #Exit button
-        self.playbutton_x = screen_width / 2
-        self.playbutton_y = screen_width / 2
+        self.exitbutton_x = screen_width / 2 + screen_width / 3
+        self.exitbutton_y = screen_width / 2
 
         #Credits button
-        self.playbutton_x = screen_width / 2
-        self.playbutton_y = screen_width / 2
+        self.creditsbutton_x = screen_width / 2 - screen_height / 3
+        self.creditsbutton_y = screen_width / 2
 
         #Level One
         self.one_text = "Level One"
@@ -29,5 +29,9 @@ class Title_Screen:
     def draw(self, screen):
         screen.blit(self.title_title, (self.title_x, self.title_y))
         pygame.draw.circle(screen, (255, 120, 0), (self.playbutton_x - (self.button_radius / 2),
-                                                   self.playbutton_y), self.button_radius)
+                                                   self.playbutton_y), self.button_radius)  #Play
+        pygame.draw.circle(screen, (255, 120, 0), (self.exitbutton_x - (self.button_radius / 2),
+                                                   self.exitbutton_y), self.button_radius)  #Exit
+        pygame.draw.circle(screen, (255, 120, 0), (self.creditsbutton_x - (self.button_radius / 2),
+                                                   self.creditsbutton_y), self.button_radius)  #Credits
         #Would we need a boolean for the title screen blitting? YES.
