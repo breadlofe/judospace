@@ -25,9 +25,12 @@ class Title_Screen:
         #Level One
         self.one_text = "Level One"
         self.level_one_display = self.font.render(str(self.one_text), False, (250, 250, 0))
+        self.level_x = screen_width / 2
+        self.level_y = screen_height / 2
 
     def draw(self, screen):
-        screen.blit(self.title_title, (self.title_x - 75, self.title_y))
+        screen.blit(self.title_title, (self.title_x - (self.title_title.get_width() / 2),
+                                       self.title_y - (self.title_title.get_height() / 2)))
         pygame.draw.circle(screen, (255, 120, 0), (self.playbutton_x - (self.button_radius / 2),
                                                    self.playbutton_y), self.button_radius)  #Play
         pygame.draw.circle(screen, (255, 12, 0), (self.exitbutton_x - (self.button_radius / 2),
@@ -36,3 +39,8 @@ class Title_Screen:
                                                    self.creditsbutton_y), self.button_radius)  #Credits
         #Would we need a boolean for the title screen blitting? YES.
         #Working out on the quarks reguarding placements...
+
+    def desplay_level_one(self, screen):
+        screen.blit(self.level_one_display,
+                    (self.level_x - (self.level_one_display.get_width() / 2),
+                     self.level_y - (self.level_one_display.get_height() / 2)))

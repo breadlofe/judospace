@@ -85,6 +85,7 @@ while not finished:
     P.draw(screen, BULLET_COLOR)
     if title_click == False:
         title.draw(screen)
+        #title.desplay_level_one(screen)
 
     pygame.display.flip()
 
