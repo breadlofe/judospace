@@ -14,24 +14,25 @@ class Title_Screen:
         self.playbutton_x = screen_width / 2
         self.playbutton_y = screen_width / 2
 
-        #Exit button
-        self.exitbutton_x = screen_width / 2 + screen_width / 3
-        self.exitbutton_y = screen_width / 2
-
         #Credits button
         self.creditsbutton_x = screen_width / 2 - screen_height / 3
         self.creditsbutton_y = screen_width / 2
+
+        #Exit button
+        self.exitbutton_x = self.creditsbutton_x + self.playbutton_x
+        self.exitbutton_y = screen_width / 2
 
         #Level One
         self.one_text = "Level One"
         self.level_one_display = self.font.render(str(self.one_text), False, (250, 250, 0))
 
     def draw(self, screen):
-        screen.blit(self.title_title, (self.title_x, self.title_y))
+        screen.blit(self.title_title, (self.title_x - 75, self.title_y))
         pygame.draw.circle(screen, (255, 120, 0), (self.playbutton_x - (self.button_radius / 2),
                                                    self.playbutton_y), self.button_radius)  #Play
-        pygame.draw.circle(screen, (255, 120, 0), (self.exitbutton_x - (self.button_radius / 2),
+        pygame.draw.circle(screen, (255, 12, 0), (self.exitbutton_x - (self.button_radius / 2),
                                                    self.exitbutton_y), self.button_radius)  #Exit
-        pygame.draw.circle(screen, (255, 120, 0), (self.creditsbutton_x - (self.button_radius / 2),
+        pygame.draw.circle(screen, (255, 220, 0), (self.creditsbutton_x - (self.button_radius / 2),
                                                    self.creditsbutton_y), self.button_radius)  #Credits
         #Would we need a boolean for the title screen blitting? YES.
+        #Working out on the quarks reguarding placements...
