@@ -70,6 +70,11 @@ while not finished:
     if event.type == pygame.MOUSEBUTTONDOWN:
         P.spawn(player_x, player_y, BULLET_LIFE)
 
+    mouse_pos = pygame.mouse.get_pos()
+    mouse_x = mouse_pos[0]
+    mouse_y = mouse_pos[1]
+    mouse_rect = pygame.Rect(mouse_x - 10, mouse_y - 10, 20, 20)
+
     #Remove the title screen
     if all_keys[pygame.K_SPACE]:
         title_click = True
@@ -85,7 +90,7 @@ while not finished:
     P.draw(screen, BULLET_COLOR)
     if title_click == False:
         title.draw(screen)
-        #title.desplay_level_one(screen)
+        #title.display_level_one(screen)
 
     pygame.display.flip()
 

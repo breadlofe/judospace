@@ -40,7 +40,7 @@ class Title_Screen:
         #Would we need a boolean for the title screen blitting? YES.
         #Working out on the quarks reguarding placements...
 
-    def desplay_level_one(self, screen):
+    def display_level_one(self, screen):
         screen.blit(self.level_one_display,
                     (self.level_x - (self.level_one_display.get_width() / 2),
                      self.level_y - (self.level_one_display.get_height() / 2)))
