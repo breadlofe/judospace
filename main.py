@@ -15,6 +15,8 @@ SCREEN_HEIGHT = 600
 PLAYER_SPEED = 300
 BULLET_LIFE = 3
 BULLET_COLOR = (200, 0, 0)
+PLAYER_LIFE = 100
+PLAYER_RADIUS = 15
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -45,6 +47,7 @@ while not finished:
             point_2 = (e.x, e.y)
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
+                e.life_value = 0
 
     if player_x <= 0:
         player_x = 0
@@ -95,7 +98,7 @@ while not finished:
     AI.draw(screen)
 
     #This is to test a player movement to begin with:
-    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), 15)
+    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
     P.draw(screen, BULLET_COLOR)
     if title_click == False:
         title.draw(screen)
