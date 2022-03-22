@@ -42,6 +42,7 @@ Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
 life = Lifebar()
 title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
+show_credits = False
 
 while not finished:
     #Update
@@ -67,11 +68,19 @@ while not finished:
         if bullet_shoot == 1:
             E.spawn(e.x, e.y, e.life_value)
 
+    # Collision between player and enemy bullet (DAS):
+    for u in E.bullet_list:
+        point_3 = (u[0][0], u[0][1])
+        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
+            u[1] = 0
+            Player.life -= 10
+
     # Handle Inputs
     event = pygame.event.poll()
     all_keys = pygame.key.get_pressed()  # This is the key inputs
     if event.type == pygame.quit:
-        done = True
+        finished = True
+    all_keys = pygame.key.get_pressed()     #This is the key inputs
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
@@ -89,12 +98,23 @@ while not finished:
             temp_var = random.randint(30, SCREEN_WIDTH - 30)
             AI.add_basic_enemy(15, 200, temp_var)
 
-    # Remove the title screen
+    mouse_pos = pygame.mouse.get_pos()
+    mouse_x = mouse_pos[0]
+    mouse_y = mouse_pos[1]
+    mouse_rect = pygame.Rect(mouse_x - 1, mouse_y - 1, 2, 2)
+
+    #Remove the title screen
     if all_keys[pygame.K_SPACE]:
         title_click = True
-        # TO DO: ZDH Make a visible UI Button
 
-    # Drawing
+    if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
+        show_credits = True
+    if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
+        show_credits = False
+    if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
+        finished = True
+
+    #Drawing
     screen.fill((0, 0, 0))
     life.draw(screen)
     S.draw(screen)
@@ -104,7 +124,10 @@ while not finished:
     Player.draw(screen)
     if title_click == False:
         title.draw(screen)
-        #title.desplay_level_one(screen)
+        #title.display_level_one(screen)
+    if show_credits == True:
+        #title_click = True     #Change this to a display or don't display varable -ZDH
+        title.display_credits(screen)
 
     pygame.display.flip()
 
