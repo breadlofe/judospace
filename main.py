@@ -6,10 +6,12 @@ import pygame
 import random
 from Enemy import Control_AI
 from background import Space
+from lifebar import Lifebar
 import projectile as pro
 import collision as col
 import title_screen
 from player import Player
+
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -37,6 +39,7 @@ E = pro.Enemy_Projectile()
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
 
+life = Lifebar()
 title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 
@@ -47,6 +50,7 @@ while not finished:
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update(delta_time)
+    life.update(Player.life)
 
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
@@ -92,6 +96,7 @@ while not finished:
 
     # Drawing
     screen.fill((0, 0, 0))
+    life.draw(screen)
     S.draw(screen)
     AI.draw(screen)
     P.draw(screen, BULLET_COLOR)
