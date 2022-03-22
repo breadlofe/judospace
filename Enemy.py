@@ -16,12 +16,12 @@ class Basic_Enemy:
 
     def update(self, dt):
 
-        if self.end_y > self.y:
-            self.y += self.speed * dt
-        else:
-            self.dodge = True
-
-        if self.dodge == True:
+        if self.dodge == False:
+            if self.end_y > self.y:
+                self.y += self.speed * dt
+            else:
+                self.dodge = True
+        elif self.dodge == True:
             pass
 
             # The current idea is self.dodge is to have the object move in a sin and cos manner to evade attacks
