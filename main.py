@@ -39,6 +39,12 @@ while not finished:
     P.update(delta_time, screen, BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update(delta_time)
+    for b in P.bullet_list:
+        point_1 = (b[0][0], b[0][1])
+        for e in AI.AI_List:
+            point_2 = (e.x, e.y)
+            if col.Collision(point_1, point_2, 5, e.radius).collide():
+                b[1] = 0
 
     if player_x <= 0:
         player_x = 0
