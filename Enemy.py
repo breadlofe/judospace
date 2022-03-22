@@ -11,6 +11,7 @@ class Basic_Enemy:
         self.y = radius * -1
         self.end_y = end_y
         self.color = (0, 0, 255)
+        self.life_value = 1
 
 
     def update(self, dt):
@@ -42,6 +43,8 @@ class Control_AI:
     def update(self, dt):
         for i in self.AI_List:
             i.update(dt)
+            if i.life_value == 0:
+                self.AI_List.remove(i)
 
     def draw(self, surf):
         for i in self.AI_List:
