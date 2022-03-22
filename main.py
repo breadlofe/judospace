@@ -9,6 +9,7 @@ from background import Space
 import projectile as pro
 import collision as col
 import title_screen
+from player import Player
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -32,14 +33,16 @@ AI = Control_AI()
 # The bigger the second number, the faster the stars
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
+
+# Create the Player entity
+Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
+
 title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 
 while not finished:
     #Update
     delta_time = clock.tick() / 1000
-    player_x = player_x
-    player_y = player_y
     P.update(delta_time, screen, BULLET_COLOR)
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -60,37 +63,20 @@ while not finished:
         if bullet_shoot == 1:
             E.spawn(e.x, e.y, e.life_value)
 
-    if player_x <= 0:
-        player_x = 0
-    if player_x >= SCREEN_WIDTH:
-        player_x = SCREEN_WIDTH
-    if player_y <= 0:
-        player_y = 0
-    if player_y >= SCREEN_HEIGHT:
-        player_y = SCREEN_HEIGHT
-
-    # Input
+    # Handle Inputs
     event = pygame.event.poll()
+    all_keys = pygame.key.get_pressed()  # This is the key inputs
     if event.type == pygame.quit:
         done = True
-    all_keys = pygame.key.get_pressed()     #This is the key inputs
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
-    if all_keys[pygame.K_a]:     #Left
-        player_x -= PLAYER_SPEED * delta_time
-    if all_keys[pygame.K_d]:     #Right
-        player_x += PLAYER_SPEED * delta_time
-    if all_keys[pygame.K_w]:     #Up
-        player_y -= PLAYER_SPEED * delta_time
-    if all_keys[pygame.K_s]:     #Down
-        player_y += PLAYER_SPEED * delta_time
-    if all_keys[pygame.K_e]:     #Dash
-        player_y -= (PLAYER_SPEED * 2) * delta_time
+    Player.handle_input(all_keys, event, delta_time)
+
 
     #Dustin can insert what's needed for imputing the projectile commands
     if event.type == pygame.MOUSEBUTTONDOWN:
-        P.spawn(player_x, player_y, BULLET_LIFE)
+        P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
     if event.type == pygame.KEYDOWN:
@@ -103,15 +89,14 @@ while not finished:
     if all_keys[pygame.K_SPACE]:
         title_click = True
         # TO DO: ZDH Make a visible UI Button
+
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
     AI.draw(screen)
-
-    #This is to test a player movement to begin with:
     P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
-    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
+    Player.draw(screen)
     if title_click == False:
         title.draw(screen)
         #title.desplay_level_one(screen)

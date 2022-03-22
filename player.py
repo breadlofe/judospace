@@ -30,13 +30,13 @@ class Player:
         :param dt: represents delta_time
         """
 
-        if press_input[pygame.K_a]:
+        if press_input[pygame.K_a] and (self.x - self.r) > 0:
             self.x -= self.player_speed * dt
-        if press_input[pygame.K_d]:
+        if press_input[pygame.K_d] and (self.x + self.r) < 800:
             self.x += self.player_speed * dt
-        if press_input[pygame.K_w]:
+        if press_input[pygame.K_w] and (self.y - self.r) > 0:
             self.y -= self.player_speed * dt
-        if press_input[pygame.K_e]:
+        if press_input[pygame.K_s] and (self.y + self.r) < 600:
             self.y += self.player_speed * dt
 
         if click_input == pygame.KEYDOWN:
