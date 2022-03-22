@@ -7,6 +7,7 @@ import random
 from Enemy import Control_AI
 from background import Space
 import projectile as pro
+import collision as col
 import title_screen
 
 SCREEN_WIDTH = 800
