@@ -63,6 +63,13 @@ while not finished:
         if bullet_shoot == 1:
             E.spawn(e.x, e.y, e.life_value)
 
+    # Collision between player and enemy bullet (DAS):
+    for u in E.bullet_list:
+        point_3 = (u[0][0], u[0][1])
+        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
+            u[1] = 0
+            Player.life -= 10
+
     # Handle Inputs
     event = pygame.event.poll()
     all_keys = pygame.key.get_pressed()  # This is the key inputs
