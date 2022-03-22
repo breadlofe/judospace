@@ -21,9 +21,9 @@ class Lifebar:
         self.True_Value = life_total * 2
 
         if self.True_Value > self.shown_value:
-            self.shown_value += 1
+            self.shown_value += .2
         if self.True_Value < self.shown_value:
-            self.shown_value -= 1
+            self.shown_value -= .2
 
 
     def draw(self, surf):
