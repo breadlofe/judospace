@@ -14,7 +14,7 @@ class Basic_Enemy:
         self.life_value = 1
 
 
-        self.dodge_x = start_x
+        self.dodge_x = start_x + self.radius
         #self.dodge_y
 
 
