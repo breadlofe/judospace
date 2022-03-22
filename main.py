@@ -81,8 +81,9 @@ while not finished:
     # Add a Basic AI Enemy
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_x:
-            temp_var = random.randint(0, SCREEN_WIDTH)
-            AI.add_basic_enemy(10, 200, temp_var)
+            # Do NOT make the radius bigger than the lowest potential value of the temp_var
+            temp_var = random.randint(30, SCREEN_WIDTH - 30)
+            AI.add_basic_enemy(15, 200, temp_var)
 
     # Remove the title screen
     if all_keys[pygame.K_SPACE]:
