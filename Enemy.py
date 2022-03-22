@@ -6,17 +6,18 @@ class Basic_Enemy:
     def __init__(self, radius, speed, start_x, end_y):
         self.radius = radius
         self.speed = speed
-
+        self.dodge = False
         self.x = start_x
         self.y = radius * -1
         self.end_y = end_y
         self.color = (0, 0, 255)
+        self.life_value = 1
 
 
-    def update(self):
+    def update(self, dt):
 
         if self.end_y > self.y:
-            self.y += self.speed
+            self.y += self.speed * dt
         else:
             self.dodge = True
 
@@ -39,9 +40,11 @@ class Control_AI:
         bad_guy = Basic_Enemy(radius, speed, start_x, temp_end)
         self.AI_List.append(bad_guy)
 
-    def update(self):
+    def update(self, dt):
         for i in self.AI_List:
-            i.update()
+            i.update(dt)
+            if i.life_value == 0:
+                self.AI_List.remove(i)
 
     def draw(self, surf):
         for i in self.AI_List:

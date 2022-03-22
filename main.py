@@ -3,6 +3,7 @@
 # Dustin S, Dylan G, and Zachary H
 
 import pygame
+import random
 from Enemy import Control_AI
 from background import Space
 import projectile as pro
@@ -37,7 +38,7 @@ while not finished:
     player_y = player_y
     P.update(delta_time, screen, BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
-    AI.update()
+    AI.update(delta_time)
 
     if player_x <= 0:
         player_x = 0
@@ -71,11 +72,16 @@ while not finished:
     if event.type == pygame.MOUSEBUTTONDOWN:
         P.spawn(player_x, player_y, BULLET_LIFE)
 
-    #Remove the title screen
+    # Add a Basic AI Enemy
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_x:
+            temp_var = random.randint(0, SCREEN_WIDTH)
+            AI.add_basic_enemy(10, 200, temp_var)
+
+    # Remove the title screen
     if all_keys[pygame.K_SPACE]:
         title_click = True
-        #TO DO: ZDH Make a visible UI Button
-
+        # TO DO: ZDH Make a visible UI Button
     # Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
