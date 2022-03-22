@@ -13,6 +13,11 @@ class Basic_Enemy:
         self.color = (0, 0, 255)
         self.life_value = 1
 
+        self.dodge_x = start_x + self.radius
+        #self.dodge_y
+
+
+
 
     def update(self, dt):
 
@@ -22,7 +27,19 @@ class Basic_Enemy:
             else:
                 self.dodge = True
         elif self.dodge == True:
-            pass
+            if self.dodge_x >= 400:
+                if self.x <= self.dodge_x:
+                    self.x += self.speed * dt
+                else:
+                    self.dodge_x = 400 - (self.dodge_x - 400)
+
+
+            elif self.dodge_x < 400:
+                if self.x >= self.dodge_x:
+                    self.x -= self.speed * dt
+                else:
+                    self.dodge_x = abs(self.dodge_x - 400) + 400
+
 
             # The current idea is self.dodge is to have the object move in a sin and cos manner to evade attacks
 
