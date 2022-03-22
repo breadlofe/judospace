@@ -13,7 +13,6 @@ class Basic_Enemy:
         self.color = (0, 0, 255)
         self.life_value = 1
 
-
         self.dodge_x = start_x + self.radius
         #self.dodge_y
 
