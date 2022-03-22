@@ -98,8 +98,8 @@ while not finished:
     AI.draw(screen)
 
     #This is to test a player movement to begin with:
-    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
     P.draw(screen, BULLET_COLOR)
+    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
     if title_click == False:
         title.draw(screen)
         #title.desplay_level_one(screen)
