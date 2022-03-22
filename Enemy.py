@@ -6,21 +6,20 @@ class Basic_Enemy:
     def __init__(self, radius, speed, start_x, end_y):
         self.radius = radius
         self.speed = speed
-        self.dodge = False
         self.x = start_x
         self.y = radius * -1
         self.end_y = end_y
         self.color = (0, 0, 255)
         self.life_value = 1
 
+        self.dodge = False
         self.dodge_x = start_x + self.radius
-        #self.dodge_y
-
-
-
+        self.dodge_y = end_y
+        self.y_dodge_value = random.randint(30, 70)
 
     def update(self, dt):
 
+        # all 400s are representative of the equation (SCREEN_W / 2)
         if self.dodge == False:
             if self.end_y > self.y:
                 self.y += self.speed * dt
@@ -32,13 +31,22 @@ class Basic_Enemy:
                     self.x += self.speed * dt
                 else:
                     self.dodge_x = 400 - (self.dodge_x - 400)
-
-
             elif self.dodge_x < 400:
                 if self.x >= self.dodge_x:
                     self.x -= self.speed * dt
                 else:
                     self.dodge_x = abs(self.dodge_x - 400) + 400
+
+            if self.dodge_y == self.end_y:
+                if self.y > self.dodge_y:
+                    self.y -= (self.speed / 2) * dt
+                else:
+                    self.dodge_y += self.y_dodge_value
+            else:
+                if self.y <= self.dodge_y:
+                    self.y += (self.speed / 2) * dt
+                else:
+                    self.dodge_y = self.end_y
 
 
             # The current idea is self.dodge is to have the object move in a sin and cos manner to evade attacks

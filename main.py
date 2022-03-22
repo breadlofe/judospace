@@ -84,8 +84,9 @@ while not finished:
     # Add a Basic AI Enemy
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_x:
-            temp_var = random.randint(0, SCREEN_WIDTH)
-            AI.add_basic_enemy(10, 200, temp_var)
+            # Do NOT make the radius bigger than the lowest potential value of the temp_var
+            temp_var = random.randint(30, SCREEN_WIDTH - 30)
+            AI.add_basic_enemy(15, 200, temp_var)
 
     # Remove the title screen
     if all_keys[pygame.K_SPACE]:
@@ -97,8 +98,8 @@ while not finished:
     AI.draw(screen)
 
     #This is to test a player movement to begin with:
-    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
     P.draw(screen, BULLET_COLOR)
+    pygame.draw.circle(screen, (255, 200, 0), (player_x, player_y), PLAYER_RADIUS)
     if title_click == False:
         title.draw(screen)
         #title.desplay_level_one(screen)
