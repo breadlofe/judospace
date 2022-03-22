@@ -45,6 +45,7 @@ while not finished:
             point_2 = (e.x, e.y)
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
+                e.life_value = 0
 
     if player_x <= 0:
         player_x = 0
