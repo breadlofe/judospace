@@ -49,7 +49,7 @@ class Health:
         :param surf: Given pygame surf.
         :return: None, but draws circle.
         """
-        for i in range(len(self.health_drop_list)):
-            pygame.draw.circle(surf, [-i][6], (self.health_drop_list[-i][0][0], self.health_drop_list[-i][0][1]),
-                               self.health_drop_list[-i][3])
+        for h in self.health_drop_list:
+            pygame.draw.circle(surf, h[6], (h[0][0], h[0][1]),
+                               h[3])
 

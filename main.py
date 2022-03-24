@@ -86,7 +86,7 @@ while not finished:
             Player.life -= 10
 
     # Health Item Spawning (DAS):
-    health_item_spawn = random.randint(1, 100000)
+    health_item_spawn = random.randint(1, 60000)
     if title_click:
         if health_item_spawn == 1:
             H.spawn(15, 1, 15)
