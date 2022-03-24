@@ -29,8 +29,8 @@ finished = False
 
 clock = pygame.time.Clock()
 
-Level = 1
-First = True
+Level = 0
+shoot_aggression = 1500
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
@@ -72,7 +72,7 @@ while not finished:
                 Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
-    bullet_shoot = random.randint(1, 1500)
+    bullet_shoot = random.randint(1, shoot_aggression)
     for e in AI.AI_List:
         if bullet_shoot == 1:
             if e.dodge:
@@ -131,6 +131,8 @@ while not finished:
         if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
             show_credits = False
             title_click = True
+            Level = 1
+            First = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
             finished = True
     elif show_credits == True:
@@ -146,6 +148,7 @@ while not finished:
             Current_Basic_Enemy = 0
             spawn_rate = 5
             spawn_timer = 0
+            shoot_aggression = 1500
             First = False
 
         spawn_timer -= delta_time
