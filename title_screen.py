@@ -55,24 +55,24 @@ class Title_Screen:
                                     self.playbutton_y - self.button_radius,
                                     self.button_radius * 2, self.button_radius * 2)     #Play
         self.credits_back_rect = pygame.Rect(25 / 2 - 3.5, 575 - self.button_radius / 2,
-                                             self.button_radius, self.button_radius)
+                                    self.button_radius, self.button_radius)    #Back
 
     def draw(self, screen):
         screen.blit(self.title_title, (self.title_x - (self.title_title.get_width() / 2),
                                        self.title_y - (self.title_title.get_height() / 2)))
         pygame.draw.circle(screen, (255, 120, 0), (self.playbutton_x - (self.button_radius / 2),
                                                    self.playbutton_y), self.button_radius)  #Play
-        pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_p, 1)
+        #pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_p, 1)
         screen.blit(self.play, (self.playbutton_x - self.play.get_width(),
                                                    self.playbutton_y - self.button_radius / 2))
         pygame.draw.circle(screen, (255, 12, 0), (self.exitbutton_x - (self.button_radius / 2),
                                                    self.exitbutton_y), self.button_radius)  #Exit
-        pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_e, 1)
+        #pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_e, 1)
         screen.blit(self.exit, (self.exitbutton_x - self.exit.get_width(),
                                      self.exitbutton_y - self.button_radius / 2))
         pygame.draw.circle(screen, (255, 220, 0), (self.creditsbutton_x - (self.button_radius / 2),
                                                    self.creditsbutton_y), self.button_radius)  #Credits
-        pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_c, 1)
+        #pygame.draw.rect(screen, (200, 200, 0), self.circle_rect_c, 1)
         screen.blit(self.the_credits_button_text,
                     (self.creditsbutton_x - self.the_credits_button_text.get_width(),
                      self.creditsbutton_y - self.button_radius / 2))
@@ -88,5 +88,5 @@ class Title_Screen:
         screen.blit(self.credits, (self.credits_x - (self.credits.get_width() / 2),
                                        self.credits_y - (self.credits.get_height() / 2)))
         pygame.draw.circle(screen, (100, 0, 255), (25, 575), self.button_radius / 2)
-        pygame.draw.rect(screen, ((200, 200, 0)), self.credits_back_rect, 1)
+        #pygame.draw.rect(screen, ((200, 200, 0)), self.credits_back_rect, 1)
         screen.blit(self.back, (25, 575 - self.back.get_height() / 2))

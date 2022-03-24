@@ -104,8 +104,8 @@ while not finished:
     mouse_rect = pygame.Rect(mouse_x - 1, mouse_y - 1, 2, 2)
 
     #Remove the title screen
-    if all_keys[pygame.K_SPACE]:
-        title_click = True
+    #if all_keys[pygame.K_SPACE]:
+        #title_click = True
 
     if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
         show_credits = True
@@ -113,6 +113,9 @@ while not finished:
         show_credits = False
     if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
         finished = True
+    if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
+        show_credits = False
+        title_click = True
 
     #Drawing
     screen.fill((0, 0, 0))
