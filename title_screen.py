@@ -38,13 +38,19 @@ class Title_Screen:
         self.credits_credits = "Credits"
         self.the_credits_button_text = self.font.render(str(self.credits_credits), False, (250, 250, 0))
 
+        #Game Over!
+        self.over_over = "Game Over!"
+        self.game_over = self.font.render(str(self.over_over), False, (250, 250, 0))
+        self.over_x = screen_width
+        self.over_y = screen_height
+
         #Level One
         self.one_text = "Level One"
         self.level_one_display = self.font.render(str(self.one_text), False, (250, 250, 0))
         self.level_x = screen_width / 2
-        self.level_y = screen_height / 2
+        #self.level_y = screen_height / 2
 
-        #button rectangles      #Check with Clay about making these rectangles disappear.
+        #Button rectangles
         self.circle_rect_c = pygame.Rect(self.creditsbutton_x - (self.button_radius + self.button_radius / 2),
                                     self.creditsbutton_y - self.button_radius,
                                     self.button_radius * 2, self.button_radius * 2)     #Credits
@@ -77,12 +83,10 @@ class Title_Screen:
                     (self.creditsbutton_x - self.the_credits_button_text.get_width(),
                      self.creditsbutton_y - self.button_radius / 2))
         #Would we need a boolean for the title screen blitting? YES!
-        #Working out on the quarks reguarding placements...
 
     def display_level_one(self, screen):
         screen.blit(self.level_one_display,
-                    (self.level_x - (self.level_one_display.get_width() / 2),
-                     self.level_y - (self.level_one_display.get_height() / 2)))
+                    (self.level_x - (self.level_one_display.get_width() / 2), 5))
 
     def display_credits(self, screen):
         screen.blit(self.credits, (self.credits_x - (self.credits.get_width() / 2),
@@ -90,3 +94,7 @@ class Title_Screen:
         pygame.draw.circle(screen, (100, 0, 255), (25, 575), self.button_radius / 2)
         #pygame.draw.rect(screen, ((200, 200, 0)), self.credits_back_rect, 1)
         screen.blit(self.back, (25, 575 - self.back.get_height() / 2))
+
+    def display_game_over(self, screen):
+        screen.blit(self.game_over, (self.over_x - (self.game_over.get_width() / 2),
+                                     self.over_y - (self.game_over.get_height() / 2)))
