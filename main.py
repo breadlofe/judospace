@@ -127,8 +127,9 @@ while not finished:
     AI.draw(screen)
     P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
-    Player.draw(screen)
-    life.draw(screen)
+    if title_click == True and show_credits == False:
+        Player.draw(screen)
+        life.draw(screen)
     if title_click == False:
         title.draw(screen)
         #title.display_level_one(screen)
