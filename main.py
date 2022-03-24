@@ -177,11 +177,10 @@ while not finished:
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
-        #title_click = True     #Change this to a display or don't display varable -ZDH
         title.display_credits(screen)
     if Player.life <= 0:
         title.display_game_over(screen)
-        print("Game Over!")
+        #print("Game Over!")
         finished = True
 
     pygame.display.flip()
