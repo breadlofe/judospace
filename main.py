@@ -123,12 +123,12 @@ while not finished:
 
     #Drawing
     screen.fill((0, 0, 0))
-    life.draw(screen)
     S.draw(screen)
     AI.draw(screen)
     P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
     Player.draw(screen)
+    life.draw(screen)
     if title_click == False:
         title.draw(screen)
         #title.display_level_one(screen)
