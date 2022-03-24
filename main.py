@@ -51,7 +51,8 @@ while not finished:
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update(delta_time)
-    life.update(Player.life)
+    if title_click == True and show_credits == False:
+        life.update(Player.life)
 
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
@@ -86,17 +87,18 @@ while not finished:
 
     Player.handle_input(all_keys, event, delta_time)
 
-
-    #Dustin can insert what's needed for imputing the projectile commands
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        P.spawn(Player.x, Player.y, BULLET_LIFE)
+    if title_click == True and show_credits == False:
+        #Dustin can insert what's needed for imputing the projectile commands
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_x:
-            # Do NOT make the radius bigger than the lowest potential value of the temp_var
-            temp_var = random.randint(30, SCREEN_WIDTH - 30)
-            AI.add_basic_enemy(15, 200, temp_var)
+    if title_click == True and show_credits == False:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_x:
+                # Do NOT make the radius bigger than the lowest potential value of the temp_var
+                temp_var = random.randint(30, SCREEN_WIDTH - 30)
+                AI.add_basic_enemy(15, 200, temp_var)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]
@@ -127,13 +129,13 @@ while not finished:
     AI.draw(screen)
     P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
-    Player.draw(screen)
-    life.draw(screen)
+    if title_click == True and show_credits == False:
+        Player.draw(screen)
+        life.draw(screen)
     if title_click == False:
         title.draw(screen)
         #title.display_level_one(screen)
     if show_credits == True:
-        #title_click = True     #Change this to a display or don't display varable -ZDH
         title.display_credits(screen)
 
     pygame.display.flip()
