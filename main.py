@@ -86,10 +86,10 @@ while not finished:
 
     Player.handle_input(all_keys, event, delta_time)
 
-
-    #Dustin can insert what's needed for imputing the projectile commands
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        P.spawn(Player.x, Player.y, BULLET_LIFE)
+    if title_click == True and show_credits == False:
+        #Dustin can insert what's needed for imputing the projectile commands
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
     if event.type == pygame.KEYDOWN:
