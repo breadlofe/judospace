@@ -11,6 +11,7 @@ import projectile as pro
 import collision as col
 import title_screen
 from player import Player
+import health_drop as h_drop
 
 
 SCREEN_WIDTH = 800
