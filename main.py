@@ -100,7 +100,8 @@ while not finished:
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
-    Player.handle_input(all_keys, event, delta_time)
+    if title_click == True and show_credits == False:
+        Player.handle_input(all_keys, event, delta_time)
 
     if title_click == True and show_credits == False:
         #Dustin can insert what's needed for imputing the projectile commands
