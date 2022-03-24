@@ -134,7 +134,6 @@ while not finished:
         title.draw(screen)
         #title.display_level_one(screen)
     if show_credits == True:
-        #title_click = True     #Change this to a display or don't display varable -ZDH
         title.display_credits(screen)
 
     pygame.display.flip()
