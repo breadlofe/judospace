@@ -86,10 +86,22 @@ while not finished:
             Player.life -= 10
 
     # Health Item Spawning (DAS):
-    health_item_spawn = random.randint(1, 60000)
+    health_item_spawn = random.randint(1, 600)
     if title_click:
         if health_item_spawn == 1:
             H.spawn(15, 1, 15)
+
+    # Health item collision with player bullet and player (DAS):
+    for h in H.health_drop_list:
+        point_4 = (h[0][0], h[0][1])
+        for b in P.bullet_list:
+            point_5 = (b[0][0], b[0][1])
+            if col.Collision(point_4, point_5, 5, h[3]).collide():
+                h[1] = 0
+                b[1] = 0
+        if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
+            h[0][0] = 901
+            Player.life += h[2]
 
     #Handling Inputs
     event = pygame.event.poll()

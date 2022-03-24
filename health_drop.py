@@ -37,11 +37,14 @@ class Health:
         :return: None.
         """
         for h in self.health_drop_list:
-            if h[1] != 0:
+            if h[0][0] >= 900:
+                self.health_drop_list.remove(h)
+            elif h[1] != 0:
                 h[0][0] += 50 * dt
                 h[0][1] = self.amp * math.sin(h[0][0] * self.cspeed) + h[4]
             else:
                 h[5] = True
+                h[6] = (0, 120, 50)
 
     def draw(self, surf):
         """
