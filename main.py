@@ -91,7 +91,7 @@ while not finished:
         if health_item_spawn == 1:
             H.spawn(15, 1, 15)
 
-    # Handle Inputs
+    #Handling Inputs
     event = pygame.event.poll()
     all_keys = pygame.key.get_pressed()  # This is the key inputs
     if event.type == pygame.quit:
@@ -176,12 +176,15 @@ while not finished:
         Player.draw(screen)
         H.draw(screen, (0, 210, 0))
         life.draw(screen)
+        title.display_level_one(screen)
     if title_click == False:
         title.draw(screen)
-        #title.display_level_one(screen)
     if show_credits == True:
-        #title_click = True     #Change this to a display or don't display varable -ZDH
         title.display_credits(screen)
+    if Player.life <= 0:
+        title.display_game_over(screen)
+        #print("Game Over!")
+        finished = True
 
     pygame.display.flip()
 
