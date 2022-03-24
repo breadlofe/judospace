@@ -41,8 +41,8 @@ class Title_Screen:
         #Game Over!
         self.over_over = "Game Over!"
         self.game_over = self.font.render(str(self.over_over), False, (250, 250, 0))
-        self.over_x = screen_width
-        self.over_y = screen_height
+        self.over_x = screen_width / 2
+        self.over_y = screen_height / 2
 
         #Level One
         self.one_text = "Level One"
@@ -96,5 +96,5 @@ class Title_Screen:
         screen.blit(self.back, (25, 575 - self.back.get_height() / 2))
 
     def display_game_over(self, screen):
-        screen.blit(self.game_over, (self.over_x - (self.game_over.get_width() / 2),
-                                     self.over_y - (self.game_over.get_height() / 2)))
+        screen.blit(self.game_over, (self.over_x - (self.game_over.get_width() / 2)
+                                     , self.over_y - (self.game_over.get_height() / 2)))

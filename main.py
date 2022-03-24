@@ -4,6 +4,7 @@
 
 import pygame
 import random
+import time
 from Enemy import Control_AI
 from background import Space
 from lifebar import Lifebar
@@ -66,17 +67,19 @@ while not finished:
             point_2 = (e.x, e.y)
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
-                e.life_value = 0
+                e.life_value -= 1
                 # Below is for Level God tracking purpose
-                Current_Basic_Enemy -= 1
-                Basic_Enemy_Count -= 1
+                if e.life_value <= 0 and e.Dog_Tag == "Basic":
+                    Current_Basic_Enemy -= 1
+                    Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
     for e in AI.AI_List:
-        bullet_shoot = random.randint(1, shoot_aggression)
-        if bullet_shoot == 1:
-            if e.dodge:
-                E.spawn(e.x, e.y, e.life_value)
+        if e.Dog_Tag == "Basic":
+            bullet_shoot = random.randint(1, shoot_aggression)
+            if bullet_shoot == 1:
+                if e.dodge:
+                    E.spawn(e.x, e.y, e.life_value)
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
@@ -127,6 +130,9 @@ while not finished:
                 # Do NOT make the radius bigger than the lowest potential value of the temp_var
                 temp_var = random.randint(30, SCREEN_WIDTH - 30)
                 AI.add_basic_enemy(15, 200, temp_var)
+            if event.key == pygame.K_t:
+                temp_var = random.randint(100, SCREEN_WIDTH - 100)
+                AI.add_tracker(20, temp_var, 10)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]
@@ -199,7 +205,9 @@ while not finished:
         title.display_credits(screen)
     if Player.life <= 0:
         title.display_game_over(screen)
-        #print("Game Over!")
+        pygame.display.flip()
+        print("Game Over!")
+        time.sleep(3)
         finished = True
 
     pygame.display.flip()
