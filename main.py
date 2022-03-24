@@ -72,8 +72,8 @@ while not finished:
                 Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
-    bullet_shoot = random.randint(1, shoot_aggression)
     for e in AI.AI_List:
+        bullet_shoot = random.randint(1, shoot_aggression)
         if bullet_shoot == 1:
             if e.dodge:
                 E.spawn(e.x, e.y, e.life_value)
@@ -148,7 +148,7 @@ while not finished:
             Current_Basic_Enemy = 0
             spawn_rate = 5
             spawn_timer = 0
-            shoot_aggression = 1500
+            shoot_aggression = 500
             First = False
 
         spawn_timer -= delta_time
