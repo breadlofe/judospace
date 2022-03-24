@@ -11,6 +11,7 @@ import projectile as pro
 import collision as col
 import title_screen
 from player import Player
+import health_drop as h_drop
 
 
 SCREEN_WIDTH = 800
@@ -35,6 +36,7 @@ AI = Control_AI()
 # The bigger the second number, the faster the stars
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
+H = h_drop.Health()
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -51,6 +53,7 @@ while not finished:
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update(delta_time)
+    H.update(delta_time)
     if title_click == True and show_credits == False:
         life.update(Player.life)
 
@@ -75,6 +78,12 @@ while not finished:
         if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
             u[1] = 0
             Player.life -= 10
+
+    # Health Item Spawning (DAS):
+    health_item_spawn = random.randint(1, 600000)
+    if title_click:
+        if health_item_spawn == 1:
+            H.spawn(15, 1, 15)
 
     # Handle Inputs
     event = pygame.event.poll()
@@ -131,6 +140,7 @@ while not finished:
     E.draw(screen, ENEMY_BULLET_COLOR)
     if title_click == True and show_credits == False:
         Player.draw(screen)
+        H.draw(screen, (0, 210, 0))
         life.draw(screen)
     if title_click == False:
         title.draw(screen)
