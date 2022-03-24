@@ -107,15 +107,19 @@ while not finished:
     #if all_keys[pygame.K_SPACE]:
         #title_click = True
 
-    if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
-        show_credits = True
-    if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
-        show_credits = False
-    if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
-        finished = True
-    if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
-        show_credits = False
-        title_click = True
+    if title_click == False:
+        if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
+            show_credits = True
+            title_click = True
+        if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
+            show_credits = False
+            title_click = True
+        if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
+            finished = True
+    elif show_credits == True:
+        if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
+            show_credits = False
+            title_click = False
 
     #Drawing
     screen.fill((0, 0, 0))
