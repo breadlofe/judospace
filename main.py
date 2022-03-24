@@ -28,6 +28,8 @@ finished = False
 
 clock = pygame.time.Clock()
 
+Level = 1
+First = True
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
@@ -52,7 +54,6 @@ while not finished:
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
     AI.update(delta_time)
     life.update(Player.life)
-
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
         point_1 = (b[0][0], b[0][1])
@@ -61,12 +62,16 @@ while not finished:
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
                 e.life_value = 0
+                # Below is for Level God tracking purpose
+                Current_Basic_Enemy -= 1
+                Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
     bullet_shoot = random.randint(1, 1500)
     for e in AI.AI_List:
         if bullet_shoot == 1:
-            E.spawn(e.x, e.y, e.life_value)
+            if e.dodge:
+                E.spawn(e.x, e.y, e.life_value)
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
@@ -92,11 +97,11 @@ while not finished:
         P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
-    if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_x:
+    #if event.type == pygame.KEYDOWN:
+        #if event.key == pygame.K_x:
             # Do NOT make the radius bigger than the lowest potential value of the temp_var
-            temp_var = random.randint(30, SCREEN_WIDTH - 30)
-            AI.add_basic_enemy(15, 200, temp_var)
+            #temp_var = random.randint(30, SCREEN_WIDTH - 30)
+            #AI.add_basic_enemy(15, 200, temp_var)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]
@@ -120,6 +125,31 @@ while not finished:
         if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
             show_credits = False
             title_click = False
+
+    # Below is the LEVEL GOD, that controls the Levels
+
+    if Level == 1:
+        if First:
+            Basic_Enemy_Count = 10
+            Current_Basic_Enemy = 0
+            spawn_rate = 5
+            spawn_timer = 0
+            First = False
+
+        spawn_timer -= delta_time
+        if spawn_timer <= 0:
+            spawn_timer = spawn_rate
+            if Current_Basic_Enemy < Basic_Enemy_Count:
+                # Do NOT make the radius bigger than the lowest potential value of the temp_var
+                temp_var = random.randint(30, SCREEN_WIDTH - 30)
+                AI.add_basic_enemy(15, 200, temp_var)
+                Current_Basic_Enemy += 1
+
+
+
+
+
+
 
     #Drawing
     screen.fill((0, 0, 0))
