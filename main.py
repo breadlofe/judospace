@@ -4,6 +4,7 @@
 
 import pygame
 import random
+import time
 from Enemy import Control_AI
 from background import Space
 from lifebar import Lifebar
@@ -88,7 +89,7 @@ while not finished:
             Player.life -= 10
 
     # Health Item Spawning (DAS):
-    health_item_spawn = random.randint(1, 100000)
+    health_item_spawn = random.randint(1, 60000)
     if title_click:
         if health_item_spawn == 1:
             H.spawn(15, 1, 15)
@@ -192,7 +193,9 @@ while not finished:
         title.display_credits(screen)
     if Player.life <= 0:
         title.display_game_over(screen)
-        #print("Game Over!")
+        pygame.display.flip()
+        print("Game Over!")
+        time.sleep(3)
         finished = True
 
     pygame.display.flip()
