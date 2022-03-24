@@ -4,6 +4,7 @@
 
 import pygame
 import random
+import time
 from Enemy import Control_AI
 from background import Space
 from lifebar import Lifebar
@@ -187,7 +188,9 @@ while not finished:
         title.display_credits(screen)
     if Player.life <= 0:
         title.display_game_over(screen)
-        #print("Game Over!")
+        pygame.display.flip()
+        print("Game Over!")
+        time.sleep(3)
         finished = True
 
     pygame.display.flip()
