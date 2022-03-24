@@ -17,6 +17,8 @@ class Basic_Enemy:
         self.dodge_y = end_y
         self.y_dodge_value = random.randint(30, 70)
 
+        self.Dog_Tag = "Basic"
+
     def update(self, dt):
 
         # all 400s are representative of the equation (SCREEN_W / 2)
@@ -54,6 +56,30 @@ class Basic_Enemy:
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
+class Tracker_Enemy:
+
+    def __init__(self, radius, start_x, lv, end_y):
+        self.radius = radius
+        self.speed = 75
+        self.x = start_x
+        self.y = radius * -1
+        self.life_value = lv
+        self.end_y = end_y
+        self.color = (255, 150, 0)
+
+        self.Dog_Tag = "Tracker"
+
+        # Dodge in this context is just a name convention for when the 'Tracker' has reached the end of its spawn start
+        self.dodge = False
+
+    def update(self, dt):
+        if self.end_y > self.y:
+            self.y += self.speed * dt
+        else:
+            self.dodge = True
+
+    def draw(self, surf):
+        pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
 class Control_AI:
 
@@ -63,6 +89,11 @@ class Control_AI:
     def add_basic_enemy(self, radius, speed, start_x):
         temp_end = random.randint(100, 300)
         bad_guy = Basic_Enemy(radius, speed, start_x, temp_end)
+        self.AI_List.append(bad_guy)
+
+    def add_tracker(self, radius, start_x, lv):
+        temp_end = random.randint(50, 150)
+        bad_guy = Tracker_Enemy(radius, start_x, lv, temp_end)
         self.AI_List.append(bad_guy)
 
     def update(self, dt):
