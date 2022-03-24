@@ -160,6 +160,9 @@ while not finished:
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
 
+        if Basic_Enemy_Count == 0:
+            print("Level Completed")
+
 
 
 
