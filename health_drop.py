@@ -27,7 +27,8 @@ class Health:
         spawn_y = random.randint(170, 400)
         position = [spawn_x, spawn_y]
         can_get = False
-        self.health_drop_list.append([position, hit_point, heal_amount, radius, spawn_y, can_get])
+        color = (0,210,0)
+        self.health_drop_list.append([position, hit_point, heal_amount, radius, spawn_y, can_get, color])
 
     def update(self, dt):
         """
@@ -42,14 +43,13 @@ class Health:
             else:
                 h[5] = True
 
-    def draw(self, surf, color):
+    def draw(self, surf):
         """
         Draws health item onto given surf.
         :param surf: Given pygame surf.
-        :param color: Given (r, g, b) color code.
         :return: None, but draws circle.
         """
         for i in range(len(self.health_drop_list)):
-            pygame.draw.circle(surf, color, (self.health_drop_list[-i][0][0], self.health_drop_list[-i][0][1]),
+            pygame.draw.circle(surf, [-i][6], (self.health_drop_list[-i][0][0], self.health_drop_list[-i][0][1]),
                                self.health_drop_list[-i][3])
 

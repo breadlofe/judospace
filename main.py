@@ -86,7 +86,7 @@ while not finished:
             Player.life -= 10
 
     # Health Item Spawning (DAS):
-    health_item_spawn = random.randint(1, 600000)
+    health_item_spawn = random.randint(1, 100000)
     if title_click:
         if health_item_spawn == 1:
             H.spawn(15, 1, 15)
@@ -178,7 +178,7 @@ while not finished:
     E.draw(screen, ENEMY_BULLET_COLOR)
     if title_click == True and show_credits == False:
         Player.draw(screen)
-        H.draw(screen, (0, 210, 0))
+        H.draw(screen)
         life.draw(screen)
         title.display_level_one(screen)
     if title_click == False:
