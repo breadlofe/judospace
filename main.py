@@ -108,10 +108,10 @@ while not finished:
 
     #Handling Inputs
     event = pygame.event.poll()
-    all_keys = pygame.key.get_pressed()  # This is the key inputs
+    all_keys = pygame.key.get_pressed()  #This is the key inputs
     if event.type == pygame.quit:
         finished = True
-    all_keys = pygame.key.get_pressed()     #This is the key inputs
+    all_keys = pygame.key.get_pressed()  #This is the key inputs too
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
