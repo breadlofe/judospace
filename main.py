@@ -145,18 +145,18 @@ while not finished:
 
     if title_click == False:
         if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
-            show_credits = True
+            show_credits = True     #Credits button
             title_click = True
         if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
-            show_credits = False
+            show_credits = False    #Play button
             title_click = True
             Level = 1
             First = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
-            finished = True
+            finished = True     #Exit button
     elif show_credits == True:
         if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
-            show_credits = False
+            show_credits = False    #Back button (in the credits)
             title_click = False
 
     # Below is the LEVEL GOD, that controls the Levels
