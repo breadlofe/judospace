@@ -12,7 +12,7 @@ class Health:
         Sets start values for health drop that can be picked up by player to regain life.
         """
         self.health_drop_list = []
-        self.amp = 5
+        self.amp = 7
         self.cspeed = 0.1
 
     def spawn(self, radius, hit_point, heal_amount):
@@ -27,7 +27,7 @@ class Health:
         spawn_y = random.randint(170, 400)
         position = [spawn_x, spawn_y]
         can_get = False
-        color = (0,210,0)
+        color = (0, 210, 0)
         self.health_drop_list.append([position, hit_point, heal_amount, radius, spawn_y, can_get, color])
 
     def update(self, dt):
@@ -40,7 +40,7 @@ class Health:
             if h[0][0] >= 900:
                 self.health_drop_list.remove(h)
             elif h[1] != 0:
-                h[0][0] += 50 * dt
+                h[0][0] += 100 * dt
                 h[0][1] = self.amp * math.sin(h[0][0] * self.cspeed) + h[4]
             else:
                 h[5] = True

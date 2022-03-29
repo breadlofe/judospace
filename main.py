@@ -20,9 +20,11 @@ SCREEN_HEIGHT = 600
 PLAYER_SPEED = 300
 BULLET_LIFE = 3
 BULLET_COLOR = (200, 0, 0)
-ENEMY_BULLET_COLOR = (0,0,200)
+ENEMY_BULLET_COLOR = (0, 0, 200)
 PLAYER_LIFE = 100
 PLAYER_RADIUS = 15
+h_i_spawn_set = 10
+health_item_spawn_timer = h_i_spawn_set
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -89,10 +91,15 @@ while not finished:
             Player.life -= 10
 
     # Health Item Spawning (DAS):
-    health_item_spawn = random.randint(1, 600)
     if title_click:
-        if health_item_spawn == 1:
-            H.spawn(15, 1, 15)
+        health_item_spawn_timer -= delta_time
+        # print(health_item_spawn_timer)
+        if health_item_spawn_timer <= 0:
+            h_random = random.randint(1, 5) # Every {spawn_timer} seconds, it rolls a die to see if it spawns.
+            # print(f"RANDOM VAL = {h_random}")
+            if h_random == 1:
+                H.spawn(15, 1, 15)
+            health_item_spawn_timer = h_i_spawn_set
 
     # Health item collision with player bullet and player (DAS):
     for h in H.health_drop_list:
