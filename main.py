@@ -25,6 +25,7 @@ PLAYER_LIFE = 100
 PLAYER_RADIUS = 15
 h_i_spawn_set = 10
 health_item_spawn_timer = h_i_spawn_set
+shoot_timer = .25
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -76,12 +77,16 @@ while not finished:
                     Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
-    for e in AI.AI_List:
-        if e.Dog_Tag == "Basic":
-            bullet_shoot = random.randint(1, shoot_aggression)
-            if bullet_shoot == 1:
-                if e.dodge:
-                    E.spawn(e.x, e.y, e.life_value)
+    shoot_timer -= delta_time
+    if shoot_timer <= 0:
+        shoot_timer = .25
+        for e in AI.AI_List:
+            if e.Dog_Tag == "Basic":
+                e.aggression -= 1
+                if e.aggression <= 0:
+                    e.aggression = 3
+                    if e.dodge:
+                        E.spawn(e.x, e.y, e.life_value)
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
