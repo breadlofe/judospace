@@ -104,7 +104,10 @@ while not finished:
                 b[1] = 0
         if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
             h[0][0] = 901
-            Player.life += h[2]
+            if Player.life <= PLAYER_LIFE - h[2]: # Checks to see if healing will not make bar go over rect.
+                Player.life += h[2]
+            else: # If it will, then the bar will just go back to full.
+                Player.life = PLAYER_LIFE
 
     #Handling Inputs
     event = pygame.event.poll()
