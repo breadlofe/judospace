@@ -177,7 +177,7 @@ while not finished:
             Current_Basic_Enemy = 0
             spawn_rate = 5
             spawn_timer = 0
-            shoot_aggression = 500
+            shoot_aggression = 1000
             First = False
 
         spawn_timer -= delta_time
