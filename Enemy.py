@@ -56,6 +56,9 @@ class Basic_Enemy:
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
+    def gethurt(self):
+        pass
+
 class Tracker_Enemy:
 
     def __init__(self, radius, start_x, lv, end_y):
@@ -66,6 +69,7 @@ class Tracker_Enemy:
         self.life_value = lv
         self.end_y = end_y
         self.color = (255, 150, 0)
+        self.aggression = 5
 
         self.Dog_Tag = "Tracker"
 

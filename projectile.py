@@ -1,6 +1,7 @@
 # Dustin Simpkins
 import pygame
 
+
 pygame.init()
 
 class Projectile:
@@ -95,3 +96,31 @@ class Enemy_Projectile:
         """
         for i in range(len(self.bullet_list)):
             bullet = pygame.draw.circle(surf, color, (self.bullet_list[-i][0][0], self.bullet_list[-i][0][1]), 5)
+            
+class Tracker_Projectile:
+    
+    def __init__(self):
+        self.bullet_list = []
+        self.angle = 270
+        
+    def spawn(self, start_x, start_y, lifespan, hv, vv):
+        position = [start_x, start_y]
+        h_vel = hv
+        v_vel = vv
+        velocity = [h_vel, v_vel]
+        self.bullet_list.append([position, lifespan, velocity])
+        
+    def update(self, dt):
+
+
+        for b in self.bullet_list:
+            b[0][0] += b[2][0] * dt
+            b[0][1] += b[2][1] * dt
+            b[1] -= (1 * dt)
+            print(b[1])
+            if b[1] <= 0:
+                self.bullet_list.remove(b)
+
+    def draw(self, surf, color):
+        for i in self.bullet_list:
+            pygame.draw.circle(surf, color, (i[0][0], i[0][1]), 5)

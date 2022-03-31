@@ -5,6 +5,7 @@
 import pygame
 import random
 import time
+import vector
 from Enemy import Control_AI
 from background import Space
 from lifebar import Lifebar
@@ -47,6 +48,7 @@ AI = Control_AI()
 # The bigger the second number, the faster the stars
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
+T = pro.Tracker_Projectile()
 H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
@@ -66,6 +68,7 @@ while not finished:
     P.update(delta_time, screen, BULLET_COLOR)
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
+    T.update(delta_time)
     AI.update(delta_time)
     H.update(delta_time)
     if title_click == True and show_credits == False:
@@ -90,12 +93,25 @@ while not finished:
     if shoot_timer <= 0:
         shoot_timer = .25
         for e in AI.AI_List:
-            if e.Dog_Tag == "Basic":
-                e.aggression -= 1
-                if e.aggression <= 0:
-                    e.aggression = 3
+            e.aggression -= 1
+            if e.aggression <= 0:
+                if e.Dog_Tag == "Basic":
+                        e.aggression = 3
+                        if e.dodge:
+                            E.spawn(e.x, e.y, e.life_value)
+                if e.Dog_Tag == "Tracker":
+                    e.aggression = 5
                     if e.dodge:
-                        E.spawn(e.x, e.y, e.life_value)
+                        P_Vec = vector.Vector(Player.x, Player.y)
+                        T_Vec = vector.Vector(e.x, e.y)
+                        Q = P_Vec - T_Vec
+                        Value = Q / Q.norm(2)
+                        bullet_vel = Value * 500
+                        print(bullet_vel)
+                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
+
+
+
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
@@ -187,9 +203,9 @@ while not finished:
 
     if Level == 1:
         if First:
-            Basic_Enemy_Count = 10
+            Basic_Enemy_Count = 6
             Current_Basic_Enemy = 0
-            spawn_rate = 5
+            spawn_rate = 4
             spawn_timer = 0
             shoot_aggression = 1000
             First = False
@@ -203,18 +219,13 @@ while not finished:
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
 
-
-
-
-
-
-
     #Drawing
     screen.fill((0, 0, 0))
     S.draw(screen)
     AI.draw(screen)
     P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
+    T.draw(screen, ENEMY_BULLET_COLOR)
     if title_click == True and show_credits == False:
         Player.draw(screen)
         H.draw(screen)
