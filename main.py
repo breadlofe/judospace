@@ -202,9 +202,6 @@ while not finished:
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
 
-        if Basic_Enemy_Count == 0:
-            print("Level Completed")
-
 
 
 
@@ -229,11 +226,13 @@ while not finished:
     if Player.life <= 0:
         title.display_game_over(screen)
         pygame.display.flip()
-        print("Game Over!")
+        #print("Game Over!")
         time.sleep(3)
         finished = True
     if title_click == True and show_credits == False:
         score.display_score(screen)
+    if Basic_Enemy_Count == 0:
+        title.display_level_one_completed(screen)
 
     pygame.display.flip()
 
