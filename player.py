@@ -35,7 +35,6 @@ class Player:
         :param dt: represents delta_time
         """
 
-        print("h")
         if press_input[pygame.K_a] and (self.x - self.r) > 0:
             self.x -= self.player_speed * dt
 
@@ -47,7 +46,6 @@ class Player:
                 self.clicks = 1
             self.combo_state = True
             self.combo_direction = "d"
-            self.time_passed += dt
 
 
         if press_input[pygame.K_w] and (self.y - self.r) > 0:
@@ -73,6 +71,16 @@ class Player:
         :param dt: delta_time.
         :return: None.
         """
-        if self.combo_state and self.combo_direction == "d":
-            #self.time_passed += dt
+        if self.combo_state and self.combo_direction == "d" and self.clicks == 1:
+            self.time_passed += dt
+            if self.clicks == 2 and self.time_passed <= 0.1:
+                print("dash")
+                self.combo_state = False
+                self.time_passed = 0
+                self.clicks = 0
+
+            elif self.time_passed > 0.1:
+                self.clicks = 0
+                self.combo_state = False
+                self.time_passed = 0
             print(self.time_passed)
