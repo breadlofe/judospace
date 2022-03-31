@@ -8,6 +8,7 @@ class Title_Screen:
         self.title_x = screen_width / 2
         self.title_y = screen_height / 3
         self.font = pygame.font.SysFont("Courier New", 20)  #If you want to, you can change the font.
+        self.font2 = pygame.font.SysFont("Courier New", 40)  # If you want to, you can change the font.
         self.button_radius = 32
 
         #Play button
@@ -37,6 +38,12 @@ class Title_Screen:
         self.play = self.font.render(str(self.play_play), False, (250, 250, 0))
         self.credits_credits = "Credits"
         self.the_credits_button_text = self.font.render(str(self.credits_credits), False, (250, 250, 0))
+        self.level1 = "Level One Complete!"
+        self.level1_complete = self.font.render(str(self.level1), False, (249, 251, 0))
+        self.level2 = "Level Two Complete!"
+        self.level2_complete = self.font.render(str(self.level2), False, (249, 251, 0))
+        self.level3 = "Level Three Complete!"
+        self.level3_complete = self.font.render(str(self.level3), False, (249, 251, 0))
 
         #Game Over!
         self.over_over = "Game Over!"
@@ -50,6 +57,30 @@ class Title_Screen:
         self.level_x = screen_width / 2
         #self.level_y = screen_height / 2
 
+        #Level Two
+        self.two_text = "Level Two"
+        self.level_two_display = self.font.render(str(self.two_text), False, (250, 250, 0))
+        self.level_x = screen_width / 2
+        #self.level_y = screen_height / 2
+
+        #Level Three
+        self.three_text = "Level Three"
+        self.level_three_display = self.font.render(str(self.three_text), False, (250, 250, 0))
+        self.level_x = screen_width / 2
+        #self.level_y = screen_height / 2
+
+        #Boss Warning!
+        self.battle_text = "Boss Battle!"
+        self.boss_warning = self.font2.render(str(self.battle_text), False, (255, 25, 12))
+        self.level_x = screen_width / 2
+        self.level_y = screen_height / 2
+
+        #Boss Defeated!
+        self.boss_d = "Boss Defeated!"
+        self.boss_defeated = self.font2.render(str(self.boss_d), False, (120, 25, 255))
+        self.level_x = screen_width / 2
+        self.level_y = screen_height / 2
+
         #Button rectangles
         self.circle_rect_c = pygame.Rect(self.creditsbutton_x - (self.button_radius + self.button_radius / 2),
                                     self.creditsbutton_y - self.button_radius,
@@ -61,7 +92,7 @@ class Title_Screen:
                                     self.playbutton_y - self.button_radius,
                                     self.button_radius * 2, self.button_radius * 2)     #Play
         self.credits_back_rect = pygame.Rect(25 / 2 - 3.5, 575 - self.button_radius / 2,
-                                    self.button_radius, self.button_radius)    #Back
+                                    self.button_radius, self.button_radius)             #Back
 
     def draw(self, screen):
         screen.blit(self.title_title, (self.title_x - (self.title_title.get_width() / 2),
@@ -88,6 +119,14 @@ class Title_Screen:
         screen.blit(self.level_one_display,
                     (self.level_x - (self.level_one_display.get_width() / 2), 5))
 
+    def display_level_two(self, screen):
+        screen.blit(self.level_two_display,
+                    (self.level_x - (self.level_two_display.get_width() / 2), 5))
+
+    def display_level_three(self, screen):
+        screen.blit(self.level_three_display,
+                    (self.level_x - (self.level_three_display.get_width() / 2), 5))
+
     def display_credits(self, screen):
         screen.blit(self.credits, (self.credits_x - (self.credits.get_width() / 2),
                                        self.credits_y - (self.credits.get_height() / 2)))
@@ -96,5 +135,25 @@ class Title_Screen:
         screen.blit(self.back, (50, 575 - self.back.get_height() / 2))
 
     def display_game_over(self, screen):
-        screen.blit(self.game_over, (self.over_x - (self.game_over.get_width() / 2)
-                                     , self.over_y - (self.game_over.get_height() / 2)))
+        screen.blit(self.game_over, (self.over_x - (self.game_over.get_width() / 2),
+                                     self.over_y - (self.game_over.get_height() / 2)))
+
+    def display_level_one_completed(self, screen):
+        screen.blit(self.level1_complete, (self.over_x - (self.level1_complete.get_width() / 2),
+                                           self.over_y - (self.level1_complete.get_height() / 2)))
+
+    def display_level_two_completed(self, screen):
+        screen.blit(self.level2_complete, (self.over_x - (self.level2_complete.get_width() / 2),
+                                           self.over_y - (self.level2_complete.get_height() / 2)))
+
+    def display_level_three_completed(self, screen):
+        screen.blit(self.level3_complete, (self.over_x - (self.level3_complete.get_width() / 2),
+                                           self.over_y - (self.level3_complete.get_height() / 2)))
+
+    def display_thebosswarning(self, screen):
+        screen.blit(self.boss_warning, (self.over_x - (self.boss_warning.get_width() / 2),
+                                           self.over_y - (self.boss_warning.get_height() / 2)))
+
+    def display_bossdefeated(self, screen):
+        screen.blit(self.boss_defeated, (self.level_x - (self.boss_defeated.get_width() / 2),
+                                           self.level_y - (self.boss_defeated.get_height() / 2)))

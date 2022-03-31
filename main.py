@@ -13,7 +13,7 @@ import collision as col
 import title_screen
 from player import Player
 import health_drop as h_drop
-
+import Score
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -48,6 +48,7 @@ AI = Control_AI()
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
 H = h_drop.Health()
+score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
 spawn_timer = 0
 
@@ -202,9 +203,6 @@ while not finished:
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
 
-        if Basic_Enemy_Count == 0:
-            print("Level Completed")
-
 
 
 
@@ -229,9 +227,13 @@ while not finished:
     if Player.life <= 0:
         title.display_game_over(screen)
         pygame.display.flip()
-        print("Game Over!")
+        #print("Game Over!")
         time.sleep(3)
         finished = True
+    if title_click == True and show_credits == False:
+        score.display_score(screen)
+    if Basic_Enemy_Count == 0:
+        title.display_level_one_completed(screen)
 
     pygame.display.flip()
 
