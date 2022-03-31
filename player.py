@@ -34,19 +34,22 @@ class Player:
         :param click_input: Takes an event.poll in order to handle different events
         :param dt: represents delta_time
         """
-
         if press_input[pygame.K_a] and (self.x - self.r) > 0:
             self.x -= self.player_speed * dt
 
         if press_input[pygame.K_d] and (self.x + self.r) < 800:
             self.x += self.player_speed * dt
-            if self.combo_state:
-                self.clicks = 2
-            else:
-                self.clicks = 1
-            self.combo_state = True
-            self.combo_direction = "d"
 
+        if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
+            if click_input.key == pygame.K_d:
+                if self.combo_state:
+                    self.clicks = 2
+                    self.time_passed = 0
+                else:
+                    self.clicks = 1
+                print("clicked")
+                self.combo_state = True
+                self.combo_direction = "d"
 
         if press_input[pygame.K_w] and (self.y - self.r) > 0:
             self.y -= self.player_speed * dt
@@ -84,3 +87,4 @@ class Player:
                 self.combo_state = False
                 self.time_passed = 0
             print(self.time_passed)
+            print(self.clicks)

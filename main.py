@@ -72,7 +72,7 @@ while not finished:
     AI.update(delta_time)
     H.update(delta_time)
     if title_click == True and show_credits == False:
-        Player.update(delta_time)
+        # Player.update(delta_time)
         life.update(Player.life)
 
     # Collision between player bullet and enemy (DAS):
@@ -87,6 +87,9 @@ while not finished:
                 if e.life_value <= 0 and e.Dog_Tag == "Basic":
                     Current_Basic_Enemy -= 1
                     Basic_Enemy_Count -= 1
+                    score.add_to_score(10)
+                if e.life_value <= 0 and e.Dog_Tag == "Tracker":
+                    score.add_to_score(30)
 
     # Enemies shooting (DAS):
     shoot_timer -= delta_time
@@ -231,6 +234,8 @@ while not finished:
         H.draw(screen)
         life.draw(screen)
         title.display_level_one(screen)
+        if Basic_Enemy_Count == 0:
+            title.display_level_one_completed(screen)
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
@@ -243,8 +248,6 @@ while not finished:
         finished = True
     if title_click == True and show_credits == False:
         score.display_score(screen)
-    if Basic_Enemy_Count == 0:
-        title.display_level_one_completed(screen)
 
     pygame.display.flip()
 
