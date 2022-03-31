@@ -69,7 +69,7 @@ while not finished:
     AI.update(delta_time)
     H.update(delta_time)
     if title_click == True and show_credits == False:
-        Player.update(delta_time)
+        # Player.update(delta_time)
         life.update(Player.life)
 
     # Collision between player bullet and enemy (DAS):
