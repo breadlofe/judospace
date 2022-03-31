@@ -22,6 +22,10 @@ class Player:
         self.r = r
         self.life = life
         self.rgb = [255, 200, 0]    # Player color is now mutable so that 'animations' can play.
+        self.combo_state = False
+        self.combo_direction = ""
+        self.time_passed = 0
+        self.clicks = 0
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -31,12 +35,24 @@ class Player:
         :param dt: represents delta_time
         """
 
+        print("h")
         if press_input[pygame.K_a] and (self.x - self.r) > 0:
             self.x -= self.player_speed * dt
+
         if press_input[pygame.K_d] and (self.x + self.r) < 800:
             self.x += self.player_speed * dt
+            if self.combo_state:
+                self.clicks = 2
+            else:
+                self.clicks = 1
+            self.combo_state = True
+            self.combo_direction = "d"
+            self.time_passed += dt
+
+
         if press_input[pygame.K_w] and (self.y - self.r) > 0:
             self.y -= self.player_speed * dt
+
         if press_input[pygame.K_s] and (self.y + self.r) < 600:
             self.y += self.player_speed * dt
 
@@ -44,4 +60,19 @@ class Player:
             pass
 
     def draw(self, surf):
+        """
+        Draws player on surface as circle.
+        :param surf: surface.
+        :return: None.
+        """
         pygame.draw.circle(surf, self.rgb, (self.x, self.y), self.r)
+
+    def update(self, dt):
+        """
+        Updates player information primarily to see if player double-clicks.
+        :param dt: delta_time.
+        :return: None.
+        """
+        if self.combo_state and self.combo_direction == "d":
+            #self.time_passed += dt
+            print(self.time_passed)
