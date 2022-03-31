@@ -11,7 +11,7 @@ class Basic_Enemy:
         self.end_y = end_y
         self.color = (0, 0, 255)
         self.life_value = 1
-
+        self.aggression = 3
         self.dodge = False
         self.dodge_x = start_x + self.radius
         self.dodge_y = end_y
@@ -99,7 +99,7 @@ class Control_AI:
     def update(self, dt):
         for i in self.AI_List:
             i.update(dt)
-            if i.life_value == 0:
+            if i.life_value <= 0:
                 self.AI_List.remove(i)
 
     def draw(self, surf):

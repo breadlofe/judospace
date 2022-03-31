@@ -26,6 +26,12 @@ PLAYER_RADIUS = 15
 h_i_spawn_set = 10
 health_item_spawn_timer = h_i_spawn_set
 
+shoot_timer = .25
+First = True
+Current_Basic_Enemy = 0
+Basic_Enemy_Count = 0
+spawn_rate = 0
+
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
 finished = False
@@ -42,6 +48,8 @@ AI = Control_AI()
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
 H = h_drop.Health()
+
+spawn_timer = 0
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -76,12 +84,16 @@ while not finished:
                     Basic_Enemy_Count -= 1
 
     # Enemies shooting (DAS):
-    for e in AI.AI_List:
-        if e.Dog_Tag == "Basic":
-            bullet_shoot = random.randint(1, shoot_aggression)
-            if bullet_shoot == 1:
-                if e.dodge:
-                    E.spawn(e.x, e.y, e.life_value)
+    shoot_timer -= delta_time
+    if shoot_timer <= 0:
+        shoot_timer = .25
+        for e in AI.AI_List:
+            if e.Dog_Tag == "Basic":
+                e.aggression -= 1
+                if e.aggression <= 0:
+                    e.aggression = 3
+                    if e.dodge:
+                        E.spawn(e.x, e.y, e.life_value)
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
