@@ -85,6 +85,8 @@ while not finished:
                     Current_Basic_Enemy -= 1
                     Basic_Enemy_Count -= 1
                     score.add_to_score(10)
+                if e.life_value <= 0 and e.Dog_Tag == "Tracker":
+                    score.add_to_score(30)
 
     # Enemies shooting (DAS):
     shoot_timer -= delta_time
