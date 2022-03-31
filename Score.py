@@ -19,5 +19,11 @@ class Score:
         self.added_score = additive
         self.score += self.added_score
 
+        # Text
+        self.score_score = "Score: " + str(self.score)
+        self.score_text = self.font.render(str(self.score_score), False, (255, 255, 0))
+        self.score_w = 15
+        self.score_h = self.score_text.get_height() / 2
+
     def display_score(self, screen):
         screen.blit(self.score_text, (self.score_w, self.score_h))
