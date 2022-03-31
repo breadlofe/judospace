@@ -21,6 +21,7 @@ class Player:
         self.y = y
         self.r = r
         self.life = life
+        self.rgb = [255, 200, 0]    # Player color is now mutable so that 'animations' can play.
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -43,4 +44,4 @@ class Player:
             pass
 
     def draw(self, surf):
-        pygame.draw.circle(surf, (255, 200, 0), (self.x, self.y), self.r)
+        pygame.draw.circle(surf, self.rgb, (self.x, self.y), self.r)
