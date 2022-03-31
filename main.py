@@ -13,7 +13,7 @@ import collision as col
 import title_screen
 from player import Player
 import health_drop as h_drop
-
+import Score
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -48,6 +48,7 @@ AI = Control_AI()
 P = pro.Projectile()
 E = pro.Enemy_Projectile()
 H = h_drop.Health()
+score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
 spawn_timer = 0
 
@@ -231,6 +232,8 @@ while not finished:
         print("Game Over!")
         time.sleep(3)
         finished = True
+    if title_click == True and show_credits == False:
+        score.display_score(screen)
 
     pygame.display.flip()
 
