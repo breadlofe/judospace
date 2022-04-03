@@ -1,6 +1,8 @@
 import pygame
 #Brought to you by Zachary Hine.
 #TO DO: ALL comments in here are by ZDH
+#TO DO: Check with jason if Shelve is ok to use from Jason.
+#https://stackoverflow.com/questions/16726354/saving-the-highscore-for-a-game
 
 class Score:
     def __init__(self, screen_width, screen_height, score):
@@ -33,6 +35,7 @@ class Score:
             self.perma_score = new_score
             self.high = "High Score: " + str(self.perma_score)
             self.high_score = self.font.render(str(self.perma_score), False, (255, 255, 0))
+            #pygame.image.save(self.perma_score)
 
     def display_score(self, screen):
         screen.blit(self.score_text, (self.score_w, self.score_h))
