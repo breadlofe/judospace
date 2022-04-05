@@ -22,10 +22,9 @@ class Player:
         self.r = r
         self.life = life
         self.rgb = [255, 200, 0]    # Player color is now mutable so that 'animations' can play.
-        self.combo_state = False
         self.combo_direction = ""
         self.time_passed = 0
-        self.clicks = 0
+        self.dash_speed = 55
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -40,25 +39,27 @@ class Player:
         if press_input[pygame.K_d] and (self.x + self.r) < 800:
             self.x += self.player_speed * dt
 
-        if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
-            if click_input.key == pygame.K_d:
-                if self.combo_state:
-                    self.clicks = 2
-                    self.time_passed = 0
-                else:
-                    self.clicks = 1
-                print("clicked")
-                self.combo_state = True
-                self.combo_direction = "d"
-
         if press_input[pygame.K_w] and (self.y - self.r) > 0:
             self.y -= self.player_speed * dt
 
         if press_input[pygame.K_s] and (self.y + self.r) < 600:
             self.y += self.player_speed * dt
 
-        if click_input == pygame.KEYDOWN:
-            pass
+        if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
+            if click_input.key == pygame.K_d:
+                self.combo_direction = "d"
+                if self.time_passed == 0:
+                    self.time_passed = 0.001
+                elif self.time_passed < 0.5 and self.combo_direction == "d":
+                    print("double click right")
+                    self.time_passed = 0
+            elif click_input.key == pygame.K_a:
+                self.combo_direction = "a"
+                if self.time_passed == 0:
+                    self.time_passed = 0.001
+                elif self.time_passed < 0.5 and self.combo_direction == "a":
+                    print("double click left")
+                    self.time_passed = 0
 
     def draw(self, surf):
         """
@@ -74,17 +75,8 @@ class Player:
         :param dt: delta_time.
         :return: None.
         """
-        if self.combo_state and self.combo_direction == "d" and self.clicks == 1:
+        if self.time_passed > 0:
             self.time_passed += dt
-            if self.clicks == 2 and self.time_passed <= 0.1:
-                print("dash")
-                self.combo_state = False
+            if self.time_passed >= 0.5:
                 self.time_passed = 0
-                self.clicks = 0
-
-            elif self.time_passed > 0.1:
-                self.clicks = 0
-                self.combo_state = False
-                self.time_passed = 0
-            print(self.time_passed)
-            print(self.clicks)
+                print("too late")
