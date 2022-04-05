@@ -121,7 +121,7 @@ while not finished:
         point_3 = (u[0][0], u[0][1])
         if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
             u[1] = 0
-            Player.life -= 10
+            Player.life -= 10 * Player.chip
 
     # Health Item Spawning (DAS):
     if title_click:
@@ -163,7 +163,7 @@ while not finished:
 
     if title_click == True and show_credits == False:
         #Dustin can insert what's needed for imputing the projectile commands
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking:    # Player can't shoot while blocking.
             P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy

@@ -23,11 +23,20 @@ class Player:
         self.r = r
         self.life = life
         self.rgb = [255, 200, 0]    # Player color is now mutable so that 'animations' can play.
+
+        # Dash Variables
         self.combo_direction = ""
         self.time_passed = 0
         self.dash_speed = 55
         self.dash_time = 1  # second
         self.storage = []
+
+        # Block/Parry Variables
+        self.blocking = False
+        self.parry = False
+        self.chip = 1
+        self.parry_time = 0
+        self.max_ptime = 0.5
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -47,6 +56,13 @@ class Player:
 
         if press_input[pygame.K_s] and (self.y + self.r) < 600:
             self.y += self.player_speed * dt
+            self.blocking = True
+            #print("is_blocking")
+            self.block()
+
+        if not press_input[pygame.K_s]:
+            self.blocking = False
+            self.block()
 
         if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
             if click_input.key == pygame.K_d:
@@ -59,7 +75,7 @@ class Player:
                     self.time_passed = 0.001
                 elif self.time_passed < 0.5 and self.combo_direction == "d":
                     # print("double click right")
-                    self.dash(dt)
+                    self.dash()
                     self.time_passed = 0
 
             elif click_input.key == pygame.K_a:
@@ -71,8 +87,12 @@ class Player:
                     self.time_passed = 0.001
                 elif self.time_passed < 0.5 and self.combo_direction == "a":
                     # print("double click left")
-                    self.dash(dt)
+                    self.dash()
                     self.time_passed = 0
+
+            elif click_input.key == pygame.K_s:
+                if self.parry_time == 0:
+                    self.parry_time = 0.00001
 
     def draw(self, surf):
         """
@@ -99,7 +119,18 @@ class Player:
             # print("reset")
             self.player_speed = self.storage[0]
 
-    def dash(self, dt):
+        if self.parry_time > 0:
+            self.parry_time += dt
+            # print(self.parry_time)
+            self.parry = True
+            self.block(self.parry)
+            if self.parry_time >= self.max_ptime:
+                # print("parry over")
+                self.parry_time = 0
+                self.parry = False
+                self.block(self.parry)
+
+    def dash(self):
         """
         Moves player based on velocity. Increases player_speed to play nicely with walls.
         :return: None.
@@ -115,3 +146,23 @@ class Player:
                 self.player_speed += velocity
             elif self.combo_direction == "a":
                 self.player_speed += velocity
+
+    def block(self, parry=False):
+        """
+        Handles blocking boolean
+        :return: None.
+        """
+        if self.blocking:
+            self.chip = 0.25
+            self.rgb = [100, 200, 0]
+            # print("block")
+        elif not self.blocking:
+            # print("not block")
+            self.rgb = [255, 200, 0]
+            self.chip = 1
+        if parry:
+            # print("parry")
+            self.chip = 0
+        elif not parry:
+            #print("not parry")
+            self.chip = 1
