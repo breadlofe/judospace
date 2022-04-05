@@ -17,6 +17,7 @@ class Player:
         """
 
         self.player_speed = speed
+        self.speed_reset = speed
         self.x = x
         self.y = y
         self.r = r
@@ -25,6 +26,7 @@ class Player:
         self.combo_direction = ""
         self.time_passed = 0
         self.dash_speed = 55
+        self.dash_time = 1  # second
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -55,6 +57,15 @@ class Player:
                     self.time_passed = 0.001
                 elif self.time_passed < 0.5 and self.combo_direction == "d":
                     print("double click right")
+
+                    # if self.dash_time > 0:
+                    #     self.player_speed += 8
+                    #     self.dash_time -= dt
+                    #     print(f"{self.dash_time}")
+                    # elif self.dash_time <= 0:
+                    #     print("over")
+                    #     self.player_speed = self.speed_reset
+
                     self.time_passed = 0
             elif click_input.key == pygame.K_a:
                 if self.combo_direction == "d":
@@ -86,3 +97,21 @@ class Player:
             if self.time_passed >= 0.5:
                 self.time_passed = 0
                 print("too late")
+
+    def dash(self, dt):
+        """
+        Moves player based on velocity
+        :return: None.
+        """
+        temp_list = []
+        temp_list.append(self.player_speed)
+        storage = temp_list[:]
+        velocity = 1000
+        self.dash_time -= dt
+        if self.dash_time > 0:
+            if self.combo_direction == "d":
+                self.player_speed += velocity
+            elif self.combo_direction == "a":
+                self.player_speed -= velocity
+        elif self.dash_time <= 0:
+            self.player_speed = storage[0]
