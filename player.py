@@ -27,6 +27,7 @@ class Player:
         self.time_passed = 0
         self.dash_speed = 55
         self.dash_time = 1  # second
+        self.storage = []
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -49,33 +50,28 @@ class Player:
 
         if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
             if click_input.key == pygame.K_d:
+
                 if self.combo_direction == "a":
-                    print("changed direction")
+                    # print("changed direction")
                     self.time_passed = 0
                 self.combo_direction = "d"
                 if self.time_passed == 0:
                     self.time_passed = 0.001
                 elif self.time_passed < 0.5 and self.combo_direction == "d":
-                    print("double click right")
-
-                    # if self.dash_time > 0:
-                    #     self.player_speed += 8
-                    #     self.dash_time -= dt
-                    #     print(f"{self.dash_time}")
-                    # elif self.dash_time <= 0:
-                    #     print("over")
-                    #     self.player_speed = self.speed_reset
-
+                    # print("double click right")
+                    self.dash(dt)
                     self.time_passed = 0
+
             elif click_input.key == pygame.K_a:
-                if self.combo_direction == "d":
-                    print("changed direction")
+                if self.combo_direction == "d":     # Checks to see if other direction was already pressed.
+                    # print("changed direction")
                     self.time_passed = 0
                 self.combo_direction = "a"
                 if self.time_passed == 0:
                     self.time_passed = 0.001
                 elif self.time_passed < 0.5 and self.combo_direction == "a":
-                    print("double click left")
+                    # print("double click left")
+                    self.dash(dt)
                     self.time_passed = 0
 
     def draw(self, surf):
@@ -96,22 +92,26 @@ class Player:
             self.time_passed += dt
             if self.time_passed >= 0.5:
                 self.time_passed = 0
-                print("too late")
+                # print("too late")
+        if self.dash_time < 1 and self.dash_time > 0:
+            self.dash_time -= dt
+        elif self.dash_time <= 0:
+            # print("reset")
+            self.player_speed = self.storage[0]
 
     def dash(self, dt):
         """
-        Moves player based on velocity
+        Moves player based on velocity. Increases player_speed to play nicely with walls.
         :return: None.
         """
         temp_list = []
         temp_list.append(self.player_speed)
-        storage = temp_list[:]
-        velocity = 1000
-        self.dash_time -= dt
+        self.storage = temp_list[:]
+        velocity = 900
+        self.dash_time = 0.2
+        # print(self.combo_direction)
         if self.dash_time > 0:
             if self.combo_direction == "d":
                 self.player_speed += velocity
             elif self.combo_direction == "a":
-                self.player_speed -= velocity
-        elif self.dash_time <= 0:
-            self.player_speed = storage[0]
+                self.player_speed += velocity
