@@ -121,7 +121,9 @@ while not finished:
         point_3 = (u[0][0], u[0][1])
         if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
             u[1] = 0
+            Player.got_hit = True
             Player.life -= 10 * Player.chip
+            # Player.got_hit = False
 
     # Health Item Spawning (DAS):
     if title_click:

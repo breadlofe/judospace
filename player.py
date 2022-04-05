@@ -1,5 +1,6 @@
 # Dustin Simpkins and Dylan G.
 import pygame
+import time
 pygame.init()
 
 class Player:
@@ -37,6 +38,7 @@ class Player:
         self.chip = 1
         self.parry_time = 0
         self.max_ptime = 0.5
+        self.got_hit = False
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -129,6 +131,13 @@ class Player:
                 self.parry_time = 0
                 self.parry = False
                 self.block(self.parry)
+        if self.got_hit:
+            print("ouch")
+            if self.parry:
+                print("PERFECT PARRY")
+                # time.sleep(0.5)
+            self.got_hit = False
+
 
     def dash(self):
         """
