@@ -47,6 +47,9 @@ class Player:
 
         if click_input.type == pygame.KEYDOWN and (self.x + self.r) < 800:
             if click_input.key == pygame.K_d:
+                if self.combo_direction == "a":
+                    print("changed direction")
+                    self.time_passed = 0
                 self.combo_direction = "d"
                 if self.time_passed == 0:
                     self.time_passed = 0.001
@@ -54,6 +57,9 @@ class Player:
                     print("double click right")
                     self.time_passed = 0
             elif click_input.key == pygame.K_a:
+                if self.combo_direction == "d":
+                    print("changed direction")
+                    self.time_passed = 0
                 self.combo_direction = "a"
                 if self.time_passed == 0:
                     self.time_passed = 0.001
