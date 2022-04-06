@@ -1,8 +1,6 @@
 import pygame
 #Brought to you by Zachary Hine.
 #TO DO: ALL comments in here are by ZDH
-#TO DO: Check with jason if Shelve is ok to use from Jason.
-#https://stackoverflow.com/questions/16726354/saving-the-highscore-for-a-game
 
 class Score:
     def __init__(self, screen_width, screen_height, score):

@@ -131,7 +131,7 @@ class Title_Screen:
         screen.blit(self.credits, (self.credits_x - (self.credits.get_width() / 2),
                                        self.credits_y - (self.credits.get_height() / 2)))
         pygame.draw.circle(screen, (100, 0, 255), (25, 575), self.button_radius / 2)
-        #pygame.draw.rect(screen, ((200, 200, 0)), self.credits_back_rect, 1)
+        #pygame.draw.rect(screen, ((200, 200, 0)), self.credits_back_rect, 1) #Starfish
         screen.blit(self.back, (50, 575 - self.back.get_height() / 2))
 
     def display_game_over(self, screen):
@@ -157,11 +157,3 @@ class Title_Screen:
     def display_bossdefeated(self, screen):
         screen.blit(self.boss_defeated, (self.level_x - (self.boss_defeated.get_width() / 2),
                                            self.level_y - (self.boss_defeated.get_height() / 2)))
-
-    # def update_timer(self, count, delta_time, screen):
-    #     timer = count
-    #     if timer != 0:
-    #         self.display_game_over(screen)
-    #         timer -= delta_time
-    #         if timer != 0:
-    #             return
