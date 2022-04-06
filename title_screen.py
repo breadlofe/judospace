@@ -157,3 +157,11 @@ class Title_Screen:
     def display_bossdefeated(self, screen):
         screen.blit(self.boss_defeated, (self.level_x - (self.boss_defeated.get_width() / 2),
                                            self.level_y - (self.boss_defeated.get_height() / 2)))
+
+    # def update_timer(self, count, delta_time, screen):
+    #     timer = count
+    #     if timer != 0:
+    #         self.display_game_over(screen)
+    #         timer -= delta_time
+    #         if timer != 0:
+    #             return

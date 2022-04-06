@@ -29,7 +29,7 @@ class Lifebar:
         # Figure out how to change color, at 100 we want (0, 255, 0) at 50 we want (255, 255, 0) and 0 we want (255, 0, 0)
         #temp = round(self.shown_value, 10)
         #self.rgb = Color(self.shown_value)
-
+        #We want lerp.
 
 
 
@@ -40,7 +40,7 @@ class Lifebar:
         :return: None.
         """
         # Inside Bar (DAS + DG)
-        size = (self.shown_value, self.height)
+        size = (max(self.shown_value, 0), self.height)
         inside_bar = pygame.Surface(size)
         inside_bar.set_alpha(100)
         pygame.draw.rect(inside_bar, (self.rgb), inside_bar.get_rect())

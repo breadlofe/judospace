@@ -53,6 +53,7 @@ H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
 spawn_timer = 0
+game_over_timer = 3
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -243,11 +244,12 @@ while not finished:
     if show_credits == True:
         title.display_credits(screen)
     if Player.life <= 0:
+        score.permanent_score(score.score)
         title.display_game_over(screen)
-        pygame.display.flip()
-        #print("Game Over!")
-        time.sleep(3)
-        finished = True
+        game_over_timer -= delta_time
+        if game_over_timer <= 0:
+            finished = True
+            #Need to make a boolean if the player is alive. ~ZDH.
     if title_click == True and show_credits == False:
         score.display_score(screen)
 
