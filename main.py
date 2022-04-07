@@ -54,6 +54,9 @@ score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
 spawn_timer = 0
 game_over_timer = 3
+level_complete_timer = 2.5
+lv_1_completed = False
+lv_2_completed = False
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -243,9 +246,21 @@ while not finished:
             Player.draw(screen)
         H.draw(screen)
         life.draw(screen)
-        title.display_level_one(screen)
-        if Basic_Enemy_Count == 0:
+        #Boolean needed for false and false:    ~ZDH
+        if lv_1_completed == False and lv_2_completed == False:
+            title.display_level_one(screen)
+        #Boolean needed for true and false:     ~ZDH
+        if lv_1_completed == True and lv_2_completed == False:
+            title.display_level_two(screen)
+        #Boolean needed for true and true:      ~ZDH
+        if lv_1_completed == True and lv_2_completed == True:
+            title.display_level_three(screen)
+        if Basic_Enemy_Count == 0 and level_complete_timer > 0:
             title.display_level_one_completed(screen)
+            level_complete_timer -= 0
+            if level_complete_timer <= 0:
+                lv_1_completed = True
+                level_complete_timer = 2.5
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
