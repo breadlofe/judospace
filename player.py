@@ -158,8 +158,10 @@ class Player:
         # print(self.combo_direction)
         if self.dash_time > 0:
             if self.combo_direction == "d":
+                # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
             elif self.combo_direction == "a":
+                # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
 
     def block(self, parry=False):
@@ -173,8 +175,8 @@ class Player:
             # print("block")
         elif not self.blocking:
             # print("not block")
-            self.rgb = [255, 200, 0]
             self.chip = 1
+            self.rgb = [255, 200, 0]
         if parry:
             # print("parry")
             self.chip = 0

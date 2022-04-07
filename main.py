@@ -67,8 +67,10 @@ while not finished:
     #Update
     # if not Player.parried:
     delta_time = clock.tick() / 1000
-    # if Player.parried:
-        # delta_time = clock.tick() * 0
+    if Player.parried:
+        delta_time = clock.tick() * 0
+        pygame.time.wait(50)  # Milliseconds just to show the player they parried.
+        Player.parried = False
     P.update(delta_time, screen, BULLET_COLOR)
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -123,7 +125,7 @@ while not finished:
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
         point_3 = (u[0][0], u[0][1])
-        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide():
+        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide() and Player.life > 0:
             u[1] = 0
             Player.got_hit = True
             Player.life -= 10 * Player.chip
