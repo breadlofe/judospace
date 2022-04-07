@@ -31,6 +31,7 @@ class Player:
         self.dash_speed = 55
         self.dash_time = 1  # second
         self.storage = []
+        self.is_dashing = False
 
         # Block/Parry Variables
         self.blocking = False
@@ -114,7 +115,7 @@ class Player:
         clock = pygame.time.Clock()
         if self.time_passed > 0:
             self.time_passed += dt
-            if self.time_passed >= 0.5:
+            if self.time_passed >= 0.25:  # Time between double clicks.
                 self.time_passed = 0
                 # print("too late")
         if self.dash_time < 1 and self.dash_time > 0:
@@ -122,6 +123,7 @@ class Player:
         elif self.dash_time <= 0:
             # print("reset")
             self.player_speed = self.storage[0]
+            self.is_dashing = False
 
         if self.parry_time > 0:
             self.parry_time += dt
@@ -143,6 +145,8 @@ class Player:
                 pass
                 # Play got_hit SFX
             self.got_hit = False
+        if self.is_dashing:
+            self.rgb = [180, 180, 255]
 
 
     def dash(self):
@@ -160,9 +164,11 @@ class Player:
             if self.combo_direction == "d":
                 # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
+                self.is_dashing = True
             elif self.combo_direction == "a":
                 # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
+                self.is_dashing = True
 
     def block(self, parry=False):
         """
@@ -176,7 +182,8 @@ class Player:
         elif not self.blocking:
             # print("not block")
             self.chip = 1
-            self.rgb = [255, 200, 0]
+            if not self.is_dashing:
+                self.rgb = [255, 200, 0]
         if parry:
             # print("parry")
             self.chip = 0

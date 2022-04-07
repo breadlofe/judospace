@@ -125,7 +125,8 @@ while not finished:
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
         point_3 = (u[0][0], u[0][1])
-        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide() and Player.life > 0:
+        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide() and Player.life > 0 and \
+                not Player.is_dashing:
             u[1] = 0
             Player.got_hit = True
             Player.life -= 10 * Player.chip
