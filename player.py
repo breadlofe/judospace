@@ -41,6 +41,7 @@ class Player:
         self.max_ptime = 0.5
         self.got_hit = False
         self.parried = False
+        self.parry_sound = pygame.mixer.Sound('sound//parry.ogg')
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -139,7 +140,7 @@ class Player:
             print("ouch")
             if self.parry:
                 print("PERFECT PARRY")
-                # Play parry SFX
+                pygame.mixer.Sound.play(self.parry_sound)
                 self.parried = True
             else:
                 pass
