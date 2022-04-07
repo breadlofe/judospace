@@ -43,6 +43,7 @@ class Player:
         self.parried = False
         self.parry_sound = pygame.mixer.Sound('sound//parry.ogg')
         self.block_sound = pygame.mixer.Sound('sound//block.ogg')
+        self.got_hit_sound = pygame.mixer.Sound('sound//got_hit.ogg')
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -60,11 +61,12 @@ class Player:
         if press_input[pygame.K_w] and (self.y - self.r) > 0:
             self.y -= self.player_speed * dt
 
-        if press_input[pygame.K_s] and (self.y + self.r) < 600:
-            self.y += self.player_speed * dt
+        if press_input[pygame.K_s]:
             self.blocking = True
-            #print("is_blocking")
+            # print("is_blocking")
             self.block()
+            if (self.y + self.r) < 600:  # Needed so that player can block on line.
+                self.y += self.player_speed * dt
 
         if not press_input[pygame.K_s]:
             self.blocking = False
@@ -138,16 +140,15 @@ class Player:
                 self.parry = False
                 self.block(self.parry)
         if self.got_hit:
-            print("ouch")
+            # print("ouch")
             if self.parry:
-                print("PERFECT PARRY")
+                # print("PERFECT PARRY")
                 pygame.mixer.Sound.play(self.parry_sound)
                 self.parried = True
             elif self.blocking:
                 pygame.mixer.Sound.play(self.block_sound)
             else:
-                pass
-                # Play got_hit SFX
+                pygame.mixer.Sound.play(self.got_hit_sound)
             self.got_hit = False
         if self.is_dashing:
             self.rgb = [180, 180, 255]
@@ -186,11 +187,11 @@ class Player:
         elif not self.blocking:
             # print("not block")
             self.chip = 1
-            if not self.is_dashing:
-                self.rgb = [255, 200, 0]
+            if not self.is_dashing and not self.got_hit:
+                self.rgb = [255, 200, 0]  # return back to yellow.
         if parry:
             # print("parry")
             self.chip = 0
         elif not parry:
-            #print("not parry")
+            # print("not parry")
             self.chip = 1
