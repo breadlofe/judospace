@@ -164,12 +164,12 @@ while not finished:
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
-    if title_click == True and show_credits == False:
+    if title_click == True and show_credits == False and Player.life > 0:
         Player.handle_input(all_keys, event, delta_time)
 
     if title_click == True and show_credits == False:
         #Dustin can insert what's needed for imputing the projectile commands
-        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking:    # Player can't shoot while blocking.
+        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking and Player.life > 0:    # Player can't shoot while blocking.
             P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
@@ -236,7 +236,8 @@ while not finished:
     E.draw(screen, ENEMY_BULLET_COLOR)
     T.draw(screen, ENEMY_BULLET_COLOR)
     if title_click == True and show_credits == False:
-        Player.draw(screen)
+        if Player.life > 0:
+            Player.draw(screen)
         H.draw(screen)
         life.draw(screen)
         title.display_level_one(screen)
