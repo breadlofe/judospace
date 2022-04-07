@@ -65,7 +65,10 @@ show_credits = False
 
 while not finished:
     #Update
+    # if not Player.parried:
     delta_time = clock.tick() / 1000
+    # if Player.parried:
+        # delta_time = clock.tick() * 0
     P.update(delta_time, screen, BULLET_COLOR)
     E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)

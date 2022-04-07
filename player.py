@@ -39,6 +39,7 @@ class Player:
         self.parry_time = 0
         self.max_ptime = 0.5
         self.got_hit = False
+        self.parried = False
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -110,6 +111,7 @@ class Player:
         :param dt: delta_time.
         :return: None.
         """
+        clock = pygame.time.Clock()
         if self.time_passed > 0:
             self.time_passed += dt
             if self.time_passed >= 0.5:
@@ -135,9 +137,11 @@ class Player:
             print("ouch")
             if self.parry:
                 print("PERFECT PARRY")
-                self.rgb = [0, 0, 0]
-                # time.sleep(0.5)
-                self.rgb = [255, 200, 0]
+                # Play parry SFX
+                self.parried = True
+            else:
+                pass
+                # Play got_hit SFX
             self.got_hit = False
 
 
