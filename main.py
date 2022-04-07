@@ -54,7 +54,8 @@ score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
 
 spawn_timer = 0
 game_over_timer = 3
-level_complete_timer = 2.5
+level_complete_timer = 2
+level_complete_general = False
 lv_1_completed = False
 lv_2_completed = False
 
@@ -249,18 +250,26 @@ while not finished:
         #Boolean needed for false and false:    ~ZDH
         if lv_1_completed == False and lv_2_completed == False:
             title.display_level_one(screen)
+            if Basic_Enemy_Count == 0:
+                title.display_level_one_completed(screen)
+                level_complete_timer -= 0
+                print(2)
+                if level_complete_timer <= 0:
+                    print(3)
+                    level_complete_timer = 2
+                    lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
         #Boolean needed for true and true:      ~ZDH
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
-        if Basic_Enemy_Count == 0 and level_complete_timer > 0:
-            title.display_level_one_completed(screen)
-            level_complete_timer -= 0
-            if level_complete_timer <= 0:
-                lv_1_completed = True
-                level_complete_timer = 2.5
+        # if Basic_Enemy_Count == 0:
+        #     title.display_level_one_completed(screen)
+        #     level_complete_timer -= 0
+        #     if level_complete_timer <= 0:
+        #         lv_1_completed = True
+        #         level_complete_timer = 2.5
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
@@ -271,7 +280,6 @@ while not finished:
         game_over_timer -= delta_time
         if game_over_timer <= 0:
             finished = True
-            #Need to make a boolean if the player is alive. ~ZDH.
     if title_click == True and show_credits == False:
         score.display_score(screen)
 
