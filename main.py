@@ -39,6 +39,9 @@ finished = False
 
 clock = pygame.time.Clock()
 
+# Sound
+enemy_hit = pygame.mixer.Sound('sound//hit_enemy.ogg')
+
 Level = 0
 shoot_aggression = 1500
 player_x = SCREEN_WIDTH / 2
@@ -92,6 +95,7 @@ while not finished:
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
                 e.life_value -= 1
+                pygame.mixer.Sound.play(enemy_hit)
                 # Below is for Level God tracking purpose
                 if e.life_value <= 0 and e.Dog_Tag == "Basic":
                     Current_Basic_Enemy -= 1

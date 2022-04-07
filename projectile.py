@@ -11,9 +11,10 @@ class Projectile:
 
     def __init__(self):
         """
-        Creates bullet list.
+        Creates bullet list and sounds.
         """
         self.bullet_list = []
+        self.shoot_sound = pygame.mixer.Sound('sound//player_shoot.ogg')
 
     def spawn(self, start_x, start_y, lifespan):
         """
@@ -25,6 +26,7 @@ class Projectile:
         """
         position = [start_x, start_y]
         self.bullet_list.append([position, lifespan])
+        pygame.mixer.Sound.play(self.shoot_sound)
 
     def update(self, dt, surf, color):
         """
@@ -60,6 +62,7 @@ class Enemy_Projectile:
         Creates bullet list.
         """
         self.bullet_list = []
+        self.shoot_sound = pygame.mixer.Sound('sound//enemy_shoot.ogg')
 
     def spawn(self, start_x, start_y, lifespan):
         """
@@ -71,6 +74,7 @@ class Enemy_Projectile:
         """
         position = [start_x, start_y]
         self.bullet_list.append([position, lifespan])
+        pygame.mixer.Sound.play(self.shoot_sound)
 
     def update(self, dt, surf, color):
         """

@@ -32,6 +32,7 @@ class Player:
         self.dash_time = 1  # second
         self.storage = []
         self.is_dashing = False
+        self.dash_sound = pygame.mixer.Sound('sound//dash.ogg')
 
         # Block/Parry Variables
         self.blocking = False
@@ -151,6 +152,7 @@ class Player:
                 pygame.mixer.Sound.play(self.got_hit_sound)
             self.got_hit = False
         if self.is_dashing:
+            pygame.mixer.Sound.play(self.dash_sound)
             self.rgb = [180, 180, 255]
 
 
