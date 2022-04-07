@@ -42,6 +42,7 @@ class Player:
         self.got_hit = False
         self.parried = False
         self.parry_sound = pygame.mixer.Sound('sound//parry.ogg')
+        self.block_sound = pygame.mixer.Sound('sound//block.ogg')
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -142,6 +143,8 @@ class Player:
                 print("PERFECT PARRY")
                 pygame.mixer.Sound.play(self.parry_sound)
                 self.parried = True
+            elif self.blocking:
+                pygame.mixer.Sound.play(self.block_sound)
             else:
                 pass
                 # Play got_hit SFX
