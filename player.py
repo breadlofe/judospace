@@ -135,7 +135,9 @@ class Player:
             print("ouch")
             if self.parry:
                 print("PERFECT PARRY")
+                self.rgb = [0, 0, 0]
                 # time.sleep(0.5)
+                self.rgb = [255, 200, 0]
             self.got_hit = False
 
 
