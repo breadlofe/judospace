@@ -252,7 +252,7 @@ while not finished:
         H.draw(screen)
         life.draw(screen)
         #Boolean needed for false and false:    ~ZDH
-        if lv_1_completed == False and lv_2_completed == False:
+        if lv_1_completed == False and lv_2_completed == False: #From Here
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
@@ -261,7 +261,7 @@ while not finished:
                 if level_complete_timer <= 0:
                     print(3)
                     level_complete_timer = 2
-                    lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH
+                    lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH To Here
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
