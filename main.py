@@ -15,6 +15,7 @@ import title_screen
 from player import Player
 import health_drop as h_drop
 import Score
+import jukebox
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -40,7 +41,7 @@ finished = False
 clock = pygame.time.Clock()
 
 # Sound
-enemy_hit = pygame.mixer.Sound('sound//hit_enemy.ogg')
+J = jukebox.Jukebox()
 
 Level = 0
 shoot_aggression = 1500
@@ -96,7 +97,7 @@ while not finished:
             if col.Collision(point_1, point_2, 5, e.radius).collide():
                 b[1] = 0
                 e.life_value -= 1
-                pygame.mixer.Sound.play(enemy_hit)
+                J.sfx("e_hit")
                 # Below is for Level God tracking purpose
                 if e.life_value <= 0 and e.Dog_Tag == "Basic":
                     Current_Basic_Enemy -= 1
@@ -213,6 +214,7 @@ while not finished:
             Level = 1
             First = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
+            J.sfx("quit")
             finished = True     #Exit button
     elif show_credits == True:
         if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:

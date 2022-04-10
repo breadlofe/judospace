@@ -1,6 +1,7 @@
 # Dustin Simpkins and Dylan G.
 import pygame
 import time
+import jukebox
 pygame.init()
 
 class Player:
@@ -32,7 +33,6 @@ class Player:
         self.dash_time = 1  # second
         self.storage = []
         self.is_dashing = False
-        self.dash_sound = pygame.mixer.Sound('sound//dash.ogg')
 
         # Block/Parry Variables
         self.blocking = False
@@ -42,9 +42,7 @@ class Player:
         self.max_ptime = 0.5
         self.got_hit = False
         self.parried = False
-        self.parry_sound = pygame.mixer.Sound('sound//parry.ogg')
-        self.block_sound = pygame.mixer.Sound('sound//block.ogg')
-        self.got_hit_sound = pygame.mixer.Sound('sound//got_hit.ogg')
+        self.J = jukebox.Jukebox()
 
     def handle_input(self, press_input, click_input, dt):
         """
@@ -144,15 +142,15 @@ class Player:
             # print("ouch")
             if self.parry:
                 # print("PERFECT PARRY")
-                pygame.mixer.Sound.play(self.parry_sound)
+                self.J.sfx("parry")
                 self.parried = True
             elif self.blocking:
-                pygame.mixer.Sound.play(self.block_sound)
+                self.J.sfx("block")
             else:
-                pygame.mixer.Sound.play(self.got_hit_sound)
+                self.J.sfx("p_hit")
             self.got_hit = False
         if self.is_dashing:
-            pygame.mixer.Sound.play(self.dash_sound)
+            self.J.sfx("dash")
             self.rgb = [180, 180, 255]
 
 
