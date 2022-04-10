@@ -206,9 +206,11 @@ while not finished:
 
     if title_click == False:
         if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
+            J.sfx("menu")
             show_credits = True     #Credits button
             title_click = True
         if mouse_rect.colliderect(title.circle_rect_p) and event.type == pygame.MOUSEBUTTONDOWN:
+            J.sfx("menu")
             show_credits = False    #Play button
             title_click = True
             Level = 1
@@ -218,6 +220,7 @@ while not finished:
             finished = True     #Exit button
     elif show_credits == True:
         if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
+            J.sfx("menu")
             show_credits = False    #Back button (in the credits)
             title_click = False
 
