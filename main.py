@@ -62,6 +62,7 @@ level_complete_timer = 2
 level_complete_general = False
 lv_1_completed = False
 lv_2_completed = False
+lv_3_completed = False
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -105,6 +106,10 @@ while not finished:
                     score.add_to_score(10)
                 if e.life_value <= 0 and e.Dog_Tag == "Tracker":
                     score.add_to_score(30)
+                # if e.life_value <= 0 and e.Dog_Tag == "":
+                #     score.add_to_score(50)
+                # if e.life_value <= 0 and e.Dog_Tag == "":
+                #     score.add_to_score(80)
 
     # Enemies shooting (DAS):
     shoot_timer -= delta_time
@@ -262,23 +267,32 @@ while not finished:
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
                 level_complete_timer -= 0
-                print(2)
+                #print(2)
                 if level_complete_timer <= 0:
-                    print(3)
+                    #print(3)
                     level_complete_timer = 2
                     lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH To Here
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
+            if Basic_Enemy_Count == 0:
+                title.display_level_two_completed(screen)
+                level_complete_timer -= 0
+                #print(2)
+                if level_complete_timer <= 0:
+                    #print(3)
+                    level_complete_timer = 2
+                    lv_2_completed = True
         #Boolean needed for true and true:      ~ZDH
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
-        # if Basic_Enemy_Count == 0:
-        #     title.display_level_one_completed(screen)
-        #     level_complete_timer -= 0
-        #     if level_complete_timer <= 0:
-        #         lv_1_completed = True
-        #         level_complete_timer = 2.5
+            if Basic_Enemy_Count == 0:
+             title.display_level_three_completed(screen)
+             level_complete_timer -= 0
+             if level_complete_timer <= 0:
+                 lv_3_completed = True
+                 level_complete_timer = 2.5
+        #If we do get a boss, we'd need one for the boss too.
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
