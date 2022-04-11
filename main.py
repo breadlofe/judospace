@@ -30,6 +30,7 @@ health_item_spawn_timer = h_i_spawn_set
 
 shoot_timer = .25
 First = True
+Game = False
 Current_Basic_Enemy = 0
 Basic_Enemy_Count = 0
 spawn_rate = 0
@@ -130,7 +131,6 @@ while not finished:
                         Q = P_Vec - T_Vec
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
-                        print(bullet_vel)
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
 
 
@@ -220,6 +220,7 @@ while not finished:
             title_click = True
             Level = 1
             First = True
+            Game = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("quit")
             finished = True     #Exit button
@@ -230,15 +231,24 @@ while not finished:
             title_click = False
 
     # Below is the LEVEL GOD, that controls the Levels
+    if Game:
+        if Level == 1:
+            if First:
+                Basic_Enemy_Count = 4
+                Current_Basic_Enemy = 0
+                spawn_rate = 3
+                spawn_timer = 0
+                shoot_aggression = 1000
+                First = False
 
-    if Level == 1:
-        if First:
-            Basic_Enemy_Count = 6
-            Current_Basic_Enemy = 0
-            spawn_rate = 4
-            spawn_timer = 0
-            shoot_aggression = 1000
-            First = False
+        if Level == 2:
+            if First:
+                Basic_Enemy_Count = 6
+                Current_Basic_Enemy = 0
+                spawn_rate = 2
+                spawn_timer = 0
+                shoot_aggression = 1000
+                First = False
 
         spawn_timer -= delta_time
         if spawn_timer <= 0:
