@@ -75,6 +75,8 @@ title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
 
+J.music("menu")
+
 while not finished:
     #Update
     # if not Player.parried:
@@ -217,6 +219,7 @@ while not finished:
             J.sfx("menu")
             show_credits = False    #Play button
             title_click = True
+            J.music("level_one")
             Level = 1
             First = True
             Game = True
@@ -327,6 +330,7 @@ while not finished:
             #         level_complete_timer = 2
             #         lv_2_completed = True
         #Boolean needed for true and true:      ~ZDH
+
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
             if Basic_Enemy_Count == 0:
