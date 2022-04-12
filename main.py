@@ -334,6 +334,8 @@ while not finished:
              if level_complete_timer <= 0:
                  lv_3_completed = True
                  level_complete_timer = 2.5
+                    Level = 3
+                    First = True
         #If we do get a boss, we'd need one for the boss too.
     if title_click == False:
         title.draw(screen)
