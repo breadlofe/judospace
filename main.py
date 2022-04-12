@@ -73,6 +73,8 @@ title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
 
+J.music("menu")
+
 while not finished:
     #Update
     # if not Player.parried:
@@ -163,21 +165,23 @@ while not finished:
         for b in P.bullet_list:
             point_5 = (b[0][0], b[0][1])
             if col.Collision(point_4, point_5, 5, h[3]).collide():
+                J.sfx("h_hit")
                 h[1] = 0
                 b[1] = 0
         if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
+            J.sfx("h_get")
             h[0][0] = 901
             if Player.life <= PLAYER_LIFE - h[2]: # Checks to see if healing will not make bar go over rect.
                 Player.life += h[2]
-            else: # If it will, then the bar will just go back to full.
+            else:  # If it will, then the bar will just go back to full.
                 Player.life = PLAYER_LIFE
 
     #Handling Inputs
     event = pygame.event.poll()
-    all_keys = pygame.key.get_pressed()  #This is the key inputs
+    all_keys = pygame.key.get_pressed()  # This is the key inputs
     if event.type == pygame.quit:
         finished = True
-    all_keys = pygame.key.get_pressed()  #This is the key inputs too
+    all_keys = pygame.key.get_pressed()  # This is the key inputs too
     if all_keys[pygame.K_ESCAPE]:
         finished = True
 
@@ -186,7 +190,7 @@ while not finished:
 
     if title_click == True and show_credits == False:
         #Dustin can insert what's needed for imputing the projectile commands
-        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking and Player.life > 0:    # Player can't shoot while blocking.
+        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking and Player.life > 0:  # Player can't shoot while blocking.
             P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
@@ -219,6 +223,7 @@ while not finished:
             show_credits = False    #Play button
             title_click = True
             Level = 1
+            J.music("level_one")
             First = True
             Game = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
@@ -273,6 +278,7 @@ while not finished:
         life.draw(screen)
         #Boolean needed for false and false:    ~ZDH
         if lv_1_completed == False and lv_2_completed == False: #From Here
+            # J.music("")
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)

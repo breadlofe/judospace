@@ -19,32 +19,54 @@ class Jukebox:
         self.dash = pygame.mixer.Sound('sound//dash.ogg')
         self.player_shoot = pygame.mixer.Sound('sound//player_shoot.ogg')
         self.enemy_shoot = pygame.mixer.Sound('sound//enemy_shoot.ogg')
+        self.health_item_hit = pygame.mixer.Sound('sound//health_item_hit.ogg')
+        self.health_item_get = pygame.mixer.Sound('sound//health_item_get.ogg')
+        # self.level_theme_one = pygame.mixer.Sound('sound//awake10_megaWall.ogg')
 
-    def sfx(self, type):
+    def sfx(self, sfx):
         """
         Takes string input and returns command to play sound clip.
-        :param type: Str representing type of SFX.
+        :param sfx: Str representing type of SFX.
         :return: None.
         """
-        if isinstance(type, str):
-            if type == "parry":
+        if isinstance(sfx, str):
+            if sfx == "parry":
                 pygame.mixer.Sound.play(self.parry)
-            elif type == "block":
+            elif sfx == "block":
                 pygame.mixer.Sound.play(self.block)
-            elif type == "dash":
+            elif sfx == "dash":
                 pygame.mixer.Sound.play(self.dash)
-            elif type == "p_hit":
+            elif sfx == "p_hit":
                 pygame.mixer.Sound.play(self.got_hit)
-            elif type == "p_shoot":
+            elif sfx == "p_shoot":
                 pygame.mixer.Sound.play(self.player_shoot)
-            elif type == "e_hit":
+            elif sfx == "e_hit":
                 pygame.mixer.Sound.play(self.enemy_hit)
-            elif type == "e_shoot":
+            elif sfx == "e_shoot":
                 pygame.mixer.Sound.play(self.enemy_shoot)
-            elif type == "menu":
+            elif sfx == "menu":
                 pygame.mixer.Sound.play(self.menu_click)
-            elif type == "quit":
+            elif sfx == "quit":
                 pygame.mixer.Sound.play(self.quit)
                 pygame.time.wait(1500)
+            elif sfx == "h_hit":
+                pygame.mixer.Sound.play(self.health_item_hit)
+            elif sfx == "h_get":
+                pygame.mixer.Sound.play(self.health_item_get)
         else:
-            raise TypeError("type must be given in str form.")
+            raise TypeError("sfx must be given in str form.")
+
+    def music(self, song):
+        """
+        Takes in songs and loops them over a period. Must be terminated to end.
+        :param song: Str.
+        :return: None.
+        """
+        if isinstance(song, str):
+            if song == "level_one":
+                pygame.mixer.music.load('sound//awake10_megaWall.ogg')
+            if song == "menu":
+                pygame.mixer.music.load("sound//8bit_Bossa.ogg")
+            pygame.mixer.music.play(-1)
+        else:
+            raise TypeError("song must be given in str form.")
