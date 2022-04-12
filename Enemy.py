@@ -70,7 +70,7 @@ class Tracker_Enemy:
         self.end_y = end_y
         self.color = (255, 150, 0)
         self.aggression = 5
-
+        self.gattling_track = 0
         self.Dog_Tag = "Tracker"
 
         # Dodge in this context is just a name convention for when the 'Tracker' has reached the end of its spawn start

@@ -129,6 +129,12 @@ while not finished:
                             E.spawn(e.x, e.y, e.life_value)
                 if e.Dog_Tag == "Tracker":
                     e.aggression = 5
+                    if e.gattling_track <= 0:
+                        e.aggression = 1
+                        e.gattling_track -= 1
+                    else:
+                        e.gattling_track = 3
+                    gattling_track = True
                     if e.dodge:
                         P_Vec = vector.Vector(Player.x, Player.y)
                         T_Vec = vector.Vector(e.x, e.y)
@@ -262,9 +268,9 @@ while not finished:
         if Level == 4:
             if First:
                 Basic_Enemy_Count = 6
-                Tracker_Enemy_Count = 1
+                Tracker_Enemy_Count = 2
                 spawn_rate = 1
-                tracker_rate = 6
+                tracker_rate = 5
                 spawn_timer = 0
                 First = False
 
