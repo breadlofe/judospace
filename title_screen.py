@@ -44,6 +44,8 @@ class Title_Screen:
         self.level2_complete = self.font.render(str(self.level2), False, (249, 251, 0))
         self.level3 = "Level Three Complete!"
         self.level3_complete = self.font.render(str(self.level3), False, (249, 251, 0))
+        self.level4 = "Level Four Complete!"
+        self.level4_complete = self.font.render(str(self.level4), False, (249, 251, 0))
 
         #Game Over!
         self.over_over = "Game Over!"
@@ -69,6 +71,12 @@ class Title_Screen:
         self.level_x = screen_width / 2
         #self.level_y = screen_height / 2
 
+        #Level Four
+        self.four_text = "Level Four"
+        self.level_four_display = self.font.render(str(self.four_text), False, (250, 250, 0))
+        self.level_x = screen_width / 2
+        #self.level_y = screen_height / 2
+
         #Boss Warning!
         self.battle_text = "Boss Battle!"
         self.boss_warning = self.font2.render(str(self.battle_text), False, (255, 25, 12))
@@ -80,6 +88,21 @@ class Title_Screen:
         self.boss_defeated = self.font2.render(str(self.boss_d), False, (120, 25, 255))
         self.level_x = screen_width / 2
         self.level_y = screen_height / 2
+
+        #Los creditos
+        self.the_credits1 = "Judo Space"
+        self.credits_title = self.font.render(str(self.the_credits1), False, (250, 250, 0))
+        self.the_credits2 = "Credits:"
+        self.credits_title_credits = self.font.render(str(self.the_credits2), False, (250, 250, 0))
+        self.ds = "Original idea, player elements, player projectiles, " \
+                  "and sound effects/music are by Dustin S."
+        self.DS = self.font.render(str(self.ds), False, (250, 250, 0))
+        self.dg = "Background, level design, enemy AI, enemy projectiles, " \
+                  "collision, and health bar are by Dylan G."
+        self.DG = self.font.render(str(self.dg), False, (250, 250, 0))
+        self.zh = "All text, scores, some debugging, " \
+                  "and keybinding are by Zachary H."
+        self.ZH = self.font.render(str(self.zh), False, (250, 250, 0))
 
         #Button rectangles
         self.circle_rect_c = pygame.Rect(self.creditsbutton_x - (self.button_radius + self.button_radius / 2),
@@ -127,6 +150,10 @@ class Title_Screen:
         screen.blit(self.level_three_display,
                     (self.level_x - (self.level_three_display.get_width() / 2), 5))
 
+    def display_level_four(self, screen):
+        screen.blit(self.level_four_display,
+                    (self.level_x - (self.level_four_display.get_width() / 2), 5))
+
     def display_credits(self, screen):
         screen.blit(self.credits, (self.credits_x - (self.credits.get_width() / 2),
                                        self.credits_y - (self.credits.get_height() / 2)))
@@ -150,6 +177,10 @@ class Title_Screen:
         screen.blit(self.level3_complete, (self.over_x - (self.level3_complete.get_width() / 2),
                                            self.over_y - (self.level3_complete.get_height() / 2)))
 
+    def display_level_four_completed(self, screen):
+        screen.blit(self.level4_complete, (self.over_x - (self.level4_complete.get_width() / 2),
+                                           self.over_y - (self.level4_complete.get_height() / 2)))
+
     def display_thebosswarning(self, screen):
         screen.blit(self.boss_warning, (self.over_x - (self.boss_warning.get_width() / 2),
                                            self.over_y - (self.boss_warning.get_height() / 2)))
@@ -157,3 +188,15 @@ class Title_Screen:
     def display_bossdefeated(self, screen):
         screen.blit(self.boss_defeated, (self.level_x - (self.boss_defeated.get_width() / 2),
                                            self.level_y - (self.boss_defeated.get_height() / 2)))
+
+    # def display_final_credits(self, screen):
+    #     screen.blit(self.credits_title, (self.level_x - (self.credits_title.get_width() / 2),
+    #                                      80))
+    #     screen.blit(self.credits_title_credits, (self.level_x - (self.credits_title_credits.get_width() / 2),
+    #                                      125))
+    #     screen.blit(self.DS, (self.level_x - (self.DS.get_width() / 2),
+    #                                      190))
+    #     screen.blit(self.DG, (self.level_x - (self.DG.get_width() / 2),
+    #                           240))
+    #     screen.blit(self.ZH, (self.level_x - (self.ZH.get_width() / 2),
+    #                           290))

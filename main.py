@@ -305,7 +305,7 @@ while not finished:
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
-                level_complete_timer -= 0
+                level_complete_timer -= delta_time
                 #print(2)
                 if level_complete_timer <= 0:
                     #print(3)
@@ -314,20 +314,20 @@ while not finished:
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
-            if Basic_Enemy_Count == 0:
-                title.display_level_two_completed(screen)
-                level_complete_timer -= 0
-                #print(2)
-                if level_complete_timer <= 0:
-                    #print(3)
-                    level_complete_timer = 2
-                    lv_2_completed = True
+            # if Basic_Enemy_Count == 0:
+            #     title.display_level_two_completed(screen)
+            #     level_complete_timer -= delta_time
+            #     #print(2)
+            #     if level_complete_timer <= 0:
+            #         #print(3)
+            #         level_complete_timer = 2
+            #         lv_2_completed = True
         #Boolean needed for true and true:      ~ZDH
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
             if Basic_Enemy_Count == 0:
              title.display_level_three_completed(screen)
-             level_complete_timer -= 0
+             level_complete_timer -= delta_time
              if level_complete_timer <= 0:
                  lv_3_completed = True
                  level_complete_timer = 2.5
