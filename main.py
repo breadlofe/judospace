@@ -72,6 +72,8 @@ title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
 
+J.music("menu")
+
 while not finished:
     #Update
     # if not Player.parried:
@@ -212,7 +214,6 @@ while not finished:
         #title_click = True
 
     if title_click == False:
-        J.music("menu")
         if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("menu")
             show_credits = True     #Credits button
@@ -222,6 +223,7 @@ while not finished:
             show_credits = False    #Play button
             title_click = True
             Level = 1
+            J.music("level_one")
             First = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("quit")
@@ -235,7 +237,6 @@ while not finished:
     # Below is the LEVEL GOD, that controls the Levels
 
     if Level == 1:
-        J.music("level_one")
         if First:
             Basic_Enemy_Count = 6
             Current_Basic_Enemy = 0
@@ -267,6 +268,7 @@ while not finished:
         life.draw(screen)
         #Boolean needed for false and false:    ~ZDH
         if lv_1_completed == False and lv_2_completed == False: #From Here
+            # J.music("")
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)

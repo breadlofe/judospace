@@ -67,6 +67,6 @@ class Jukebox:
                 pygame.mixer.music.load('sound//awake10_megaWall.ogg')
             if song == "menu":
                 pygame.mixer.music.load("sound//8bit_Bossa.ogg")
-            # pygame.mixer.music.play(-1)
+            pygame.mixer.music.play(-1)
         else:
             raise TypeError("song must be given in str form.")
