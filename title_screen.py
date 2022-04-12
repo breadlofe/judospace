@@ -94,11 +94,14 @@ class Title_Screen:
         self.credits_title = self.font.render(str(self.the_credits1), False, (250, 250, 0))
         self.the_credits2 = "Credits:"
         self.credits_title_credits = self.font.render(str(self.the_credits2), False, (250, 250, 0))
-        self.ds = "Original idea, player elements, player projectiles, and sound effects/music are by Dustin S."
+        self.ds = "Original idea, player elements, player projectiles, " \
+                  "and sound effects/music are by Dustin S."
         self.DS = self.font.render(str(self.ds), False, (250, 250, 0))
-        self.dg = "Background, level design, enemy AI, enemy projectiles, collision, and health bar are by Dylan G."
+        self.dg = "Background, level design, enemy AI, enemy projectiles, " \
+                  "collision, and health bar are by Dylan G."
         self.DG = self.font.render(str(self.dg), False, (250, 250, 0))
-        self.zh = "All text, scores, some debugging, and keybinding are by Zachary H."
+        self.zh = "All text, scores, some debugging, " \
+                  "and keybinding are by Zachary H."
         self.ZH = self.font.render(str(self.zh), False, (250, 250, 0))
 
         #Button rectangles
