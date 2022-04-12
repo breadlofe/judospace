@@ -311,6 +311,9 @@ while not finished:
                     #print(3)
                     level_complete_timer = 2
                     lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH To Here
+                    Level = 2
+                    First = True
+
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
