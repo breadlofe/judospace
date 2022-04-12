@@ -39,7 +39,7 @@ class Player:
         self.parry = False
         self.chip = 1
         self.parry_time = 0
-        self.max_ptime = 0.5
+        self.max_ptime = 0.1
         self.got_hit = False
         self.parried = False
         self.J = jukebox.Jukebox()
