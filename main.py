@@ -128,8 +128,8 @@ while not finished:
                         if e.dodge:
                             E.spawn(e.x, e.y, e.life_value)
                 if e.Dog_Tag == "Tracker":
-                    e.aggression = 5
-                    if e.gattling_track <= 0:
+                    e.aggression = 3
+                    if e.gattling_track > 0:
                         e.aggression = 1
                         e.gattling_track -= 1
                     else:
