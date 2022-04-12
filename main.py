@@ -47,7 +47,6 @@ clock = pygame.time.Clock()
 J = jukebox.Jukebox()
 
 Level = 0
-shoot_aggression = 1500
 player_x = SCREEN_WIDTH / 2
 player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
 S = Space(100, 400) # The bigger the first number, the bigger the space between stars
@@ -134,9 +133,6 @@ while not finished:
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
-
-
-
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
@@ -240,7 +236,6 @@ while not finished:
                 Current_Basic_Enemy = 0
                 spawn_rate = 3
                 spawn_timer = 0
-                shoot_aggression = 1000
                 First = False
 
         if Level == 2:
@@ -249,7 +244,6 @@ while not finished:
                 Current_Basic_Enemy = 0
                 spawn_rate = 2
                 spawn_timer = 0
-                shoot_aggression = 1000
                 First = False
 
         if Level == 3:
@@ -257,9 +251,26 @@ while not finished:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 1
                 spawn_rate = 2
-                tracker_rate = 5
+                tracker_rate = 6
                 spawn_timer = 0
-                shoot_aggression = 1000
+                First = False
+
+        if Level == 4:
+            if First:
+                Basic_Enemy_Count = 6
+                Tracker_Enemy_Count = 1
+                spawn_rate = 1
+                tracker_rate = 6
+                spawn_timer = 0
+                First = False
+
+        if Level == 5:
+            if First:
+                Basic_Enemy_Count = 8
+                Tracker_Enemy_Count = 2
+                spawn_rate = 1
+                tracker_rate = 4
+                spawn_timer = 0
                 First = False
 
         spawn_timer -= delta_time
