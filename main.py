@@ -74,6 +74,8 @@ title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
 
+J.music("menu")
+
 while not finished:
     #Update
     # if not Player.parried:
@@ -216,6 +218,7 @@ while not finished:
             J.sfx("menu")
             show_credits = False    #Play button
             title_click = True
+            J.music("level_one")
             Level = 1
             First = True
             Game = True
