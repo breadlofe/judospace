@@ -21,6 +21,7 @@ class Jukebox:
         self.enemy_shoot = pygame.mixer.Sound('sound//enemy_shoot.ogg')
         self.health_item_hit = pygame.mixer.Sound('sound//health_item_hit.ogg')
         self.health_item_get = pygame.mixer.Sound('sound//health_item_get.ogg')
+        self.level_theme_one = pygame.mixer.Sound('sound//awake10_megaWall.ogg')
 
     def sfx(self, type):
         """
