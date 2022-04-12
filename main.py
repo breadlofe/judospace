@@ -30,8 +30,11 @@ health_item_spawn_timer = h_i_spawn_set
 
 shoot_timer = .25
 First = True
+Game = False
 Current_Basic_Enemy = 0
+Current_Tracker_Enemy = 0
 Basic_Enemy_Count = 0
+Tracker_Enemy_Count = 0
 spawn_rate = 0
 
 pygame.init()
@@ -71,8 +74,6 @@ life = Lifebar()
 title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
-
-J.music("menu")
 
 while not finished:
     #Update
@@ -132,7 +133,6 @@ while not finished:
                         Q = P_Vec - T_Vec
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
-                        print(bullet_vel)
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
 
 
@@ -165,11 +165,9 @@ while not finished:
         for b in P.bullet_list:
             point_5 = (b[0][0], b[0][1])
             if col.Collision(point_4, point_5, 5, h[3]).collide():
-                J.sfx("h_hit")
                 h[1] = 0
                 b[1] = 0
         if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
-            J.sfx("h_get")
             h[0][0] = 901
             if Player.life <= PLAYER_LIFE - h[2]: # Checks to see if healing will not make bar go over rect.
                 Player.life += h[2]
@@ -223,8 +221,8 @@ while not finished:
             show_credits = False    #Play button
             title_click = True
             Level = 1
-            J.music("level_one")
             First = True
+            Game = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("quit")
             finished = True     #Exit button
@@ -235,15 +233,34 @@ while not finished:
             title_click = False
 
     # Below is the LEVEL GOD, that controls the Levels
+    if Game:
+        if Level == 1:
+            if First:
+                Basic_Enemy_Count = 4
+                Current_Basic_Enemy = 0
+                spawn_rate = 3
+                spawn_timer = 0
+                shoot_aggression = 1000
+                First = False
 
-    if Level == 1:
-        if First:
-            Basic_Enemy_Count = 6
-            Current_Basic_Enemy = 0
-            spawn_rate = 4
-            spawn_timer = 0
-            shoot_aggression = 1000
-            First = False
+        if Level == 2:
+            if First:
+                Basic_Enemy_Count = 6
+                Current_Basic_Enemy = 0
+                spawn_rate = 2
+                spawn_timer = 0
+                shoot_aggression = 1000
+                First = False
+
+        if Level == 3:
+            if First:
+                Basic_Enemy_Count = 8
+                Tracker_Enemy_Count = 1
+                spawn_rate = 2
+                tracker_rate = 5
+                spawn_timer = 0
+                shoot_aggression = 1000
+                First = False
 
         spawn_timer -= delta_time
         if spawn_timer <= 0:
@@ -253,6 +270,12 @@ while not finished:
                 temp_var = random.randint(30, SCREEN_WIDTH - 30)
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
+            if Level >= 3:
+                tracker_rate -= 1
+                if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
+                    temp_var = random.randint(80, SCREEN_WIDTH - 80)
+                    AI.add_tracker(20, tracker_count, 10)
+
 
     #Drawing
     screen.fill((0, 0, 0))
@@ -268,7 +291,6 @@ while not finished:
         life.draw(screen)
         #Boolean needed for false and false:    ~ZDH
         if lv_1_completed == False and lv_2_completed == False: #From Here
-            # J.music("")
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
