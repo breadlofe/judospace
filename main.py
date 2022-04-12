@@ -111,6 +111,7 @@ while not finished:
                     score.add_to_score(10)
                 if e.life_value <= 0 and e.Dog_Tag == "Tracker":
                     Current_Tracker_Enemy -= 1
+                    Tracker_Enemy_Count -= 1
                     score.add_to_score(30)
                 # if e.life_value <= 0 and e.Dog_Tag == "":
                 #     score.add_to_score(50)
@@ -241,24 +242,24 @@ while not finished:
 
     # Below is the LEVEL GOD, that controls the Levels
     if Game:
-        if Level == 1:
-            if First:
+        # So this will check to see which level it is, and then if this is the first time its run through the level
+        # If it is, then it sets the values for the level (How many enemies, how fast they spawn, etc.
+        if First:
+            if Level == 1:
                 Basic_Enemy_Count = 4
                 Current_Basic_Enemy = 0
                 spawn_rate = 3
                 spawn_timer = 0
                 First = False
 
-        if Level == 2:
-            if First:
+            if Level == 2:
                 Basic_Enemy_Count = 6
                 Current_Basic_Enemy = 0
                 spawn_rate = 2
                 spawn_timer = 0
                 First = False
 
-        if Level == 3:
-            if First:
+            if Level == 3:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 1
                 spawn_rate = 2
@@ -266,8 +267,7 @@ while not finished:
                 spawn_timer = 0
                 First = False
 
-        if Level == 4:
-            if First:
+            if Level == 4:
                 Basic_Enemy_Count = 6
                 Tracker_Enemy_Count = 2
                 spawn_rate = 1
@@ -275,8 +275,7 @@ while not finished:
                 spawn_timer = 0
                 First = False
 
-        if Level == 5:
-            if First:
+            if Level == 5:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 2
                 spawn_rate = 1
@@ -296,7 +295,7 @@ while not finished:
                 tracker_rate -= 1
                 if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
                     temp_var = random.randint(80, SCREEN_WIDTH - 80)
-                    AI.add_tracker(20, temp_var, 10)
+                    AI.add_tracker(20, temp_var, 5)
                     Current_Tracker_Enemy += 1
 
 
@@ -313,7 +312,7 @@ while not finished:
         H.draw(screen)
         life.draw(screen)
         #Boolean needed for false and false:    ~ZDH
-        if lv_1_completed == False and lv_2_completed == False: #From Here
+        if Level == 1: #From Here
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
@@ -325,17 +324,18 @@ while not finished:
                     First = True
 
         #Boolean needed for true and false:     ~ZDH
-        if lv_1_completed == True and lv_2_completed == False:
+        if Level == 2:
             title.display_level_two(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_two_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
+                    Level = 3
                     level_complete_timer = 2
                     lv_2_completed = True
 
         #Boolean needed for true and true:      ~ZDH
-        if lv_1_completed == True and lv_2_completed == True:
+        if Level == 3:
             title.display_level_three(screen)
             if Basic_Enemy_Count == 0:
                 #title.display_level_three_completed(screen)
@@ -343,8 +343,10 @@ while not finished:
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
                     lv_3_completed = True
-                    Level = 3
+                    Level = 4
                     First = True
+
+
         #If we do get a boss, we'd need one for the boss too.   ~ZDH
     if title_click == False:
         title.draw(screen)
