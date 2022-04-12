@@ -110,6 +110,7 @@ while not finished:
                     Basic_Enemy_Count -= 1
                     score.add_to_score(10)
                 if e.life_value <= 0 and e.Dog_Tag == "Tracker":
+                    Current_Tracker_Enemy -= 1
                     score.add_to_score(30)
                 # if e.life_value <= 0 and e.Dog_Tag == "":
                 #     score.add_to_score(50)
@@ -296,6 +297,7 @@ while not finished:
                 if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
                     temp_var = random.randint(80, SCREEN_WIDTH - 80)
                     AI.add_tracker(20, temp_var, 10)
+                    Current_Tracker_Enemy += 1
 
 
     #Drawing
