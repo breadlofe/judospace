@@ -36,6 +36,7 @@ Current_Tracker_Enemy = 0
 Basic_Enemy_Count = 0
 Tracker_Enemy_Count = 0
 spawn_rate = 0
+tracker_rate = 0
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -334,8 +335,8 @@ while not finished:
              if level_complete_timer <= 0:
                  lv_3_completed = True
                  level_complete_timer = 2.5
-                    Level = 3
-                    First = True
+                 Level = 3
+                 First = True
         #If we do get a boss, we'd need one for the boss too.
     if title_click == False:
         title.draw(screen)
