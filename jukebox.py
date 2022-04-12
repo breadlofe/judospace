@@ -19,6 +19,8 @@ class Jukebox:
         self.dash = pygame.mixer.Sound('sound//dash.ogg')
         self.player_shoot = pygame.mixer.Sound('sound//player_shoot.ogg')
         self.enemy_shoot = pygame.mixer.Sound('sound//enemy_shoot.ogg')
+        self.health_item_hit = pygame.mixer.Sound('sound//health_item_hit.ogg')
+        self.health_item_get = pygame.mixer.Sound('sound//health_item_get.ogg')
 
     def sfx(self, type):
         """
@@ -46,5 +48,9 @@ class Jukebox:
             elif type == "quit":
                 pygame.mixer.Sound.play(self.quit)
                 pygame.time.wait(1500)
+            elif type == "h_hit":
+                pygame.mixer.Sound.play(self.health_item_hit)
+            elif type == "h_get":
+                pygame.mixer.Sound.play(self.health_item_get)
         else:
             raise TypeError("type must be given in str form.")

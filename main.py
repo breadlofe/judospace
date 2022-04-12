@@ -163,9 +163,11 @@ while not finished:
         for b in P.bullet_list:
             point_5 = (b[0][0], b[0][1])
             if col.Collision(point_4, point_5, 5, h[3]).collide():
+                J.sfx("h_hit")
                 h[1] = 0
                 b[1] = 0
         if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
+            J.sfx("h_get")
             h[0][0] = 901
             if Player.life <= PLAYER_LIFE - h[2]: # Checks to see if healing will not make bar go over rect.
                 Player.life += h[2]
