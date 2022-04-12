@@ -326,6 +326,7 @@ while not finished:
             #         level_complete_timer = 2
             #         lv_2_completed = True
         #Boolean needed for true and true:      ~ZDH
+
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
             if Basic_Enemy_Count == 0:
