@@ -212,6 +212,7 @@ while not finished:
         #title_click = True
 
     if title_click == False:
+        J.music("menu")
         if mouse_rect.colliderect(title.circle_rect_c) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("menu")
             show_credits = True     #Credits button
@@ -234,6 +235,7 @@ while not finished:
     # Below is the LEVEL GOD, that controls the Levels
 
     if Level == 1:
+        J.music("level_one")
         if First:
             Basic_Enemy_Count = 6
             Current_Basic_Enemy = 0
