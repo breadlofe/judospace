@@ -133,7 +133,7 @@ while not finished:
                         e.aggression = 1
                         e.gattling_track -= 1
                     else:
-                        e.gattling_track = 3
+                        e.gattling_track = 2
                     gattling_track = True
                     if e.dodge:
                         P_Vec = vector.Vector(Player.x, Player.y)
