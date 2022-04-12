@@ -295,7 +295,7 @@ while not finished:
                 tracker_rate -= 1
                 if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
                     temp_var = random.randint(80, SCREEN_WIDTH - 80)
-                    AI.add_tracker(20, tracker_count, 10)
+                    AI.add_tracker(20, temp_var, 10)
 
 
     #Drawing
