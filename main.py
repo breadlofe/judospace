@@ -316,9 +316,7 @@ while not finished:
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
                 level_complete_timer -= delta_time
-                #print(2)
                 if level_complete_timer <= 0:
-                    #print(3)
                     level_complete_timer = 2
                     lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH To Here
                     Level = 2
@@ -327,27 +325,25 @@ while not finished:
         #Boolean needed for true and false:     ~ZDH
         if lv_1_completed == True and lv_2_completed == False:
             title.display_level_two(screen)
-            # if Basic_Enemy_Count == 0:
-            #     title.display_level_two_completed(screen)
-            #     level_complete_timer -= delta_time
-            #     #print(2)
-            #     if level_complete_timer <= 0:
-            #         #print(3)
-            #         level_complete_timer = 2
-            #         lv_2_completed = True
-        #Boolean needed for true and true:      ~ZDH
+            if Basic_Enemy_Count == 0:
+                title.display_level_two_completed(screen)
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2
+                    lv_2_completed = True
 
+        #Boolean needed for true and true:      ~ZDH
         if lv_1_completed == True and lv_2_completed == True:
             title.display_level_three(screen)
             if Basic_Enemy_Count == 0:
-             title.display_level_three_completed(screen)
-             level_complete_timer -= delta_time
-             if level_complete_timer <= 0:
-                 lv_3_completed = True
-                 level_complete_timer = 2.5
-                 Level = 3
-                 First = True
-        #If we do get a boss, we'd need one for the boss too.
+                #title.display_level_three_completed(screen)
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    lv_3_completed = True
+                    Level = 3
+                    First = True
+        #If we do get a boss, we'd need one for the boss too.   ~ZDH
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
