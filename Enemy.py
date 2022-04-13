@@ -61,17 +61,17 @@ class Basic_Enemy:
 
 class Tracker_Enemy:
 
-    def __init__(self, radius, start_x, lv, end_y):
+    def __init__(self, radius, start_x, lv, end_y, name_tag, color):
         self.radius = radius
         self.speed = 75
         self.x = start_x
         self.y = radius * -1
         self.life_value = lv
         self.end_y = end_y
-        self.color = (255, 150, 0)
+        self.color = color
         self.aggression = 5
         self.gattling_track = 0
-        self.Dog_Tag = "Tracker"
+        self.Dog_Tag = name_tag
 
         # Dodge in this context is just a name convention for when the 'Tracker' has reached the end of its spawn start
         self.dodge = False
@@ -97,7 +97,14 @@ class Control_AI:
 
     def add_tracker(self, radius, start_x, lv):
         temp_end = random.randint(50, 150)
-        bad_guy = Tracker_Enemy(radius, start_x, lv, temp_end)
+        color = (255, 150, 0)
+        bad_guy = Tracker_Enemy(radius, start_x, lv, temp_end, "Tracker", color)
+        self.AI_List.append(bad_guy)
+
+    def add_elite(self, radius, start_x, lv):
+        temp_end = random.randint(50, 150)
+        color = (82, 0, 0)
+        bad_guy = Tracker_Enemy(radius, start_x, lv, temp_end, "Elite", color)
         self.AI_List.append(bad_guy)
 
     def update(self, dt):
