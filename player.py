@@ -180,8 +180,15 @@ class Player:
         Handles blocking boolean
         :return: None.
         """
+
+        # "There was a bug that made it so blocking did nothing, so I rearranged the code so that it won't happen
+        # As a result parrying also only happens while you are blocking, and it will immediatly be removed once you stop
+        # blocking, regardless of timer." - DG
         if self.blocking:
-            self.chip = 0.25
+            if self.parry:
+                self.chip = 0
+            else:
+                self.chip = 0.33
             self.rgb = [100, 200, 0]
             # print("block")
         elif not self.blocking:
@@ -189,9 +196,3 @@ class Player:
             self.chip = 1
             if not self.is_dashing and not self.got_hit:
                 self.rgb = [255, 200, 0]  # return back to yellow.
-        if parry:
-            # print("parry")
-            self.chip = 0
-        elif not parry:
-            # print("not parry")
-            self.chip = 1

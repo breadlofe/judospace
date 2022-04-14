@@ -121,7 +121,7 @@ class Tracker_Projectile:
             b[0][0] += b[2][0] * dt
             b[0][1] += b[2][1] * dt
             b[1] -= (1 * dt)
-            print(b[1])
+            #print(b[1])
             if b[1] <= 0:
                 self.bullet_list.remove(b)
 

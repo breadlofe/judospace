@@ -22,7 +22,7 @@ SCREEN_HEIGHT = 600
 PLAYER_SPEED = 300
 BULLET_LIFE = 3
 BULLET_COLOR = (200, 0, 0)
-ENEMY_BULLET_COLOR = (0, 0, 200)
+ENEMY_BULLET_COLOR = (255, 0, 0)
 PLAYER_LIFE = 100
 PLAYER_RADIUS = 15
 h_i_spawn_set = 10
@@ -145,6 +145,16 @@ while not finished:
                         bullet_vel = Value * 500
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
 
+                if e.Dog_Tag == "Elite":
+                    e.aggression = 1
+                    if e.dodge:
+                        P_Vec = vector.Vector(Player.x, Player.y)
+                        T_Vec = vector.Vector(e.x, e.y)
+                        Q = P_Vec - T_Vec
+                        Value = Q / Q.norm(2)
+                        bullet_vel = Value * 500
+                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
+
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
         point_3 = (u[0][0], u[0][1])
@@ -154,6 +164,13 @@ while not finished:
             Player.got_hit = True
             Player.life -= 10 * Player.chip
             # Player.got_hit = False
+    for u in T.bullet_list:
+        point_3 = (u[0][0], u[0][1])
+        if col.Collision(point_3, (Player.x, Player.y), 5, Player.r).collide() and Player.life > 0 and \
+                not Player.is_dashing:
+            u[1] = 0
+            Player.got_hit = True
+            Player.life -= 10 * Player.chip
 
     # Health Item Spawning (DAS):
     if title_click:
@@ -207,7 +224,10 @@ while not finished:
                 AI.add_basic_enemy(15, 200, temp_var)
             if event.key == pygame.K_t:
                 temp_var = random.randint(100, SCREEN_WIDTH - 100)
-                AI.add_tracker(20, temp_var, 10)
+                AI.add_tracker(20, temp_var, 5)
+            if event.key == pygame.K_q:
+                temp_var = random.randint(100, SCREEN_WIDTH - 100)
+                AI.add_elite(20, temp_var, 10)
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]
@@ -301,11 +321,11 @@ while not finished:
 
     #Drawing
     screen.fill((0, 0, 0))
-    S.draw(screen)
-    AI.draw(screen)
-    P.draw(screen, BULLET_COLOR)
     E.draw(screen, ENEMY_BULLET_COLOR)
     T.draw(screen, ENEMY_BULLET_COLOR)
+    P.draw(screen, BULLET_COLOR)
+    S.draw(screen)
+    AI.draw(screen)
     if title_click == True and show_credits == False:
         if Player.life > 0:
             Player.draw(screen)
