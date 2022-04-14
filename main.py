@@ -313,6 +313,30 @@ while not finished:
                 elite_set_rate = 12
                 Elite_Count = 1
 
+            if Level == 7:
+                Basic_Enemy_Count = 15
+                Tracker_Enemy_Count = 3
+                spawn_rate = 1
+                tracker_set_rate = 4
+                elite_set_rate = 12
+                Elite_Count = 1
+
+            if Level == 8:
+                Basic_Enemy_Count = 20
+                Tracker_Enemy_Count = 4
+                spawn_rate = 0.5
+                tracker_set_rate = 4
+                elite_set_rate = 12
+                Elite_Count = 2
+
+            if Level == 9:
+                Basic_Enemy_Count = 20
+                Tracker_Enemy_Count = 5
+                spawn_rate = 0.5
+                tracker_set_rate = 3
+                elite_set_rate = 12
+                Elite_Count = 2
+
             elite_rate = elite_set_rate
             tracker_rate = tracker_set_rate
             spawn_timer = 0
@@ -430,6 +454,25 @@ while not finished:
                     First = True
                     level_complete_general = True
 
+        if Level == 7 and not level_complete_general:
+            # title.display
+            if enemy_total == 0:
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 8
+                    First = True
+                    level_complete_general = True
+
+        if Level == 8 and not level_complete_general:
+            # title.display
+            if enemy_total == 0:
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 9
+                    First = True
+                    level_complete_general = True
 
         #If we do get a boss, we'd need one for the boss too.   ~ZDH
     if title_click == False:
