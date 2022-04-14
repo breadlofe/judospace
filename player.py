@@ -151,7 +151,7 @@ class Player:
             self.got_hit = False
         if self.is_dashing:
             self.J.sfx("dash")
-            self.rgb = [180, 180, 255]
+            self.rgb = [255, 255, 164]
 
 
     def dash(self):
@@ -190,7 +190,7 @@ class Player:
             else:
                 self.chip = 0.33
             self.player_speed = self.speed_reset * 0.5
-            self.rgb = [100, 200, 0]
+            self.rgb = [140, 140, 0]
             # print("block")
         elif not self.blocking:
             # print("not block")
