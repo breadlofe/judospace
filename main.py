@@ -37,6 +37,7 @@ Basic_Enemy_Count = 0
 Tracker_Enemy_Count = 0
 spawn_rate = 0
 tracker_rate = 0
+tracker_set_rate = 0
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -63,9 +64,6 @@ spawn_timer = 0
 game_over_timer = 3
 level_complete_timer = 2
 level_complete_general = False
-lv_1_completed = False
-lv_2_completed = False
-lv_3_completed = False
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -269,39 +267,35 @@ while not finished:
                 Basic_Enemy_Count = 4
                 Current_Basic_Enemy = 0
                 spawn_rate = 3
-                spawn_timer = 0
-                First = False
 
             if Level == 2:
                 Basic_Enemy_Count = 6
                 Current_Basic_Enemy = 0
                 spawn_rate = 2
-                spawn_timer = 0
-                First = False
 
             if Level == 3:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 1
                 spawn_rate = 2
-                tracker_rate = 6
-                spawn_timer = 0
-                First = False
+                tracker_set_rate = 6
+                tracker_rate = tracker_set_rate
 
             if Level == 4:
                 Basic_Enemy_Count = 6
                 Tracker_Enemy_Count = 2
                 spawn_rate = 1
-                tracker_rate = 5
-                spawn_timer = 0
-                First = False
+                tracker_set_rate = 5
+                tracker_rate = tracker_set_rate
 
             if Level == 5:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 2
-                spawn_rate = 1
-                tracker_rate = 4
-                spawn_timer = 0
-                First = False
+                tracker_set_rate = 4
+                tracker_rate = tracker_set_rate
+
+            spawn_timer = 0
+            First = False
+            level_complete_general = False
 
         spawn_timer -= delta_time
         if spawn_timer <= 0:
@@ -316,7 +310,11 @@ while not finished:
                 if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
                     temp_var = random.randint(80, SCREEN_WIDTH - 80)
                     AI.add_tracker(20, temp_var, 5)
+                    tracker_rate = tracker_set_rate
                     Current_Tracker_Enemy += 1
+                    print(Current_Tracker_Enemy)
+                    print(Tracker_Enemy_Count)
+                    print(Level)
 
 
     #Drawing
@@ -331,20 +329,23 @@ while not finished:
             Player.draw(screen)
         H.draw(screen)
         life.draw(screen)
+
+
         #Boolean needed for false and false:    ~ZDH
-        if Level == 1: #From Here
+        if Level == 1 and not level_complete_general: #From Here
             title.display_level_one(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_one_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
-                    level_complete_timer = 2
-                    lv_1_completed = True   #TO DO: do this for level 2 and 3.  ~ZDH To Here
+                    level_complete_timer = 2  #TO DO: do this for level 2 and 3.  ~ZDH To Here
                     Level = 2
                     First = True
+                    level_complete_general = True
+
 
         #Boolean needed for true and false:     ~ZDH
-        if Level == 2:
+        if Level == 2 and not level_complete_general:
             title.display_level_two(screen)
             if Basic_Enemy_Count == 0:
                 title.display_level_two_completed(screen)
@@ -352,19 +353,22 @@ while not finished:
                 if level_complete_timer <= 0:
                     Level = 3
                     level_complete_timer = 2
-                    lv_2_completed = True
+                    First = True
+                    level_complete_general = True
+
 
         #Boolean needed for true and true:      ~ZDH
-        if Level == 3:
+        if Level == 3 and not level_complete_general:
+            # This needs to be updates and fixed so that the complete and the passive level are shown
             title.display_level_three(screen)
-            if Basic_Enemy_Count == 0:
+            if Basic_Enemy_Count == 0 and Tracker_Enemy_Count == 0:
                 #title.display_level_three_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
-                    lv_3_completed = True
                     Level = 4
                     First = True
+                    level_complete_general = True
 
 
         #If we do get a boss, we'd need one for the boss too.   ~ZDH

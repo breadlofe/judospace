@@ -21,7 +21,7 @@ class Basic_Enemy:
 
     def update(self, dt):
 
-        # all 400s are representative of the equation (SCREEN_W / 2)
+        # all 400s are repr esentative of the equation (SCREEN_W / 2)
         if self.dodge == False:
             if self.end_y > self.y:
                 self.y += self.speed * dt
