@@ -31,7 +31,6 @@ class Player:
         self.time_passed = 0
         self.dash_speed = 55
         self.dash_time = 1  # second
-        self.storage = []
         self.is_dashing = False
 
         # Block/Parry Variables
@@ -44,6 +43,9 @@ class Player:
         self.parried = False
         self.J = jukebox.Jukebox()
 
+        #Getting Hit
+        self.damage_timer = 0
+
     def handle_input(self, press_input, click_input, dt):
         """
         Takes inputs from main and responds to them
@@ -51,6 +53,7 @@ class Player:
         :param click_input: Takes an event.poll in order to handle different events
         :param dt: represents delta_time
         """
+
         if press_input[pygame.K_a] and (self.x - self.r) > 0:
             self.x -= self.player_speed * dt
 
@@ -148,6 +151,9 @@ class Player:
                 self.J.sfx("block")
             else:
                 self.J.sfx("p_hit")
+            if not self.parried:
+                self.damage_timer = 200
+                self.rgb = (255, 0, 0)
             self.got_hit = False
         if self.is_dashing:
             self.J.sfx("dash")
@@ -159,9 +165,6 @@ class Player:
         Moves player based on velocity. Increases player_speed to play nicely with walls.
         :return: None.
         """
-        temp_list = []
-        temp_list.append(self.player_speed)
-        self.storage = temp_list[:]
         velocity = 900
         self.dash_time = 0.2
         # print(self.combo_direction)
@@ -187,11 +190,19 @@ class Player:
             else:
                 self.chip = 0.33
             self.player_speed = self.speed_reset * 0.5
-            self.rgb = [140, 140, 0]
+            if self.damage_timer > 0:
+                self.damage_timer -= 1 # makes it so you flash red after getting hit for less than normal
+            else:
+                self.rgb = [140, 140, 0]
             # print("block")
+
         elif not self.blocking:
             # print("not block")
             self.chip = 1
+            if self.damage_timer > 0:
+                self.damage_timer -= 1 # Makes it so you flash red after getting hit
+            elif not self.is_dashing and not self.got_hit:
+                self.rgb = [255, 200, 0]  # return back to yellow if not hit or dashing.
+
             if not self.is_dashing and not self.got_hit:
-                self.speed = self.speed_reset
-                self.rgb = [255, 200, 0]  # return back to yellow.
+                self.player_speed = self.speed_reset # Removes the speed debuff from blocking
