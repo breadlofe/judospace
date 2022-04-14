@@ -151,9 +151,12 @@ class Player:
                 self.J.sfx("block")
             else:
                 self.J.sfx("p_hit")
-            if not self.parried:
+            if not self.parried: # Checks to see if they parried, and if not then it makes the flash red
                 self.damage_timer = 200
                 self.rgb = (255, 0, 0)
+            else: # If they did, it flashes them white
+                self.damage_timer = 200
+                self.rgb = (255, 255, 255)
             self.got_hit = False
         if self.is_dashing:
             self.J.sfx("dash")
