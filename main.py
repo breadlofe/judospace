@@ -365,7 +365,7 @@ while not finished:
             elite_rate -= delta_time
             if elite_rate <= 0 and Current_Elites < Elite_Count:
                 temp_var = random.randint(80, SCREEN_WIDTH - 80)
-                AI.add_elite(20, temp_var, 5)
+                AI.add_elite(30, temp_var, 5)
                 elite_rate = elite_set_rate
                 Current_Elites += 1
 
