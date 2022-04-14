@@ -167,14 +167,11 @@ class Player:
         # print(self.combo_direction)
 
         if self.dash_time > 0:
-            if self.combo_direction == "d":
+            if self.combo_direction == "d" or self.combo_direction == "a":
                 # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
                 self.is_dashing = True
-            elif self.combo_direction == "a":
-                # self.rgb = [0, 0, 250]
-                self.player_speed += velocity
-                self.is_dashing = True
+
     def block(self, parry=False):
         """
         Handles blocking boolean
