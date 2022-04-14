@@ -125,7 +125,7 @@ class Player:
             self.dash_time -= dt
         elif self.dash_time <= 0:
             # print("reset")
-            self.player_speed = self.storage[0]
+            self.player_speed = self.speed_reset
             self.is_dashing = False
 
         if self.parry_time > 0:
@@ -165,6 +165,7 @@ class Player:
         velocity = 900
         self.dash_time = 0.2
         # print(self.combo_direction)
+
         if self.dash_time > 0:
             if self.combo_direction == "d":
                 # self.rgb = [0, 0, 250]
@@ -174,7 +175,6 @@ class Player:
                 # self.rgb = [0, 0, 250]
                 self.player_speed += velocity
                 self.is_dashing = True
-
     def block(self, parry=False):
         """
         Handles blocking boolean
@@ -189,10 +189,12 @@ class Player:
                 self.chip = 0
             else:
                 self.chip = 0.33
+            self.player_speed = self.speed_reset * 0.5
             self.rgb = [100, 200, 0]
             # print("block")
         elif not self.blocking:
             # print("not block")
             self.chip = 1
             if not self.is_dashing and not self.got_hit:
+                self.speed = self.speed_reset
                 self.rgb = [255, 200, 0]  # return back to yellow.
