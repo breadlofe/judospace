@@ -31,6 +31,11 @@ health_item_spawn_timer = h_i_spawn_set
 shoot_timer = .25
 First = True
 Game = False
+
+# This is a bunch of variables required for the Level God to function. The reason its all 0 is just so that we don't
+# don't get a bunch of bugs saying values are undefined.
+Current_Elites = 0
+Elite_Count = 0
 Current_Basic_Enemy = 0
 Current_Tracker_Enemy = 0
 Basic_Enemy_Count = 0
@@ -38,6 +43,10 @@ Tracker_Enemy_Count = 0
 spawn_rate = 0
 tracker_rate = 0
 tracker_set_rate = 0
+elite_set_rate = 0
+elite_rate = 0
+enemy_total = 0
+
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Dylan, you can change if you want.
@@ -106,13 +115,18 @@ while not finished:
                 if e.life_value <= 0 and e.Dog_Tag == "Basic":
                     Current_Basic_Enemy -= 1
                     Basic_Enemy_Count -= 1
+                    enemy_total -= 1
                     score.add_to_score(10)
                 if e.life_value <= 0 and e.Dog_Tag == "Tracker":
                     Current_Tracker_Enemy -= 1
                     Tracker_Enemy_Count -= 1
                     score.add_to_score(30)
-                # if e.life_value <= 0 and e.Dog_Tag == "":
-                #     score.add_to_score(50)
+                    enemy_total -= 1
+                if e.life_value <= 0 and e.Dog_Tag == "Elite":
+                    Current_Elites -= 1
+                    Elite_Count -= 1
+                    score.add_to_score(50)
+                    enemy_total -= 1
                 # if e.life_value <= 0 and e.Dog_Tag == "":
                 #     score.add_to_score(80)
 
@@ -278,22 +292,31 @@ while not finished:
                 Tracker_Enemy_Count = 1
                 spawn_rate = 2
                 tracker_set_rate = 6
-                tracker_rate = tracker_set_rate
 
             if Level == 4:
                 Basic_Enemy_Count = 6
                 Tracker_Enemy_Count = 2
-                spawn_rate = 1
+                spawn_rate = 1.5
                 tracker_set_rate = 5
-                tracker_rate = tracker_set_rate
 
             if Level == 5:
                 Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 2
-                tracker_set_rate = 4
-                tracker_rate = tracker_set_rate
+                spawn_rate = 1.5
+                tracker_set_rate = 4.5
 
+            if Level == 6:
+                Basic_Enemy_Count = 10
+                Tracker_Enemy_Count = 2
+                spawn_rate = 1
+                tracker_set_rate = 4
+                elite_set_rate = 12
+                Elite_Count = 1
+
+            elite_rate = elite_set_rate
+            tracker_rate = tracker_set_rate
             spawn_timer = 0
+            enemy_total = Basic_Enemy_Count + Elite_Count + Tracker_Enemy_Count
             First = False
             level_complete_general = False
 
@@ -305,16 +328,22 @@ while not finished:
                 temp_var = random.randint(30, SCREEN_WIDTH - 30)
                 AI.add_basic_enemy(15, 200, temp_var)
                 Current_Basic_Enemy += 1
-            if Level >= 3:
-                tracker_rate -= 1
-                if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
-                    temp_var = random.randint(80, SCREEN_WIDTH - 80)
-                    AI.add_tracker(20, temp_var, 5)
-                    tracker_rate = tracker_set_rate
-                    Current_Tracker_Enemy += 1
-                    print(Current_Tracker_Enemy)
-                    print(Tracker_Enemy_Count)
-                    print(Level)
+
+        if 0 < Tracker_Enemy_Count:
+            tracker_rate -= delta_time
+            if tracker_rate <= 0 and Current_Tracker_Enemy < Tracker_Enemy_Count:
+                temp_var = random.randint(80, SCREEN_WIDTH - 80)
+                AI.add_tracker(20, temp_var, 5)
+                tracker_rate = tracker_set_rate
+                Current_Tracker_Enemy += 1
+
+        if 0 < Elite_Count:
+            elite_rate -= delta_time
+            if elite_rate <= 0 and Current_Elites < Elite_Count:
+                temp_var = random.randint(80, SCREEN_WIDTH - 80)
+                AI.add_elite(20, temp_var, 5)
+                elite_rate = elite_set_rate
+                Current_Elites += 1
 
 
     #Drawing
@@ -334,7 +363,7 @@ while not finished:
         #Boolean needed for false and false:    ~ZDH
         if Level == 1 and not level_complete_general: #From Here
             title.display_level_one(screen)
-            if Basic_Enemy_Count == 0:
+            if enemy_total == 0:
                 title.display_level_one_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
@@ -347,7 +376,7 @@ while not finished:
         #Boolean needed for true and false:     ~ZDH
         if Level == 2 and not level_complete_general:
             title.display_level_two(screen)
-            if Basic_Enemy_Count == 0:
+            if enemy_total == 0:
                 title.display_level_two_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
@@ -361,12 +390,43 @@ while not finished:
         if Level == 3 and not level_complete_general:
             # This needs to be updates and fixed so that the complete and the passive level are shown
             title.display_level_three(screen)
-            if Basic_Enemy_Count == 0 and Tracker_Enemy_Count == 0:
+            if enemy_total == 0:
                 #title.display_level_three_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
                     Level = 4
+                    First = True
+                    level_complete_general = True
+
+        # Below is the level transitions, we just need to add all of the screen stuff. Soooo do that when you can - DG
+        if Level == 4 and not level_complete_general:
+            # title.display
+            if enemy_total == 0:
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 5
+                    First = True
+                    level_complete_general = True
+
+        if Level == 5 and not level_complete_general:
+            # title.display
+            if enemy_total == 0:
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 6
+                    First = True
+                    level_complete_general = True
+
+        if Level == 6 and not level_complete_general:
+            # title.display
+            if enemy_total == 0:
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 7
                     First = True
                     level_complete_general = True
 
