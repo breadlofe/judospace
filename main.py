@@ -16,6 +16,7 @@ from player import Player
 import health_drop as h_drop
 import Score
 import jukebox
+from Enemy import Boss_Arms
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -68,6 +69,7 @@ E = pro.Enemy_Projectile()
 T = pro.Tracker_Projectile()
 H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
+Arms = Boss_Arms("arms", 300, 300, 20)
 
 spawn_timer = 0
 game_over_timer = 3
@@ -265,7 +267,7 @@ while not finished:
             show_credits = False    #Play button
             title_click = True
             J.music("level_one")
-            Level = 1
+            Level = 1  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
@@ -537,6 +539,16 @@ while not finished:
                 #title.level_text_ren(Level)
                 #title.display_level(screen)
                 title.display_bosslevel(screen)
+                Arms.draw_right(screen)
+                # Boss collision
+                for b in P.bullet_list:
+                    point = (b[0][0], b[0][1])
+                    temp = col.AlphaCollision(Arms.right_arm_bounder, b[0][0], b[0][1])
+                    if temp.collide():
+                        J.sfx("e_hit")
+                        b[1] = 0
+                        print("hit")
+                # BOSS COLLISION
                 warning_timer = 0
                 if enemy_total == 0:    #placeholder text till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:
