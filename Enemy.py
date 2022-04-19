@@ -124,7 +124,7 @@ class Boss_Arms:
         self.y_change = 150
         self.life_r = life_value
         self.life_l = life_value
-        self.rgb = [255, 0, 0]
+        self.rgb_r = [255, 0, 0]
         self.right_arm = matrix.Matrix(vector.Vector(self.x, self.y),
                                        vector.Vector(self.x - self.x_change, self.y - self.y_change),
                                        vector.Vector(self.x + self.x_change, self.y - self.y_change))
@@ -139,7 +139,7 @@ class Boss_Arms:
         :param surf: Pygame.Surface
         :return: None
         """
-        pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
+        pygame.draw.polygon(surf, self.rgb_r, sm.convert(self.right_arm))
 
 
 
