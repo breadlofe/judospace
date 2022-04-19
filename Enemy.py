@@ -85,6 +85,22 @@ class Tracker_Enemy:
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
+class Boss_Body:
+
+    def __init__(self):
+        self.radius = 20
+        self.Dog_Tag = "Boss Body"
+
+
+class Boss_Arms:
+
+    def __init__(self, tag):
+
+        self.Dog_Tag = tag
+
+
+
+
 class Control_AI:
 
     def __init__(self):
