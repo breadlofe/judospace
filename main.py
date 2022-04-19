@@ -558,6 +558,9 @@ while not finished:
         game_over_timer -= delta_time
         if game_over_timer <= 0:
             finished = True
+            #show_credits = False
+            #title_click = False
+            #Figure out a way to erase everything and return Level to 0.    ~ZDH.
     if title_click == True and show_credits == False:
         score.display_score(screen)
 

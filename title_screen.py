@@ -102,6 +102,17 @@ class Title_Screen:
         self.credits_back_rect = pygame.Rect(25 / 2 - 3.5, 575 - self.button_radius / 2,
                                     self.button_radius, self.button_radius)             #Back
 
+        self.log1 = "After having his home destroyed by"
+        self.log2 = "the greedy and wrathful emperor"
+        self.log3 = "Malroe... Josada, our protagonist,"
+        self.log4 = "must go on a vengeful adventure to"
+        self.log5 = "put an end to Malroe's evil reign..."
+        self.logline1 = self.font.render(str(self.log1), False, (250, 250, 0))
+        self.logline2 = self.font.render(str(self.log2), False, (250, 250, 0))
+        self.logline3 = self.font.render(str(self.log3), False, (250, 250, 0))
+        self.logline4 = self.font.render(str(self.log4), False, (250, 250, 0))
+        self.logline5 = self.font.render(str(self.log5), False, (250, 250, 0))
+
     def level_text_ren(self, level_number):
         self.level_text = f"Level {level_number}"
         self.level_display = self.font.render(str(self.level_text), False, (250, 250, 0))
