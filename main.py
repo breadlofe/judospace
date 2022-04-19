@@ -542,15 +542,16 @@ while not finished:
                 #title.display_level(screen)
                 title.display_bosslevel(screen)
                 Arms.draw_right(screen)
+
                 # Boss collision
                 for b in P.bullet_list:
                     point = (b[0][0], b[0][1])
                     temp = col.AlphaCollision(Arms.right_arm_bounder, b[0][0], b[0][1])
                     if temp.collide():
-                        J.sfx("e_hit")
+                        J.sfx("b_a_hit")
                         b[1] = 0
-                        print("hit")
                 # BOSS COLLISION
+
                 warning_timer = 0
                 if enemy_total == 0:    #placeholder text till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:

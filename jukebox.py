@@ -21,7 +21,7 @@ class Jukebox:
         self.enemy_shoot = pygame.mixer.Sound('sound//enemy_shoot.ogg')
         self.health_item_hit = pygame.mixer.Sound('sound//health_item_hit.ogg')
         self.health_item_get = pygame.mixer.Sound('sound//health_item_get.ogg')
-        # self.level_theme_one = pygame.mixer.Sound('sound//awake10_megaWall.ogg')
+        self.boss_arm_hit = pygame.mixer.Sound('sound//arm_hit.ogg')
 
     def sfx(self, sfx):
         """
@@ -53,6 +53,8 @@ class Jukebox:
                 pygame.mixer.Sound.play(self.health_item_hit)
             elif sfx == "h_get":
                 pygame.mixer.Sound.play(self.health_item_get)
+            elif sfx == "b_a_hit":
+                pygame.mixer.Sound.play(self.boss_arm_hit)
         else:
             raise TypeError("sfx must be given in str form.")
 
