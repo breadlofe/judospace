@@ -1,5 +1,8 @@
 import pygame
 import random
+import matrix
+import vector
+import shape_matrix as sm
 
 class Basic_Enemy:
 
@@ -102,11 +105,42 @@ class Boss_Body:
 
 class Boss_Arms:
 
-    def __init__(self, tag):
+    def __init__(self, tag, start_x, start_y, life_value):
         """"
-        param tag: Determines which hand this instance is
+        :param tag: Determines which hand this instance is
+        :param start_x: Int or float representing x-position of middle tip of triangle:
+        2*----*3
+        \    /
+         \ /
+          1*  <--- this one (order of points in shape matrix indicated by number as well).
+        :param start_y: Int or float representing y-position of point highlighted above.
+        :param life_value: Int or float representing life value of each arm.
         """
         self.Dog_Tag = tag
+        self.proj_radius = 5
+        self.x = start_x
+        self.y = start_y
+        self.x_change = 100  # How much the other points are offset from the first point.
+        self.y_change = 150
+        self.life_r = life_value
+        self.life_l = life_value
+        self.rgb = [255, 0, 0]
+        self.right_arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                       vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                       vector.Vector(self.x + self.x_change, self.y - self.y_change))
+        self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                                vector.Vector(self.proj_radius, self.proj_radius),
+                                                                vector.Vector(self.proj_radius, self.proj_radius))
+        # NOTE: The right arm bounder creates hit-triangle for arm that accounts for projectile radius.
+
+    def draw_right(self, surf):
+        """
+        Draws the right boss arm on to given surface.
+        :param surf: Pygame.Surface
+        :return: None
+        """
+        pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
+
 
 
 
