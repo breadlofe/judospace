@@ -92,15 +92,47 @@ class Tracker_Enemy:
 
 class Boss_Body:
 
-    def __init__(self, start_x):
-        self.radius = 20
+    def __init__(self, start_x, radius):
+        self.radius = radius
         self.Dog_Tag = "Boss Body"
         self.x = start_x
         self.y = self.radius * -1
+        self.end_y = 100
+        self.speed = 300
+        self.aggression = 5
+        self.x_vel = 0
+        self.y_vel = 0
+        self.life_value = 500
+        self.color = (75, 250, 186)
+        self.direction = 1
 
         self.dodge = False
 
+    def update(self, dt):
+        if self.end_y > self.y and not self.dodge:
+            self.y += self.speed * dt
+        else:
+            self.dodge = True
 
+        # Self.direction = 1 (Going Right) and Self.direction = -1 (Going Left)
+        # self.direction = -1
+
+        if self.dodge:
+            if self.direction == 1:
+                if self.x < 700:
+                    self.x += self.speed * dt
+                else:
+                    self.direction = -1
+            if self.direction == -1:
+                if self.x > 100:
+                    self.x -= self.speed * dt
+                else:
+                    self.direction = 1
+
+
+
+    def draw(self, surf):
+        pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
 
 class Boss_Arms:
@@ -166,6 +198,12 @@ class Control_AI:
         color = (82, 0, 0)
         bad_guy = Tracker_Enemy(radius, start_x, lv, temp_end, "Elite", color)
         self.AI_List.append(bad_guy)
+
+    def spawn_boss(self):
+        radius = 50
+        start_x = 450 - radius
+        boss_body = Boss_Body(start_x, radius)
+        self.AI_List.append(boss_body)
 
     def update(self, dt):
         for i in self.AI_List:

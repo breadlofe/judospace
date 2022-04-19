@@ -192,7 +192,7 @@ while not finished:
             h_random = random.randint(1, 5) # Every {spawn_timer} seconds, it rolls a die to see if it spawns.
             # print(f"RANDOM VAL = {h_random}")
             if h_random == 1:
-                H.spawn(15, 1, 15)
+                H.spawn(15, 1, 35)
             health_item_spawn_timer = h_i_spawn_set
 
     # Health item collision with player bullet and player (DAS):
@@ -240,6 +240,8 @@ while not finished:
             if event.key == pygame.K_q:
                 temp_var = random.randint(100, SCREEN_WIDTH - 100)
                 AI.add_elite(20, temp_var, 10)
+            if event.key == pygame.K_b:
+                AI.spawn_boss()
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]
@@ -288,7 +290,7 @@ while not finished:
                 spawn_rate = 2
 
             if Level == 3:
-                Basic_Enemy_Count = 8
+                Basic_Enemy_Count = 6
                 Tracker_Enemy_Count = 1
                 spawn_rate = 2
                 tracker_set_rate = 6
@@ -306,7 +308,7 @@ while not finished:
                 tracker_set_rate = 4.5
 
             if Level == 6:
-                Basic_Enemy_Count = 10
+                Basic_Enemy_Count = 8
                 Tracker_Enemy_Count = 2
                 spawn_rate = 1
                 tracker_set_rate = 4
@@ -314,7 +316,7 @@ while not finished:
                 Elite_Count = 1
 
             if Level == 7:
-                Basic_Enemy_Count = 15
+                Basic_Enemy_Count = 10
                 Tracker_Enemy_Count = 3
                 spawn_rate = 1
                 tracker_set_rate = 4
@@ -322,7 +324,7 @@ while not finished:
                 Elite_Count = 1
 
             if Level == 8:
-                Basic_Enemy_Count = 20
+                Basic_Enemy_Count = 15
                 Tracker_Enemy_Count = 4
                 spawn_rate = 0.5
                 tracker_set_rate = 4
