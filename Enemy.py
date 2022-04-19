@@ -85,6 +85,8 @@ class Tracker_Enemy:
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
+# Below is the Boss Body and the Boss Hand class
+
 class Boss_Body:
 
     def __init__(self):
@@ -92,10 +94,14 @@ class Boss_Body:
         self.Dog_Tag = "Boss Body"
 
 
+
+
 class Boss_Arms:
 
     def __init__(self, tag):
-
+        """"
+        param tag: Determines which hand this instance is
+        """
         self.Dog_Tag = tag
 
 
