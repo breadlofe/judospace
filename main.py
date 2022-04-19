@@ -542,12 +542,17 @@ while not finished:
                 #title.display_level(screen)
                 title.display_bosslevel(screen)
                 Arms.draw_right(screen)
+                Arms.draw_left(screen)
 
                 # Boss collision
                 for b in P.bullet_list:
                     point = (b[0][0], b[0][1])
                     temp = col.AlphaCollision(Arms.right_arm_bounder, b[0][0], b[0][1])
+                    temp2 = col.AlphaCollision(Arms.left_arm_bounder, b[0][0], b[0][1])
                     if temp.collide():
+                        J.sfx("b_a_hit")
+                        b[1] = 0
+                    if temp2.collide():
                         J.sfx("b_a_hit")
                         b[1] = 0
                 # BOSS COLLISION

@@ -150,19 +150,28 @@ class Boss_Arms:
         """
         self.Dog_Tag = tag
         self.proj_radius = 5
-        self.x = start_x
-        self.y = start_y
+        self.x_r = start_x
+        self.y_r = start_y
+        self.x_l = start_x + 400
+        self.y_l = start_y  # Is redundant for now, but wll come in handy once triangles start to rotate.
         self.x_change = 100  # How much the other points are offset from the first point.
         self.y_change = 150
         self.life_r = life_value
         self.life_l = life_value
         self.rgb_r = [255, 0, 0]
-        self.right_arm = matrix.Matrix(vector.Vector(self.x, self.y),
-                                       vector.Vector(self.x - self.x_change, self.y - self.y_change),
-                                       vector.Vector(self.x + self.x_change, self.y - self.y_change))
+        self.rgb_l = [255, 0, 0]  # Same thing here. Will come in handy in the future.
+        self.right_arm = matrix.Matrix(vector.Vector(self.x_r, self.y_r),
+                                       vector.Vector(self.x_r - self.x_change, self.y_r - self.y_change),
+                                       vector.Vector(self.x_r + self.x_change, self.y_r - self.y_change))
         self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
                                                                 vector.Vector(self.proj_radius, self.proj_radius),
                                                                 vector.Vector(self.proj_radius, self.proj_radius))
+        self.left_arm = matrix.Matrix(vector.Vector(self.x_l, self.y_l),
+                                      vector.Vector(self.x_l - self.x_change, self.y_l - self.y_change),
+                                      vector.Vector(self.x_l + self.x_change, self.y_l - self.y_change))
+        self.left_arm_bounder = self.left_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                              vector.Vector(self.proj_radius, self.proj_radius),
+                                                              vector.Vector(self.proj_radius, self.proj_radius))
         # NOTE: The right arm bounder creates hit-triangle for arm that accounts for projectile radius.
 
     def draw_right(self, surf):
@@ -173,6 +182,13 @@ class Boss_Arms:
         """
         pygame.draw.polygon(surf, self.rgb_r, sm.convert(self.right_arm))
 
+    def draw_left(self, surf):
+        """
+        Draws the left boss arm on to given surface
+        :param surf: Pygame.Surface
+        :return: None
+        """
+        pygame.draw.polygon(surf, self.rgb_l, sm.convert(self.left_arm))
 
 
 
