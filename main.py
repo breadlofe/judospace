@@ -208,8 +208,10 @@ while not finished:
             if col.Collision(point_4, point_5, 5, h[3]).collide():
                 h[1] = 0
                 b[1] = 0
+                J.sfx("h_hit")
         if col.Collision(point_4, (Player.x, Player.y), h[3], Player.r).collide() and h[5] == True:
             h[0][0] = 901
+            J.sfx("h_get")
             if Player.life <= PLAYER_LIFE - h[2]: # Checks to see if healing will not make bar go over rect.
                 Player.life += h[2]
             else: # If it will, then the bar will just go back to full.
