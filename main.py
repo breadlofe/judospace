@@ -73,6 +73,8 @@ spawn_timer = 0
 game_over_timer = 3
 level_complete_timer = 2
 level_complete_general = False
+warning_timer = 2.5
+warning_timer_done = False
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -127,8 +129,10 @@ while not finished:
                     Elite_Count -= 1
                     score.add_to_score(50)
                     enemy_total -= 1
-                # if e.life_value <= 0 and e.Dog_Tag == "":
-                #     score.add_to_score(80)
+                # if e.life_value <= 0 and e.Dog_Tag == "": #Boss arms      ~ZDH
+                #     score.add_to_score(50)
+                # if e.life_value <= 0 and e.Dog_Tag == "": #Boss itself    ~ZDH
+                #     score.add_to_score(200)
 
     # Enemies shooting (DAS):
     shoot_timer -= delta_time
@@ -156,7 +160,6 @@ while not finished:
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
-
                 if e.Dog_Tag == "Elite":
                     e.aggression = 1
                     if e.dodge:
@@ -339,6 +342,11 @@ while not finished:
                 elite_set_rate = 12
                 Elite_Count = 2
 
+            if Level == 10:
+                Basic_Enemy_Count = 2
+                spawn_rate = 0.5
+                #Dylan or Dustin, you can change this placeholder battle for the boss   ~ZDH
+
             elite_rate = elite_set_rate
             tracker_rate = tracker_set_rate
             spawn_timer = 0
@@ -402,7 +410,6 @@ while not finished:
                     First = True
                     level_complete_general = True
 
-
         #Boolean needed for true and false:     ~ZDH
         if Level == 2 and not level_complete_general:
             #title.display_level_two(screen)
@@ -418,7 +425,6 @@ while not finished:
                     level_complete_timer = 2
                     First = True
                     level_complete_general = True
-
 
         #Boolean needed for true and true:      ~ZDH
         if Level == 3 and not level_complete_general:
@@ -508,11 +514,44 @@ while not finished:
                     First = True
                     level_complete_general = True
 
+        if Level == 9 and not level_complete_general:
+            # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
+            if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
+                level_complete_timer -= delta_time
+                if level_complete_timer <= 0:
+                    level_complete_timer = 2.5
+                    Level = 10
+                    First = True
+                    level_complete_general = True
+
+        if Level == 10 and not level_complete_general:
+            if warning_timer > 0: #and warning_timer_done == False:
+                warning_timer -= delta_time
+                title.display_thebosswarning(screen)
+                warning_timer_done = True
+            if warning_timer <= 0 and warning_timer_done == True:
+                #title.level_text_ren(Level)
+                #title.display_level(screen)
+                title.display_bosslevel(screen)
+                warning_timer = 0
+                if enemy_total == 0:    #placeholder text till the boss' health bar. ~ZDH
+                    if level_complete_timer > 0:
+                        title.display_bossdefeated(screen)
+                        level_complete_timer -= delta_time
+                    if level_complete_timer <= 0:
+                        level_complete_timer = 0
+                        title.display_final_credits(screen)
+
         #If we do get a boss, we'd need one for the boss too.   ~ZDH
     if title_click == False:
         title.draw(screen)
     if show_credits == True:
         title.display_credits(screen)
+        #title.display_final_credits(screen)
     if Player.life <= 0:
         score.permanent_score(score.score)
         title.display_game_over(screen)
