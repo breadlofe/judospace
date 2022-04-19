@@ -385,13 +385,17 @@ while not finished:
 
 
         #Boolean needed for false and false:    ~ZDH
-        if Level == 1 and not level_complete_general: #From Here
-            title.display_level_one(screen)
+        if Level == 1 and not level_complete_general:
+            #title.display_level_one(screen)
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
-                title.display_level_one_completed(screen)
+                #title.display_level_one_completed(screen)
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
-                    level_complete_timer = 2  #TO DO: do this for level 2 and 3.  ~ZDH To Here
+                    level_complete_timer = 2
                     Level = 2
                     First = True
                     level_complete_general = True
@@ -399,9 +403,13 @@ while not finished:
 
         #Boolean needed for true and false:     ~ZDH
         if Level == 2 and not level_complete_general:
-            title.display_level_two(screen)
+            #title.display_level_two(screen)
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
-                title.display_level_two_completed(screen)
+                #title.display_level_two_completed(screen)
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     Level = 3
@@ -412,10 +420,14 @@ while not finished:
 
         #Boolean needed for true and true:      ~ZDH
         if Level == 3 and not level_complete_general:
-            # This needs to be updates and fixed so that the complete and the passive level are shown
-            title.display_level_three(screen)
+            # This needs to be updated and fixed so that the complete and the passive level are shown
+            #title.display_level_three(screen)
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
                 #title.display_level_three_completed(screen)
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
@@ -426,7 +438,11 @@ while not finished:
         # Below is the level transitions, we just need to add all of the screen stuff. Soooo do that when you can - DG
         if Level == 4 and not level_complete_general:
             # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
@@ -436,7 +452,11 @@ while not finished:
 
         if Level == 5 and not level_complete_general:
             # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
@@ -446,7 +466,11 @@ while not finished:
 
         if Level == 6 and not level_complete_general:
             # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
@@ -456,7 +480,11 @@ while not finished:
 
         if Level == 7 and not level_complete_general:
             # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5
@@ -466,7 +494,11 @@ while not finished:
 
         if Level == 8 and not level_complete_general:
             # title.display
+            title.level_text_ren(Level)
+            title.display_level(screen)
             if enemy_total == 0:
+                title.complete_text(Level)
+                title.display_level_completed(screen)
                 level_complete_timer -= delta_time
                 if level_complete_timer <= 0:
                     level_complete_timer = 2.5

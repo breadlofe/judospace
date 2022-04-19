@@ -89,7 +89,7 @@ class Title_Screen:
         self.level_x = screen_width / 2
         self.level_y = screen_height / 2
 
-        #Los creditos
+        #The credits after the boss
         self.the_credits1 = "Judo Space"
         self.credits_title = self.font.render(str(self.the_credits1), False, (250, 250, 0))
         self.the_credits2 = "Credits:"
@@ -116,6 +116,24 @@ class Title_Screen:
                                     self.button_radius * 2, self.button_radius * 2)     #Play
         self.credits_back_rect = pygame.Rect(25 / 2 - 3.5, 575 - self.button_radius / 2,
                                     self.button_radius, self.button_radius)             #Back
+        #self.level_text = ""
+        #self.complete = ""
+
+    def level_text_ren(self, level_number):
+        self.level_text = f"Level {level_number}"
+        self.level_display = self.font.render(str(self.level_text), False, (250, 250, 0))
+
+    def display_level(self, screen):
+        screen.blit(self.level_display,
+                    (self.level_x - (self.level_display.get_width() / 2), 5))
+
+    def complete_text(self, level_number):
+        self.complete = f"Level {level_number} Complete!"
+        self.level_complete = self.font.render(str(self.complete), False, (249, 251, 0))
+
+    def display_level_completed(self, screen):
+        screen.blit(self.level_complete, (self.over_x - (self.level_complete.get_width() / 2),
+                                           self.over_y - (self.level_complete.get_height() / 2)))
 
     def draw(self, screen):
         screen.blit(self.title_title, (self.title_x - (self.title_title.get_width() / 2),
