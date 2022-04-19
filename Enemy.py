@@ -89,9 +89,13 @@ class Tracker_Enemy:
 
 class Boss_Body:
 
-    def __init__(self):
+    def __init__(self, start_x):
         self.radius = 20
         self.Dog_Tag = "Boss Body"
+        self.x = start_x
+        self.y = self.radius * -1
+
+        self.dodge = False
 
 
 
