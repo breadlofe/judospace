@@ -156,31 +156,44 @@ class Boss_Arms:
         self.y_l = start_y  # Is redundant for now, but wll come in handy once triangles start to rotate.
         self.x_change = 100  # How much the other points are offset from the first point.
         self.y_change = 150
-        self.life_r = life_value
-        self.life_l = life_value
-        self.rgb_r = [255, 0, 0]
-        self.rgb_l = [255, 0, 0]  # Same thing here. Will come in handy in the future.
-        self.right_arm = matrix.Matrix(vector.Vector(self.x_r, self.y_r),
-                                       vector.Vector(self.x_r - self.x_change, self.y_r - self.y_change),
-                                       vector.Vector(self.x_r + self.x_change, self.y_r - self.y_change))
-        self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
-                                                                vector.Vector(self.proj_radius, self.proj_radius),
-                                                                vector.Vector(self.proj_radius, self.proj_radius))
-        self.left_arm = matrix.Matrix(vector.Vector(self.x_l, self.y_l),
-                                      vector.Vector(self.x_l - self.x_change, self.y_l - self.y_change),
-                                      vector.Vector(self.x_l + self.x_change, self.y_l - self.y_change))
-        self.left_arm_bounder = self.left_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
-                                                              vector.Vector(self.proj_radius, self.proj_radius),
-                                                              vector.Vector(self.proj_radius, self.proj_radius))
+        self.rgb = (75, 250, 186)
+          # Same thing here. Will come in handy in the future.
+
+        self.y = start_y
+        self.life_value = life_value
+        if self.Dog_Tag == "Right Arm":
+
+            self.x = start_x
+            self.right_arm = matrix.Matrix(vector.Vector(self.x_r, self.y_r),
+                                           vector.Vector(self.x_r - self.x_change, self.y_r - self.y_change),
+                                           vector.Vector(self.x_r + self.x_change, self.y_r - self.y_change))
+            self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                                    vector.Vector(self.proj_radius, self.proj_radius),
+                                                                    vector.Vector(self.proj_radius, self.proj_radius))
+        elif self.Dog_Tag == "Left Arm":
+            self.x = start_x + 400
+            self.left_arm = matrix.Matrix(vector.Vector(self.x_l, self.y_l),
+                                          vector.Vector(self.x_l - self.x_change, self.y_l - self.y_change),
+                                          vector.Vector(self.x_l + self.x_change, self.y_l - self.y_change))
+            self.left_arm_bounder = self.left_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                                  vector.Vector(self.proj_radius, self.proj_radius),
+                                                                  vector.Vector(self.proj_radius, self.proj_radius))
         # NOTE: The right arm bounder creates hit-triangle for arm that accounts for projectile radius.
 
-    def draw_right(self, surf):
+    def draw(self, surf):
         """
         Draws the right boss arm on to given surface.
         :param surf: Pygame.Surface
         :return: None
         """
-        pygame.draw.polygon(surf, self.rgb_r, sm.convert(self.right_arm))
+        if self.Dog_Tag == "Right Hand":
+            pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
+        elif self.Dog_Tag == "Left Hand":
+            pygame.draw.polygon(surf, self.rgb, sm.convert(self.left_arm))
+
+
+    def update(self, dt):
+        pass
 
     def draw_left(self, surf):
         """
@@ -197,6 +210,7 @@ class Control_AI:
 
     def __init__(self):
         self.AI_List = []
+        self.Boss_List = []
 
     def add_basic_enemy(self, radius, speed, start_x):
         temp_end = random.randint(100, 300)
@@ -219,14 +233,27 @@ class Control_AI:
         radius = 50
         start_x = 450 - radius
         boss_body = Boss_Body(start_x, radius)
-        self.AI_List.append(boss_body)
+        self.Boss_List.append(boss_body)
+        start_x = 350
+        life_value = 500
+        boss_right = Boss_Arms("Right Arm", start_x, 100,  life_value)
+        start_x = 550
+        boss_left = Boss_Arms("Left Arm", start_x, 100, life_value)
+        self.Boss_List.append(boss_right)
+        self.Boss_List.append(boss_left)
 
     def update(self, dt):
         for i in self.AI_List:
             i.update(dt)
             if i.life_value <= 0:
                 self.AI_List.remove(i)
+        for i in self.Boss_List:
+            i.update(dt)
+            if i.life_value <= 0:
+                self.Boss_List.remove(i)
 
     def draw(self, surf):
         for i in self.AI_List:
+            i.draw(surf)
+        for i in self.Boss_List:
             i.draw(surf)
