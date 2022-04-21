@@ -417,6 +417,13 @@ while not finished:
 
         # Boss collision
         if Level == 10:
+            #print(Player.x)
+            for i in AI.Boss_List:
+                if i.Dog_Tag == "Right Arm":
+                    i.rotate(Player.x, Player.y)
+                    print(i.arm)
+                elif i.Dog_Tag == "Left Arm":
+                    i.rotate(Player.x, Player.y)
             for b in P.bullet_list:
                 point = (b[0][0], b[0][1])
                 for i in AI.Boss_List:
