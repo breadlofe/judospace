@@ -69,7 +69,8 @@ E = pro.Enemy_Projectile()
 T = pro.Tracker_Projectile()
 H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
-Arms = Boss_Arms("arms", 300, 300, 20)
+Arms_Right = Boss_Arms("Right Arm", 300, 300, 20)  # LOOK HERE
+Arms_Left = Boss_Arms("Left Arm", 300, 300, 20)    # LOOK HERE
 
 spawn_timer = 0
 game_over_timer = 3
@@ -269,7 +270,7 @@ while not finished:
             show_credits = False    #Play button
             title_click = True
             J.music("level_one")
-            Level = 1  # Change this value IF you wish to jump to test other levels.
+            Level = 10  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
@@ -541,14 +542,14 @@ while not finished:
                 #title.level_text_ren(Level)
                 #title.display_level(screen)
                 title.display_bosslevel(screen)
-                Arms.draw_right(screen)
-                Arms.draw_left(screen)
+                Arms_Right.draw(screen)   # LOOK HERE
+                Arms_Left.draw(screen)    # LOOK HERE
 
                 # Boss collision
                 for b in P.bullet_list:
                     point = (b[0][0], b[0][1])
-                    temp = col.AlphaCollision(Arms.right_arm_bounder, b[0][0], b[0][1])
-                    temp2 = col.AlphaCollision(Arms.left_arm_bounder, b[0][0], b[0][1])
+                    temp = col.AlphaCollision(Arms_Right.right_arm_bounder, b[0][0], b[0][1])  # LOOK HERE
+                    temp2 = col.AlphaCollision(Arms_Left.left_arm_bounder, b[0][0], b[0][1])   # LOOK HERE
                     if temp.collide():
                         J.sfx("b_a_hit")
                         b[1] = 0

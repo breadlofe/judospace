@@ -186,23 +186,24 @@ class Boss_Arms:
         :param surf: Pygame.Surface
         :return: None
         """
-        if self.Dog_Tag == "Right Hand":
+        if self.Dog_Tag == "Right Arm":
             pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
-        elif self.Dog_Tag == "Left Hand":
+        elif self.Dog_Tag == "Left Arm":
             pygame.draw.polygon(surf, self.rgb, sm.convert(self.left_arm))
 
 
     def update(self, dt):
         pass
 
-    def draw_left(self, surf):
+
+    def rotate(self, player_x, player_y):
         """
-        Draws the left boss arm on to given surface
-        :param surf: Pygame.Surface
+        Takes center of triangle, translates it to origin, rotates it towards player, then translates back.
+        :param player_x: X-value of player vector.
+        :param player_y: Y-value of player vector.
         :return: None
         """
-        pygame.draw.polygon(surf, self.rgb_l, sm.convert(self.left_arm))
-
+        center_right = (self.right_arm._data[0] + self.right_arm._data)
 
 
 
