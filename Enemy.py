@@ -150,31 +150,26 @@ class Boss_Arms:
         """
         self.Dog_Tag = tag
         self.proj_radius = 5
-        self.x_r = start_x
-        self.y_r = start_y
-        self.x_l = start_x + 400
-        self.y_l = start_y  # Is redundant for now, but wll come in handy once triangles start to rotate.
+        self.x = start_x
+        self.y = start_y
         self.x_change = 100  # How much the other points are offset from the first point.
         self.y_change = 150
         self.rgb = (75, 250, 186)
           # Same thing here. Will come in handy in the future.
 
-        self.y = start_y
         self.life_value = life_value
         if self.Dog_Tag == "Right Arm":
-
-            self.x = start_x
-            self.right_arm = matrix.Matrix(vector.Vector(self.x_r, self.y_r),
-                                           vector.Vector(self.x_r - self.x_change, self.y_r - self.y_change),
-                                           vector.Vector(self.x_r + self.x_change, self.y_r - self.y_change))
+            self.right_arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                           vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                           vector.Vector(self.x + self.x_change, self.y - self.y_change))
             self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
                                                                     vector.Vector(self.proj_radius, self.proj_radius),
                                                                     vector.Vector(self.proj_radius, self.proj_radius))
         elif self.Dog_Tag == "Left Arm":
             self.x = start_x + 400
-            self.left_arm = matrix.Matrix(vector.Vector(self.x_l, self.y_l),
-                                          vector.Vector(self.x_l - self.x_change, self.y_l - self.y_change),
-                                          vector.Vector(self.x_l + self.x_change, self.y_l - self.y_change))
+            self.left_arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                          vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                          vector.Vector(self.x + self.x_change, self.y - self.y_change))
             self.left_arm_bounder = self.left_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
                                                                   vector.Vector(self.proj_radius, self.proj_radius),
                                                                   vector.Vector(self.proj_radius, self.proj_radius))
@@ -235,10 +230,9 @@ class Control_AI:
         start_x = 450 - radius
         boss_body = Boss_Body(start_x, radius)
         self.Boss_List.append(boss_body)
-        start_x = 350
+        start_x = 200
         life_value = 500
         boss_right = Boss_Arms("Right Arm", start_x, 100,  life_value)
-        start_x = 550
         boss_left = Boss_Arms("Left Arm", start_x, 100, life_value)
         self.Boss_List.append(boss_right)
         self.Boss_List.append(boss_left)

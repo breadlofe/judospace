@@ -69,8 +69,8 @@ E = pro.Enemy_Projectile()
 T = pro.Tracker_Projectile()
 H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
-Arms_Right = Boss_Arms("Right Arm", 300, 300, 20)  # LOOK HERE
-Arms_Left = Boss_Arms("Left Arm", 300, 300, 20)    # LOOK HERE
+#Arms_Right = Boss_Arms("Right Arm", 300, 300, 20)  # LOOK HERE
+#Arms_Left = Boss_Arms("Left Arm", 300, 300, 20)    # LOOK HERE
 
 spawn_timer = 0
 game_over_timer = 3
@@ -132,6 +132,7 @@ while not finished:
                     Elite_Count -= 1
                     score.add_to_score(50)
                     enemy_total -= 1
+
                 # if e.life_value <= 0 and e.Dog_Tag == "": #Boss arms      ~ZDH
                 #     score.add_to_score(50)
                 # if e.life_value <= 0 and e.Dog_Tag == "": #Boss itself    ~ZDH
@@ -172,6 +173,8 @@ while not finished:
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
                         T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
+
+
 
     # Collision between player and enemy bullet (DAS):
     for u in E.bullet_list:
@@ -348,8 +351,9 @@ while not finished:
                 Elite_Count = 2
 
             if Level == 10:
-                Basic_Enemy_Count = 2
-                spawn_rate = 0.5
+                AI.spawn_boss()
+                #Basic_Enemy_Count = 2
+                #spawn_rate = 0.5
                 #Dylan or Dustin, you can change this placeholder battle for the boss   ~ZDH
 
             elite_rate = elite_set_rate
@@ -384,6 +388,27 @@ while not finished:
                 elite_rate = elite_set_rate
                 Current_Elites += 1
 
+        # Boss collision
+        if Level == 10:
+            for b in P.bullet_list:
+                point = (b[0][0], b[0][1])
+                for i in AI.Boss_List:
+                    print(i.Dog_Tag)
+                    if i.Dog_Tag == "Right Arm":
+                        temp = col.AlphaCollision(i.right_arm_bounder, b[0][0], b[0][1])
+                    elif i.Dog_Tag == "Left Arm":
+                        temp = col.AlphaCollision(i.left_arm_bounder, b[0][0], b[0][1])
+                    elif i.Dog_Tag == "Boss Body":
+                        point_2 = (i.x, i.y)
+                        if col.Collision(point, point_2, 5, i.radius).collide():
+                            b[1] = 0
+                            i.life_value -= 1
+                            J.sfx("b_a_hit")
+                    if i.Dog_Tag == "Right Arm" or i.Dog_Tag == "Left Arm":
+                        if temp.collide():
+                            J.sfx("b_a_hit")
+                            b[1] = 0
+
 
     #Drawing
     screen.fill((0, 0, 0))
@@ -392,6 +417,8 @@ while not finished:
     P.draw(screen, BULLET_COLOR)
     S.draw(screen)
     AI.draw(screen)
+
+
     if title_click == True and show_credits == False:
         if Player.life > 0:
             Player.draw(screen)
@@ -542,24 +569,15 @@ while not finished:
                 #title.level_text_ren(Level)
                 #title.display_level(screen)
                 title.display_bosslevel(screen)
-                Arms_Right.draw(screen)   # LOOK HERE
-                Arms_Left.draw(screen)    # LOOK HERE
 
-                # Boss collision
-                for b in P.bullet_list:
-                    point = (b[0][0], b[0][1])
-                    temp = col.AlphaCollision(Arms_Right.right_arm_bounder, b[0][0], b[0][1])  # LOOK HERE
-                    temp2 = col.AlphaCollision(Arms_Left.left_arm_bounder, b[0][0], b[0][1])   # LOOK HERE
-                    if temp.collide():
-                        J.sfx("b_a_hit")
-                        b[1] = 0
-                    if temp2.collide():
-                        J.sfx("b_a_hit")
-                        b[1] = 0
+                #Arms_Right.draw(screen)   # LOOK HERE
+                #Arms_Left.draw(screen)    # LOOK HERE
+
+
                 # BOSS COLLISION
 
                 warning_timer = 0
-                if enemy_total == 0:    #placeholder text till the boss' health bar. ~ZDH
+                if not enemy_total == 0:    #placeholder text till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:
                         title.display_bossdefeated(screen)
                         level_complete_timer -= delta_time
