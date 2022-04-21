@@ -101,6 +101,9 @@ class Title_Screen:
                                     self.button_radius * 2, self.button_radius * 2)     #Play
         self.credits_back_rect = pygame.Rect(25 / 2 - 3.5, 575 - self.button_radius / 2,
                                     self.button_radius, self.button_radius)             #Back
+        self.logline_continue_rect = pygame.Rect(self.playbutton_x - (self.button_radius + self.button_radius / 2),
+                                            self.playbutton_y - self.button_radius + 80,
+                                            self.button_radius * 2, self.button_radius * 2)#The continue button for logline
 
         self.log1 = "After having his home destroyed by"
         self.log2 = "the greedy and wrathful emperor"
@@ -112,6 +115,8 @@ class Title_Screen:
         self.logline3 = self.font.render(str(self.log3), False, (250, 250, 0))
         self.logline4 = self.font.render(str(self.log4), False, (250, 250, 0))
         self.logline5 = self.font.render(str(self.log5), False, (250, 250, 0))
+        self.contue = "Continue"
+        self.continue_continue = self.font.render(str(self.contue), False, (250, 250, 0))
 
     def level_text_ren(self, level_number):
         self.level_text = f"Level {level_number}"
@@ -171,6 +176,18 @@ class Title_Screen:
     def display_bossdefeated(self, screen):
         screen.blit(self.boss_defeated, (self.over_x - (self.boss_defeated.get_width() / 2),
                                            self.over_y - (self.boss_defeated.get_height() / 2)))
+
+    def display_logline(self, screen):
+        screen.blit(self.logline1, (self.level_x - (self.logline1.get_width() / 2), 100))
+        screen.blit(self.logline2, (self.level_x - (self.logline2.get_width() / 2), 140))
+        screen.blit(self.logline3, (self.level_x - (self.logline3.get_width() / 2), 180))
+        screen.blit(self.logline4, (self.level_x - (self.logline4.get_width() / 2), 220))
+        screen.blit(self.logline5, (self.level_x - (self.logline5.get_width() / 2), 260))
+        #pygame.draw.rect(screen, (200, 200, 0), self.logline_continue_rect, 1)
+        pygame.draw.circle(screen, (155, 220, 0), (self.playbutton_x - (self.button_radius / 2),
+                                                   self.playbutton_y + 80), self.button_radius)
+        screen.blit(self.continue_continue, (self.playbutton_x - self.continue_continue.get_width() + 31,
+                                                   self.playbutton_y + self.button_radius + 80))
 
     def display_final_credits(self, screen):
         screen.blit(self.credits_title, (self.level_x - (self.credits_title.get_width() / 2), 80))
