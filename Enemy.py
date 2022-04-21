@@ -25,7 +25,7 @@ class Basic_Enemy:
 
     def update(self, dt):
 
-        # all 400s are repr esentative of the equation (SCREEN_W / 2)
+        # all 400s are representative of the equation (SCREEN_W / 2)
         if self.dodge == False:
             if self.end_y > self.y:
                 self.y += self.speed * dt
@@ -54,6 +54,7 @@ class Basic_Enemy:
                 else:
                     self.dodge_y = self.end_y
 
+
             # The current idea is self.dodge is to have the object move in a sin and cos manner to evade attacks
 
     def draw(self, surf):
@@ -61,7 +62,6 @@ class Basic_Enemy:
 
     def gethurt(self):
         pass
-
 
 class Tracker_Enemy:
 
@@ -89,7 +89,6 @@ class Tracker_Enemy:
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
-
 # Below is the Boss Body and the Boss Hand class
 
 class Boss_Body:
@@ -100,7 +99,7 @@ class Boss_Body:
         self.x = start_x
         self.y = self.radius * -1
         self.end_y = 100
-        self.speed = 300
+        self.speed = 400
         self.aggression = 5
         self.x_vel = 0
         self.y_vel = 0
@@ -121,15 +120,17 @@ class Boss_Body:
 
         if self.dodge:
             if self.direction == 1:
-                if self.x < 700:
+                if self.x < 575:
                     self.x += self.speed * dt
                 else:
                     self.direction = -1
             if self.direction == -1:
-                if self.x > 100:
+                if self.x > 225:
                     self.x -= self.speed * dt
                 else:
                     self.direction = 1
+
+
 
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
@@ -137,7 +138,7 @@ class Boss_Body:
 
 class Boss_Arms:
 
-    def __init__(self, tag, start_x, start_y, life_value):
+    def __init__(self, tag, start_x, end_y, life_value):
         """"
         :param tag: Determines which hand this instance is
         :param start_x: Int or float representing x-position of middle tip of triangle:
@@ -148,15 +149,19 @@ class Boss_Arms:
         :param start_y: Int or float representing y-position of point highlighted above.
         :param life_value: Int or float representing life value of each arm.
         """
-        # NOTE: The bounder creates hit-triangle for arm that accounts for projectile radius.
         self.Dog_Tag = tag
         self.proj_radius = 5
-        self.y = start_y
-        self.x_change = 100  # How much the other points are offset from the first point.
-        self.y_change = 150
+        self.x = start_x
+        self.y = 0
+        self.speed = 400
+        self.end_y = end_y
+        self.x_change = 50  # How much the other points are offset from the first point.
+        self.y_change = 70
         self.rgb = (75, 250, 186)
+        self.direction = 1
+          # Same thing here. Will come in handy in the future.
+        self.dodge = False
         self.life_value = life_value
-
         if self.Dog_Tag == "Right Arm":
 
             self.x = start_x
@@ -173,6 +178,9 @@ class Boss_Arms:
                                                 vector.Vector(self.proj_radius, self.proj_radius),
                                                 vector.Vector(self.proj_radius, self.proj_radius))
 
+        self.highest_x = self.x + 175
+        self.lowest_x = self.x - 175
+
     def draw(self, surf):
         """
         Draws the right boss arm on to given surface.
@@ -182,7 +190,36 @@ class Boss_Arms:
         pygame.draw.polygon(surf, self.rgb, sm.convert(self.arm))
 
     def update(self, dt):
-        pass
+        if not self.dodge:
+            if self.y < self.end_y:
+                self.y += self.speed * dt
+            else:
+                self.dodge = True
+        else:
+            if self.direction == 1:
+                if self.x < self.highest_x:
+                    self.x += self.speed * dt
+                else:
+                    self.direction = -1
+            if self.direction == -1:
+                if self.x > self.lowest_x:
+                    self.x -= self.speed * dt
+                else:
+                    self.direction = 1
+
+        if self.Dog_Tag == "Right Arm":
+            self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                     vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                     vector.Vector(self.x + self.x_change, self.y - self.y_change))
+        elif self.Dog_Tag == "Left Arm":
+            self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                     vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                     vector.Vector(self.x + self.x_change, self.y - self.y_change))
+
+        self.bounder = self.arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                vector.Vector(self.proj_radius, self.proj_radius),
+                                                vector.Vector(self.proj_radius, self.proj_radius))
+
 
     def rotate(self, player_x, player_y):
         """
@@ -195,6 +232,8 @@ class Boss_Arms:
         # center_bound = (self.bounder._data[0] + self.bounder._data[1]
         # + self.bounder._data[2]) / 3
         pass
+
+
 
 
 class Control_AI:
@@ -227,8 +266,8 @@ class Control_AI:
         self.Boss_List.append(boss_body)
         start_x = 200
         life_value = 500
-        boss_right = Boss_Arms("Right Arm", start_x, 100, life_value)
-        boss_left = Boss_Arms("Left Arm", start_x, 100, life_value)
+        boss_right = Boss_Arms("Right Arm", start_x, 200, life_value)
+        boss_left = Boss_Arms("Left Arm", start_x, 200, life_value)
         self.Boss_List.append(boss_right)
         self.Boss_List.append(boss_left)
 

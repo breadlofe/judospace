@@ -235,7 +235,7 @@ while not finished:
 
     if title_click == True and show_credits == False:
         #Dustin can insert what's needed for imputing the projectile commands
-        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking and Player.life > 0:    # Player can't shoot while blocking.
+        if event.type == pygame.MOUSEBUTTONDOWN and not Player.blocking and Player.life > 0 and event.button == 1:    # Player can't shoot while blocking.
             P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
@@ -393,7 +393,6 @@ while not finished:
             for b in P.bullet_list:
                 point = (b[0][0], b[0][1])
                 for i in AI.Boss_List:
-                    print(i.Dog_Tag)
                     if i.Dog_Tag == "Right Arm":
                         temp = col.AlphaCollision(i.bounder, b[0][0], b[0][1])
                     elif i.Dog_Tag == "Left Arm":
@@ -407,6 +406,7 @@ while not finished:
                     if i.Dog_Tag == "Right Arm" or i.Dog_Tag == "Left Arm":
                         if temp.collide():
                             J.sfx("b_a_hit")
+                            i.life_value -= 1
                             b[1] = 0
 
 
