@@ -179,6 +179,30 @@ class Boss_Arms:
                                                                   vector.Vector(self.proj_radius, self.proj_radius),
                                                                   vector.Vector(self.proj_radius, self.proj_radius))
         # NOTE: The right arm bounder creates hit-triangle for arm that accounts for projectile radius.
+        # self.Dog_Tag = tag
+        # self.proj_radius = 5
+        # self.y = start_y
+        # self.x_change = 100  # How much the other points are offset from the first point.
+        # self.y_change = 150
+        # self.rgb = (75, 250, 186)
+        # # Same thing here. Will come in handy in the future.
+        #
+        # self.life_value = life_value
+        # if self.Dog_Tag == "Right Arm":
+        #
+        #     self.x = start_x
+        #     self.arm = matrix.Matrix(vector.Vector(self.x, self.y_r),
+        #                                    vector.Vector(self.x - self.x_change, self.y - self.y_change),
+        #                                    vector.Vector(self.x + self.x_change, self.y - self.y_change))
+        # elif self.Dog_Tag == "Left Arm":
+        #     self.x = start_x + 400
+        #     self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
+        #                                   vector.Vector(self.x - self.x_change, self.y - self.y_change),
+        #                                   vector.Vector(self.x + self.x_change, self.y - self.y_change))
+        #
+        # self.bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+        #                                                         vector.Vector(self.proj_radius, self.proj_radius),
+        #                                                         vector.Vector(self.proj_radius, self.proj_radius))
 
     def draw(self, surf):
         """
@@ -190,6 +214,7 @@ class Boss_Arms:
             pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
         elif self.Dog_Tag == "Left Arm":
             pygame.draw.polygon(surf, self.rgb, sm.convert(self.left_arm))
+        #pygame.draw.polygon(surf, self.rgb, sm.convert(self.arm)
 
 
     def update(self, dt):
@@ -203,7 +228,11 @@ class Boss_Arms:
         :param player_y: Y-value of player vector.
         :return: None
         """
-        center_right = (self.right_arm._data[0] + self.right_arm._data)
+        #center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
+        #center_bound = (self.bounder._data[0] + self.bounder._data[1]
+                        #+ self.bounder._data[2]) / 3
+        pass
+
 
 
 
