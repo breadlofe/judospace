@@ -4,6 +4,7 @@ import matrix
 import vector
 import shape_matrix as sm
 
+
 class Basic_Enemy:
 
     def __init__(self, radius, speed, start_x, end_y):
@@ -53,7 +54,6 @@ class Basic_Enemy:
                 else:
                     self.dodge_y = self.end_y
 
-
             # The current idea is self.dodge is to have the object move in a sin and cos manner to evade attacks
 
     def draw(self, surf):
@@ -61,6 +61,7 @@ class Basic_Enemy:
 
     def gethurt(self):
         pass
+
 
 class Tracker_Enemy:
 
@@ -87,6 +88,7 @@ class Tracker_Enemy:
 
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
+
 
 # Below is the Boss Body and the Boss Hand class
 
@@ -129,8 +131,6 @@ class Boss_Body:
                 else:
                     self.direction = 1
 
-
-
     def draw(self, surf):
         pygame.draw.circle(surf, self.color, (self.x, self.y), self.radius)
 
@@ -148,56 +148,30 @@ class Boss_Arms:
         :param start_y: Int or float representing y-position of point highlighted above.
         :param life_value: Int or float representing life value of each arm.
         """
+        # NOTE: The bounder creates hit-triangle for arm that accounts for projectile radius.
         self.Dog_Tag = tag
         self.proj_radius = 5
-        self.x = start_x
         self.y = start_y
         self.x_change = 100  # How much the other points are offset from the first point.
         self.y_change = 150
         self.rgb = (75, 250, 186)
-          # Same thing here. Will come in handy in the future.
-
         self.life_value = life_value
+
         if self.Dog_Tag == "Right Arm":
-            self.right_arm = matrix.Matrix(vector.Vector(self.x, self.y),
-                                           vector.Vector(self.x - self.x_change, self.y - self.y_change),
-                                           vector.Vector(self.x + self.x_change, self.y - self.y_change))
-            self.right_arm_bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
-                                                                    vector.Vector(self.proj_radius, self.proj_radius),
-                                                                    vector.Vector(self.proj_radius, self.proj_radius))
+
+            self.x = start_x
+            self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                     vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                     vector.Vector(self.x + self.x_change, self.y - self.y_change))
         elif self.Dog_Tag == "Left Arm":
             self.x = start_x + 400
-            self.left_arm = matrix.Matrix(vector.Vector(self.x, self.y),
-                                          vector.Vector(self.x - self.x_change, self.y - self.y_change),
-                                          vector.Vector(self.x + self.x_change, self.y - self.y_change))
-            self.left_arm_bounder = self.left_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
-                                                                  vector.Vector(self.proj_radius, self.proj_radius),
-                                                                  vector.Vector(self.proj_radius, self.proj_radius))
-        # NOTE: The right arm bounder creates hit-triangle for arm that accounts for projectile radius.
-        # self.Dog_Tag = tag
-        # self.proj_radius = 5
-        # self.y = start_y
-        # self.x_change = 100  # How much the other points are offset from the first point.
-        # self.y_change = 150
-        # self.rgb = (75, 250, 186)
-        # # Same thing here. Will come in handy in the future.
-        #
-        # self.life_value = life_value
-        # if self.Dog_Tag == "Right Arm":
-        #
-        #     self.x = start_x
-        #     self.arm = matrix.Matrix(vector.Vector(self.x, self.y_r),
-        #                                    vector.Vector(self.x - self.x_change, self.y - self.y_change),
-        #                                    vector.Vector(self.x + self.x_change, self.y - self.y_change))
-        # elif self.Dog_Tag == "Left Arm":
-        #     self.x = start_x + 400
-        #     self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
-        #                                   vector.Vector(self.x - self.x_change, self.y - self.y_change),
-        #                                   vector.Vector(self.x + self.x_change, self.y - self.y_change))
-        #
-        # self.bounder = self.right_arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
-        #                                                         vector.Vector(self.proj_radius, self.proj_radius),
-        #                                                         vector.Vector(self.proj_radius, self.proj_radius))
+            self.arm = matrix.Matrix(vector.Vector(self.x, self.y),
+                                     vector.Vector(self.x - self.x_change, self.y - self.y_change),
+                                     vector.Vector(self.x + self.x_change, self.y - self.y_change))
+
+        self.bounder = self.arm + matrix.Matrix(vector.Vector(self.proj_radius, self.proj_radius),
+                                                vector.Vector(self.proj_radius, self.proj_radius),
+                                                vector.Vector(self.proj_radius, self.proj_radius))
 
     def draw(self, surf):
         """
@@ -205,16 +179,10 @@ class Boss_Arms:
         :param surf: Pygame.Surface
         :return: None
         """
-        if self.Dog_Tag == "Right Arm":
-            pygame.draw.polygon(surf, self.rgb, sm.convert(self.right_arm))
-        elif self.Dog_Tag == "Left Arm":
-            pygame.draw.polygon(surf, self.rgb, sm.convert(self.left_arm))
-        #pygame.draw.polygon(surf, self.rgb, sm.convert(self.arm)
-
+        pygame.draw.polygon(surf, self.rgb, sm.convert(self.arm))
 
     def update(self, dt):
         pass
-
 
     def rotate(self, player_x, player_y):
         """
@@ -223,12 +191,10 @@ class Boss_Arms:
         :param player_y: Y-value of player vector.
         :return: None
         """
-        #center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
-        #center_bound = (self.bounder._data[0] + self.bounder._data[1]
-                        #+ self.bounder._data[2]) / 3
+        # center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
+        # center_bound = (self.bounder._data[0] + self.bounder._data[1]
+        # + self.bounder._data[2]) / 3
         pass
-
-
 
 
 class Control_AI:
@@ -261,7 +227,7 @@ class Control_AI:
         self.Boss_List.append(boss_body)
         start_x = 200
         life_value = 500
-        boss_right = Boss_Arms("Right Arm", start_x, 100,  life_value)
+        boss_right = Boss_Arms("Right Arm", start_x, 100, life_value)
         boss_left = Boss_Arms("Left Arm", start_x, 100, life_value)
         self.Boss_List.append(boss_right)
         self.Boss_List.append(boss_left)

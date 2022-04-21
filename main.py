@@ -395,9 +395,9 @@ while not finished:
                 for i in AI.Boss_List:
                     print(i.Dog_Tag)
                     if i.Dog_Tag == "Right Arm":
-                        temp = col.AlphaCollision(i.right_arm_bounder, b[0][0], b[0][1])
+                        temp = col.AlphaCollision(i.bounder, b[0][0], b[0][1])
                     elif i.Dog_Tag == "Left Arm":
-                        temp = col.AlphaCollision(i.left_arm_bounder, b[0][0], b[0][1])
+                        temp = col.AlphaCollision(i.bounder, b[0][0], b[0][1])
                     elif i.Dog_Tag == "Boss Body":
                         point_2 = (i.x, i.y)
                         if col.Collision(point, point_2, 5, i.radius).collide():
