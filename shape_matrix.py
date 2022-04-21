@@ -2,6 +2,7 @@
 # Shape matrix shenanigans
 import matrix as m
 import vector
+import math
 # CONVERSION METHOD
 
 def convert(matrix):
@@ -45,3 +46,44 @@ def make_3D(matrix):
     else:
         raise TypeError("Matrix must be 2D Shape Matrix.")
     return matrix
+
+def rotate_3D(theta):
+    """
+    Creates a 3D rotation matrix.
+    :param theta: Angle in radians.
+    :return: 3D rotation matrix.
+    """
+    if isinstance(theta, (int, float)):
+        r_m = m.Matrix(vector.Vector(math.cos(theta), math.sin(theta), 0),
+                       vector.Vector(-math.sin(theta), math.cos(theta), 0),
+                       vector.Vector(0, 0, 1))
+    else:
+        raise TypeError("Theta must be int or float.")
+    return r_m
+
+def full_rotation(matrix, theta, dx, dy):
+    """
+    Converts to 3D, translates, rotates, invert translate.
+    :param matrix: matrix.Matrix
+    :param theta: int or float in radians.
+    :param dx: int or float to be translated by.
+    :param dy: int or float to be translated by.
+    :return: Matrix.
+    """
+    if isinstance(matrix, m.Matrix) and matrix.num_cols == 2:
+        if isinstance(theta, (int, float)):
+            if isinstance(dx, (int, float)):
+                if isinstance(dy, (int, float)):
+                    matrix = make_3D(matrix)
+                    matrix = matrix * m.translate(2, dx, dy) * rotate_3D(theta) * m.inverse(m.translate(2, dx, dy))
+                    matrix = matrix * m.project(2)
+                else:
+                    raise TypeError("dy must be int or float.")
+            else:
+                raise TypeError("dx must be int or float.")
+        else:
+            raise TypeError("Theta must be int or float.")
+    else:
+        raise TypeError("Matrix must be a matrix.")
+    return matrix
+

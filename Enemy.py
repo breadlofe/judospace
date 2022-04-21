@@ -2,6 +2,7 @@ import pygame
 import random
 import matrix
 import vector
+import math
 import shape_matrix as sm
 
 
@@ -228,10 +229,12 @@ class Boss_Arms:
         :param player_y: Y-value of player vector.
         :return: None
         """
-        # center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
-        # center_bound = (self.bounder._data[0] + self.bounder._data[1]
-        # + self.bounder._data[2]) / 3
-        pass
+        center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
+        player_pos = vector.Vector2(player_x, player_y)
+        distance = player_pos - center
+        theta = math.atan2(-distance.y, distance.x)
+        sm.full_rotation(self.arm, theta, -center.x, -center.y)
+        sm.full_rotation(self.bounder, theta, -center.x, -center.y)
 
 
 
