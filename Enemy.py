@@ -99,12 +99,12 @@ class Boss_Body:
         self.Dog_Tag = "Boss Body"
         self.x = start_x
         self.y = self.radius * -1
-        self.end_y = 100
+        self.end_y = 150
         self.speed = 400
         self.aggression = 5
         self.x_vel = 0
         self.y_vel = 0
-        self.life_value = 500
+        self.life_value = 75
         self.color = (75, 250, 186)
         self.direction = 1
 
@@ -229,12 +229,13 @@ class Boss_Arms:
         :param player_y: Y-value of player vector.
         :return: None
         """
-        center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
-        player_pos = vector.Vector2(player_x, player_y)
-        distance = player_pos - center
-        theta = math.atan2(-distance.x, distance.y)
-        self.arm = sm.full_rotation(self.arm, theta, -center.x, -center.y)
-        self.bounder = sm.full_rotation(self.bounder, theta, -center.x, -center.y)
+        pass
+        #center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
+        #player_pos = vector.Vector2(player_x, player_y)
+        #distance = player_pos - center
+        #theta = math.atan2(-distance.x, distance.y)
+        #self.arm = sm.full_rotation(self.arm, theta, -center.x, -center.y)
+        #self.bounder = sm.full_rotation(self.bounder, theta, -center.x, -center.y)
 
 
 
@@ -267,13 +268,18 @@ class Control_AI:
         radius = 50
         start_x = 450 - radius
         boss_body = Boss_Body(start_x, radius)
-        self.Boss_List.append(boss_body)
         start_x = 200
-        life_value = 500
-        boss_right = Boss_Arms("Right Arm", start_x, 200, life_value)
-        boss_left = Boss_Arms("Left Arm", start_x, 200, life_value)
+        boss_right = Boss_Arms("Right Arm", start_x, 250, 75)
+        boss_left = Boss_Arms("Left Arm", start_x, 250, 75)
         self.Boss_List.append(boss_right)
+        self.Boss_List.append(boss_body)
         self.Boss_List.append(boss_left)
+
+    def get_boss_life(self, body_part):
+        """
+        param body_part: INT or Float that gets the body part based on its position in the list (0, 2)
+        """
+        return self.Boss_List[body_part].life_value
 
     def update(self, dt):
         for i in self.AI_List:

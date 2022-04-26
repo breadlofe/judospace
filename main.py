@@ -9,6 +9,7 @@ import vector
 from Enemy import Control_AI
 from background import Space
 from lifebar import Lifebar
+from lifebar import Boss_Lifebar
 import projectile as pro
 import collision as col
 import title_screen
@@ -34,7 +35,7 @@ First = True
 Game = False
 
 # This is a bunch of variables required for the Level God to function. The reason its all 0 is just so that we don't
-# don't get a bunch of bugs saying values are undefined.
+# get a bunch of bugs saying values are undefined.
 Current_Elites = 0
 Elite_Count = 0
 Current_Basic_Enemy = 0
@@ -69,8 +70,6 @@ E = pro.Enemy_Projectile()
 T = pro.Tracker_Projectile()
 H = h_drop.Health()
 score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
-#Arms_Right = Boss_Arms("Right Arm", 300, 300, 20)  # LOOK HERE
-#Arms_Left = Boss_Arms("Left Arm", 300, 300, 20)    # LOOK HERE
 
 spawn_timer = 0
 game_over_timer = 3
@@ -83,6 +82,7 @@ warning_timer_done = False
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
 
 life = Lifebar()
+boss_life = Boss_Lifebar()
 title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 title_click = False
 show_credits = False
@@ -107,6 +107,10 @@ while not finished:
     if title_click == True and show_credits == False and show_logline == False:
         Player.update(delta_time)
         life.update(Player.life)
+        if Level == 10 and not level_complete_general:
+            boss_life.update_left(AI.get_boss_life(0))
+            boss_life.update_middle(AI.get_boss_life(1))
+            boss_life.update_right(AI.get_boss_life(2))
 
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
@@ -133,11 +137,6 @@ while not finished:
                     Elite_Count -= 1
                     score.add_to_score(50)
                     enemy_total -= 1
-
-                # if e.life_value <= 0 and e.Dog_Tag == "": #Boss arms      ~ZDH
-                #     score.add_to_score(50)
-                # if e.life_value <= 0 and e.Dog_Tag == "": #Boss itself    ~ZDH
-                #     score.add_to_score(200)
 
     # Enemies shooting (DAS):
     shoot_timer -= delta_time
@@ -259,10 +258,6 @@ while not finished:
     mouse_x = mouse_pos[0]
     mouse_y = mouse_pos[1]
     mouse_rect = pygame.Rect(mouse_x - 1, mouse_y - 1, 2, 2)
-
-    #Remove the title screen
-    #if all_keys[pygame.K_SPACE]:
-        #title_click = True
 
     if title_click == False:
         #if show_logline == False:
@@ -427,9 +422,7 @@ while not finished:
             for b in P.bullet_list:
                 point = (b[0][0], b[0][1])
                 for i in AI.Boss_List:
-                    if i.Dog_Tag == "Right Arm":
-                        temp = col.AlphaCollision(i.bounder, b[0][0], b[0][1])
-                    elif i.Dog_Tag == "Left Arm":
+                    if i.Dog_Tag == "Right Arm" or i.Dog_Tag == "Left Arm":
                         temp = col.AlphaCollision(i.bounder, b[0][0], b[0][1])
                     elif i.Dog_Tag == "Boss Body":
                         point_2 = (i.x, i.y)
@@ -456,6 +449,8 @@ while not finished:
             Player.draw(screen)
         H.draw(screen)
         life.draw(screen)
+        if Level == 10:
+            boss_life.draw(screen)
 
 
         #Boolean needed for false and false:    ~ZDH
@@ -609,7 +604,7 @@ while not finished:
                 # BOSS COLLISION
 
                 warning_timer = 0
-                if enemy_total == 0:    #placeholder boolean till the boss' health bar. ~ZDH
+                if enemy_total == 1000:    #placeholder boolean till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:
                         title.display_bossdefeated(screen)
                         level_complete_timer -= delta_time
