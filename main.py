@@ -105,12 +105,13 @@ while not finished:
         delta_time = clock.tick() * 0
         pygame.time.wait(50)  # Milliseconds just to show the player they parried.
         Player.parried = False
-    P.update(delta_time, screen, BULLET_COLOR)
-    E.update(delta_time, screen, ENEMY_BULLET_COLOR)
     S.update(delta_time, SCREEN_WIDTH, SCREEN_HEIGHT)
-    T.update(delta_time)
-    AI.update(delta_time)
-    H.update(delta_time)
+    if title_click == True and show_credits == False and show_logline == False:
+        P.update(delta_time, screen, BULLET_COLOR)
+        E.update(delta_time, screen, ENEMY_BULLET_COLOR)
+        T.update(delta_time)
+        AI.update(delta_time)
+        H.update(delta_time)
     if title_click == True and show_credits == False and show_logline == False:
         Player.update(delta_time)
         life.update(Player.life)
@@ -254,7 +255,7 @@ while not finished:
             Player.life -= 10 * Player.chip
 
     # Health Item Spawning (DAS):
-    if title_click == True and show_logline == False:
+    if title_click == True and show_credits == False and show_logline == False:
         health_item_spawn_timer -= delta_time
         # print(health_item_spawn_timer)
         if health_item_spawn_timer <= 0:
@@ -339,15 +340,6 @@ while not finished:
         if mouse_rect.colliderect(title.circle_rect_e) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("quit")
             finished = True     #Exit button
-        # if show_logline == True:
-        #     if mouse_rect.colliderect(title.logline_continue_rect) and event.type == pygame.MOUSEBUTTONDOWN:
-        #         J.sfx("menu")
-        #         show_credits = False  # Play button
-        #         title_click = True
-        #         J.music("level_one")
-        #         Level = 10  # Change this value IF you wish to jump to test other levels.
-        #         First = True
-        #         Game = True
     elif show_credits == True:
         if mouse_rect.colliderect(title.credits_back_rect) and event.type == pygame.MOUSEBUTTONDOWN:
             J.sfx("menu")
@@ -363,7 +355,7 @@ while not finished:
             show_logline = False
             title_click = True
             J.music("level_one")
-            Level = 10  # Change this value IF you wish to jump to test other levels.
+            Level = 1  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
 
@@ -503,11 +495,12 @@ while not finished:
 
     #Drawing
     screen.fill((0, 0, 0))
-    E.draw(screen, ENEMY_BULLET_COLOR)
-    T.draw(screen, ENEMY_BULLET_COLOR)
-    P.draw(screen, BULLET_COLOR)
     S.draw(screen)
-    AI.draw(screen)
+    if title_click == True and show_credits == False and show_logline == False:
+        E.draw(screen, ENEMY_BULLET_COLOR)
+        T.draw(screen, ENEMY_BULLET_COLOR)
+        P.draw(screen, BULLET_COLOR)
+        AI.draw(screen)
     if title_click == True and show_credits == False and show_logline == False:
         if Player.life > 0:
             Player.draw(screen)
@@ -515,7 +508,6 @@ while not finished:
         life.draw(screen)
         if Level == 10:
             boss_life.draw(screen)
-
 
         #Boolean needed for false and false:    ~ZDH
         if Level == 1 and not level_complete_general:
@@ -685,14 +677,32 @@ while not finished:
         #title.display_logline(screen)
     if show_logline == True and title_click == True:
         title.display_logline(screen)
-    if Player.life <= 0:
+    if Player.life <= 0 and title_click == True:
         score.permanent_score(score.score)
         title.display_game_over(screen)
         game_over_timer -= delta_time
         if game_over_timer <= 0:
-            finished = True
-            #show_credits = False
-            #title_click = False
+
+            #for e in range(enemy_total):
+            for e in AI.AI_List:
+                if Basic_Enemy_Count > 0:
+                    e.life_value = 0
+                if Tracker_Enemy_Count > 0:
+                    e.life_value = 0
+                if Elite_Count > 0:
+                    e.life_value = 0
+            enemy_total = 0
+            for b in E.bullet_list:
+                b[1] = 0
+                E.update(delta_time, screen, [0,0,0])
+
+            #finished = True
+            Player.life = 100
+            Level = 0
+            show_credits = False
+            show_logline = False
+            Game = False
+            title_click = False
             #Figure out a way to erase everything and return Level to 0.    ~ZDH.
     if title_click == True and show_credits == False and show_logline == False:
         score.display_score(screen)

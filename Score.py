@@ -42,6 +42,7 @@ class Score:
             self.fp.close()
             self.high = "High Score: " + str(self.perma_score)
             self.high_score = self.font.render(str(self.high), False, (255, 255, 0))
+            self.score = 0
 
     def display_score(self, screen):
         screen.blit(self.score_text, (self.score_w, self.score_h))
