@@ -199,7 +199,7 @@ while not finished:
                     reset_timer = boss_timer
                     continue_attack = 7
                 if attack_type == 1:
-                    boss_timer = 1
+                    boss_timer = .05
                     reset_timer = boss_timer
                     continue_attack = 5
         if boss_attacking:
