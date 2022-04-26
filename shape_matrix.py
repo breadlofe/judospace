@@ -75,7 +75,8 @@ def full_rotation(matrix, theta, dx, dy):
             if isinstance(dx, (int, float)):
                 if isinstance(dy, (int, float)):
                     matrix = make_3D(matrix)
-                    matrix = matrix * m.translate(2, dx, dy) * rotate_3D(theta) * m.inverse(m.translate(2, dx, dy))
+                    # matrix = matrix * m.translate(2, dx, dy) * rotate_3D(theta) * m.inverse(m.translate(2, dx, dy))
+                    matrix = matrix * m.inverse(m.translate(2, dx, dy)) * rotate_3D(theta) * m.translate(2, dx, dy) # Still problematic.
                     matrix = matrix * m.project(2)
                 else:
                     raise TypeError("dy must be int or float.")
