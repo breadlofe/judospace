@@ -239,20 +239,20 @@ while not finished:
             P.spawn(Player.x, Player.y, BULLET_LIFE)
 
     # Add a Basic AI Enemy
-    if title_click == True and show_credits == False and show_logline == False:
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_x:
-                # Do NOT make the radius bigger than the lowest potential value of the temp_var
-                temp_var = random.randint(30, SCREEN_WIDTH - 30)
-                AI.add_basic_enemy(15, 200, temp_var)
-            if event.key == pygame.K_t:
-                temp_var = random.randint(100, SCREEN_WIDTH - 100)
-                AI.add_tracker(20, temp_var, 5)
-            if event.key == pygame.K_q:
-                temp_var = random.randint(100, SCREEN_WIDTH - 100)
-                AI.add_elite(20, temp_var, 10)
-            if event.key == pygame.K_b:
-                AI.spawn_boss()
+    # if title_click == True and show_credits == False and show_logline == False:
+    #     if event.type == pygame.KEYDOWN:
+    #         if event.key == pygame.K_x:
+    #             # Do NOT make the radius bigger than the lowest potential value of the temp_var
+    #             temp_var = random.randint(30, SCREEN_WIDTH - 30)
+    #             AI.add_basic_enemy(15, 200, temp_var)
+    #         if event.key == pygame.K_t:
+    #             temp_var = random.randint(100, SCREEN_WIDTH - 100)
+    #             AI.add_tracker(20, temp_var, 5)
+    #         if event.key == pygame.K_q:
+    #             temp_var = random.randint(100, SCREEN_WIDTH - 100)
+    #             AI.add_elite(20, temp_var, 10)
+    #         if event.key == pygame.K_b:
+    #             AI.spawn_boss()
 
     mouse_pos = pygame.mouse.get_pos()
     mouse_x = mouse_pos[0]

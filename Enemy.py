@@ -229,8 +229,8 @@ class Boss_Arms:
         :param player_y: Y-value of player vector.
         :return: None
         """
-        #center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
-        center = self.arm._data[0]
+        center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
+        # center = self.arm._data[0]
         player_pos = vector.Vector(player_x, player_y)
         distance = center - player_pos
         theta = math.atan2(distance.x, -distance.y)
