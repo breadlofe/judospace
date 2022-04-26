@@ -415,10 +415,11 @@ while not finished:
             #print(Player.x)
             for i in AI.Boss_List:
                 if i.Dog_Tag == "Right Arm":
-                    i.rotate(Player.x, Player.y)
-                    print(i.arm)
+                    # i.rotate(Player.x, Player.y)
+                    pass
                 elif i.Dog_Tag == "Left Arm":
-                    i.rotate(Player.x, Player.y)
+                    # i.rotate(Player.x, Player.y)
+                    pass
             for b in P.bullet_list:
                 point = (b[0][0], b[0][1])
                 for i in AI.Boss_List:
