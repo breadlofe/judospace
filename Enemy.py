@@ -98,6 +98,7 @@ class Boss_Body:
         self.radius = radius
         self.Dog_Tag = "Boss Body"
         self.x = start_x
+        self.timer = 0
         self.y = self.radius * -1
         self.end_y = 150
         self.speed = 400
@@ -154,6 +155,7 @@ class Boss_Arms:
         self.proj_radius = 5
         self.x = start_x
         self.y = 0
+        self.timer = 0
         self.speed = 400
         self.end_y = end_y
         self.x_change = 50  # How much the other points are offset from the first point.
@@ -279,7 +281,10 @@ class Control_AI:
         """
         param body_part: INT or Float that gets the body part based on its position in the list (0, 2)
         """
-        return self.Boss_List[body_part].life_value
+        if not self.Boss_List[body_part].life_value <= 0:
+            return self.Boss_List[body_part].life_value
+        else:
+            return 0
 
     def update(self, dt):
         for i in self.AI_List:

@@ -30,6 +30,13 @@ PLAYER_RADIUS = 15
 h_i_spawn_set = 10
 health_item_spawn_timer = h_i_spawn_set
 
+boss_attacking = False
+change_attack = 0
+attack_type = 0
+boss_timer = 0
+reset_timer = 0
+continue_attack = 0
+temp = 0
 shoot_timer = .25
 First = True
 Game = False
@@ -108,9 +115,13 @@ while not finished:
         Player.update(delta_time)
         life.update(Player.life)
         if Level == 10 and not level_complete_general:
-            boss_life.update_left(AI.get_boss_life(0))
-            boss_life.update_middle(AI.get_boss_life(1))
-            boss_life.update_right(AI.get_boss_life(2))
+            for i in AI.Boss_List:
+                if i.Dog_Tag == "Left Arm":
+                    boss_life.update_left(AI.get_boss_life(0))
+                if i.Dog_Tag == "Boss Body":
+                    boss_life.update_middle(AI.get_boss_life(1))
+                if i.Dog_Tag == "Right Arm":
+                    boss_life.update_right(AI.get_boss_life(2))
 
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
@@ -163,7 +174,7 @@ while not finished:
                         Q = P_Vec - T_Vec
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
-                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
+                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1], 5)
                 if e.Dog_Tag == "Elite":
                     e.aggression = 1
                     if e.dodge:
@@ -172,7 +183,56 @@ while not finished:
                         Q = P_Vec - T_Vec
                         Value = Q / Q.norm(2)
                         bullet_vel = Value * 500
-                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1])
+                        T.spawn(e.x, e.y, 20, bullet_vel[0], bullet_vel[1], 5)
+
+    # Boss Attacking System
+
+    if Level == 10 and not level_complete_general:
+
+        if not boss_attacking:
+            change_attack -= delta_time
+            if change_attack <= 0:
+                attack_type = random.randint(0, 1)
+                boss_attacking = True
+                if attack_type == 0:
+                    boss_timer = .2
+                    reset_timer = boss_timer
+                    continue_attack = 7
+                if attack_type == 1:
+                    boss_timer = 1
+                    reset_timer = boss_timer
+                    continue_attack = 5
+        if boss_attacking:
+            for i in AI.Boss_List:
+                if attack_type == 0:
+                    boss_timer -= delta_time
+                    if boss_timer <= 0:
+                        boss_timer = reset_timer
+                        if i.Dog_Tag == "Right Arm" or i.Dog_Tag == "Left Arm":
+                            P_Vec = vector.Vector(Player.x, Player.y)
+                            T_Vec = vector.Vector(i.x, i.y)
+                            Q = P_Vec - T_Vec
+                            Value = Q / Q.norm(2)
+                            bullet_vel = Value * 500
+                            T.spawn(i.x, i.y, 20, bullet_vel[0], bullet_vel[1], 5)
+                if attack_type == 1:
+                    boss_timer -= delta_time
+                    if boss_timer <= 0:
+                        boss_timer = reset_timer
+                        if i.Dog_Tag == "Boss Body":
+                            P_Vec = vector.Vector(Player.x, Player.y)
+                            T_Vec = vector.Vector(i.x, i.y)
+                            Q = P_Vec - T_Vec
+                            Value = Q / Q.norm(2)
+                            bullet_vel = Value * 500
+                            T.spawn(i.x, i.y, 50, bullet_vel[0], bullet_vel[1], 50)
+
+                continue_attack -= delta_time
+                if continue_attack <= 0:
+                    boss_attacking = False
+                    change_attack = 2
+
+
 
 
 
@@ -435,6 +495,9 @@ while not finished:
                             J.sfx("b_a_hit")
                             i.life_value -= 1
                             b[1] = 0
+
+                    if i.life_value <= 0:
+                        AI.Boss_List.remove(i)
 
 
     #Drawing

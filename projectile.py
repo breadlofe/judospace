@@ -24,6 +24,7 @@ class Projectile:
         :param lifespan: int or float of bullets lifespan in seconds.
         :return: None
         """
+        self.radius = 5
         position = [start_x, start_y]
         self.bullet_list.append([position, lifespan])
         pygame.mixer.Sound.play(self.shoot_sound)
@@ -61,6 +62,7 @@ class Enemy_Projectile:
         """
         Creates bullet list.
         """
+        self.radius = 5
         self.bullet_list = []
         self.shoot_sound = pygame.mixer.Sound('sound//enemy_shoot.ogg')
 
@@ -107,7 +109,7 @@ class Tracker_Projectile:
         self.bullet_list = []
         self.angle = 270
         
-    def spawn(self, start_x, start_y, lifespan, hv, vv):
+    def spawn(self, start_x, start_y, lifespan, hv, vv, radius):
         position = [start_x, start_y]
         h_vel = hv
         v_vel = vv
