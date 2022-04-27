@@ -355,7 +355,7 @@ while not finished:
             show_logline = False
             title_click = True
             J.music("level_one")
-            Level = 1  # Change this value IF you wish to jump to test other levels.
+            Level = 10  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
 
@@ -467,10 +467,10 @@ while not finished:
             #print(Player.x)
             for i in AI.Boss_List:
                 if i.Dog_Tag == "Right Arm":
-                    # i.rotate(Player.x, Player.y)
+                    i.rotate(Player.x, Player.y)
                     pass
                 elif i.Dog_Tag == "Left Arm":
-                    # i.rotate(Player.x, Player.y)
+                    i.rotate(Player.x, Player.y)
                     pass
             for b in P.bullet_list:
                 point = (b[0][0], b[0][1])

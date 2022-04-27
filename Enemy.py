@@ -234,11 +234,12 @@ class Boss_Arms:
         center = (self.arm._data[0] + self.arm._data[1] + self.arm._data[2]) / 3
         # center = self.arm._data[0]
         player_pos = vector.Vector(player_x, player_y)
-        distance = center - player_pos
-        theta = math.atan2(distance.x, -distance.y)
-        # theta = math.acos(vector.dot(player_pos, center) / (player_pos.mag * center.mag))
-        self.arm = sm.full_rotation(self.arm, theta, -center.x, -center.y)
-        self.bounder = sm.full_rotation(self.bounder, theta, -center.x, -center.y)
+        distance = player_pos - center
+        theta = -math.pi/2 - math.atan2(-distance.y, distance.x)
+        #theta = math.acos(vector.dot(player_pos, center) / (player_pos.mag * center.mag))
+        #theta =
+        self.arm = sm.full_rotation(self.arm, theta, center.x, center.y)
+        self.bounder = sm.full_rotation(self.bounder, theta, center.x, center.y)
 
 
 
