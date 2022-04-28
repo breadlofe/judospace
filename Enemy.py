@@ -283,10 +283,10 @@ class Control_AI:
         """
         param body_part: INT or Float that gets the body part based on its position in the list (0, 2)
         """
-        if not self.Boss_List[body_part].life_value <= 0:
-            return self.Boss_List[body_part].life_value
-        else:
-            return 0
+        total_life = 0
+        for p in self.Boss_List:
+            total_life += p.life_value
+        return total_life
 
     def update(self, dt):
         for i in self.AI_List:
