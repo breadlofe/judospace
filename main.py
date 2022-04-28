@@ -84,6 +84,7 @@ level_complete_timer = 2
 level_complete_general = False
 warning_timer = 2.5
 warning_timer_done = False
+end_timer = 5
 
 # Create the Player entity
 Player = Player(player_x, player_y, PLAYER_RADIUS, PLAYER_LIFE, PLAYER_SPEED)
@@ -660,13 +661,16 @@ while not finished:
                 # BOSS COLLISION
 
                 warning_timer = 0
-                if enemy_total == 1000:    #placeholder boolean till the boss' health bar. ~ZDH
+                if AI.get_boss_life("hi") <= 0:    #placeholder boolean till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:
                         title.display_bossdefeated(screen)
                         level_complete_timer -= delta_time
                     if level_complete_timer <= 0:
                         level_complete_timer = 0
                         title.display_final_credits(screen)
+                        end_timer -= delta_time
+                        if end_timer <= 0:
+                            Player.life = 0  # Resets game and keeps score! DAS
 
         #If we do get a boss, we'd need one for the boss too.   ~ZDH
     if title_click == False and show_logline == False:
@@ -703,7 +707,60 @@ while not finished:
             show_logline = False
             Game = False
             title_click = False
+            PLAYER_SPEED = 300
+            BULLET_LIFE = 3
+            BULLET_COLOR = (200, 0, 0)
+            ENEMY_BULLET_COLOR = (255, 0, 0)
+            PLAYER_LIFE = 100
+            PLAYER_RADIUS = 15
+            h_i_spawn_set = 10
+            health_item_spawn_timer = h_i_spawn_set
+            boss_attacking = False
+            change_attack = 0
+            attack_type = 0
+            boss_timer = 0
+            reset_timer = 0
+            continue_attack = 0
+            temp = 0
+            shoot_timer = .25
+            First = True
+            Current_Elites = 0
+            Elite_Count = 0
+            Current_Basic_Enemy = 0
+            Current_Tracker_Enemy = 0
+            Basic_Enemy_Count = 0
+            Tracker_Enemy_Count = 0
+            spawn_rate = 0
+            tracker_rate = 0
+            tracker_set_rate = 0
+            elite_set_rate = 0
+            elite_rate = 0
+            enemy_total = 0
+            spawn_timer = 0
+            game_over_timer = 3
+            level_complete_timer = 2
+            level_complete_general = False
+            warning_timer = 2.5
+            warning_timer_done = False
+            end_timer = 5
+            J = jukebox.Jukebox()
+            player_x = SCREEN_WIDTH / 2
+            player_y = (SCREEN_HEIGHT / 2) + (SCREEN_HEIGHT / 3)
+            S = Space(100, 400)  # The bigger the first number, the bigger the space between stars
+            AI = Control_AI()
+            # The bigger the second number, the faster the stars
+            P = pro.Projectile()
+            E = pro.Enemy_Projectile()
+            T = pro.Tracker_Projectile()
+            H = h_drop.Health()
+            score = Score.Score(SCREEN_WIDTH, SCREEN_HEIGHT, 0)
+            life = Lifebar()
+            boss_life = Boss_Lifebar()
+            title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+            J.music("menu")
+
             #Figure out a way to erase everything and return Level to 0.    ~ZDH.
+            # Clutched it out ~DAS
     if title_click == True and show_credits == False and show_logline == False:
         score.display_score(screen)
         #ZDH TO DO: look three lines up and get the game over to a title screen.
