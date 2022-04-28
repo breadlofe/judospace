@@ -81,7 +81,7 @@ class Title_Screen:
         self.DS1 = self.font.render(str(self.ds1), False, (250, 250, 0))
         self.DS2 = self.font.render(str(self.ds2), False, (250, 250, 0))
         self.dg1 = "Background, level design, enemy AI, enemy projectiles,"
-        self.dg2 = "collision (too), the boss battle, and health bar are by Dylan G."
+        self.dg2 = "the boss battle, and health bar are by Dylan G."
         self.DG1 = self.font.render(str(self.dg1), False, (250, 250, 0))
         self.DG2 = self.font.render(str(self.dg2), False, (250, 250, 0))
         self.zh1 = "All text, scores, some debugging, the boss battle,"
