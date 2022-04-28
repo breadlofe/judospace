@@ -355,7 +355,7 @@ while not finished:
             show_logline = False
             title_click = True
             J.music("level_one")
-            Level = 10  # Change this value IF you wish to jump to test other levels.
+            Level = 1  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
 
@@ -677,7 +677,7 @@ while not finished:
         #title.display_logline(screen)
     if show_logline == True and title_click == True:
         title.display_logline(screen)
-    if Player.life <= 0 and title_click == True:
+    if Player.life <= 0: #and title_click == True:
         score.permanent_score(score.score)
         title.display_game_over(screen)
         game_over_timer -= delta_time
