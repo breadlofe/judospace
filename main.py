@@ -357,7 +357,7 @@ while not finished:
             show_logline = False
             title_click = True
             J.music("level_one")
-            Level = 10  # Change this value IF you wish to jump to test other levels.
+            Level = 1  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
 
@@ -666,7 +666,7 @@ while not finished:
                     if level_complete_timer > 0:
                         title.display_bossdefeated(screen)
                         level_complete_timer -= delta_time
-                    if level_complete_timer <= 0:
+                    if level_complete_timer <= 0 and Player.life != 0:
                         level_complete_timer = 0
                         title.display_final_credits(screen)
                         end_timer -= delta_time
