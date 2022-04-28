@@ -117,13 +117,14 @@ while not finished:
         Player.update(delta_time)
         life.update(Player.life)
         if Level == 10 and not level_complete_general:
-            for i in AI.Boss_List:
-                if i.Dog_Tag == "Left Arm":
-                    boss_life.update_left(AI.get_boss_life(0))
-                if i.Dog_Tag == "Boss Body":
-                    boss_life.update_middle(AI.get_boss_life(1))
-                if i.Dog_Tag == "Right Arm":
-                    boss_life.update_right(AI.get_boss_life(2))
+            boss_life.update_left(AI.get_boss_life(0))
+            # for i in AI.Boss_List:
+            #     if i.Dog_Tag == "Left Arm":
+            #         boss_life.update_left(AI.get_boss_life(0))
+            #     if i.Dog_Tag == "Boss Body":
+            #         boss_life.update_middle(AI.get_boss_life(1))
+            #     if i.Dog_Tag == "Right Arm":
+            #         boss_life.update_right(AI.get_boss_life(2))
 
     # Collision between player bullet and enemy (DAS):
     for b in P.bullet_list:
@@ -356,7 +357,7 @@ while not finished:
             show_logline = False
             title_click = True
             J.music("level_one")
-            Level = 1  # Change this value IF you wish to jump to test other levels.
+            Level = 10  # Change this value IF you wish to jump to test other levels.
             First = True
             Game = True
 
