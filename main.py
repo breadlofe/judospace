@@ -757,6 +757,8 @@ while not finished:
             life = Lifebar()
             boss_life = Boss_Lifebar()
             title = title_screen.Title_Screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+            Player.x = player_x
+            Player.y = player_y
             J.music("menu")
 
             #Figure out a way to erase everything and return Level to 0.    ~ZDH.
