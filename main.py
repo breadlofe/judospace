@@ -665,6 +665,7 @@ while not finished:
                 if AI.get_boss_life("hi") <= 0:    #placeholder boolean till the boss' health bar. ~ZDH
                     if level_complete_timer > 0:
                         title.display_bossdefeated(screen)
+                        score.add_to_score(300)
                         level_complete_timer -= delta_time
                     if level_complete_timer <= 0 and Player.life != 0:
                         level_complete_timer = 0
