@@ -483,12 +483,12 @@ while not finished:
                         point_2 = (i.x, i.y)
                         if col.Collision(point, point_2, 5, i.radius).collide():
                             b[1] = 0
-                            i.life_value -= 20
+                            i.life_value -= 1
                             J.sfx("b_a_hit")
                     if i.Dog_Tag == "Right Arm" or i.Dog_Tag == "Left Arm":
                         if temp.collide():
                             J.sfx("b_a_hit")
-                            i.life_value -= 20
+                            i.life_value -= 1
                             b[1] = 0
 
                     if i.life_value <= 0:
